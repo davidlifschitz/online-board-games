@@ -1,5 +1,7 @@
 # Online Board Games
 
+## 🎮 Play the live collection: [OS Online Board Games](https://os-online-board-games.vercel.app)
+
 Open-source build prompts for browser-based board and card games with bots, online multiplayer, mobile-friendly UIs, and Vercel deployment.
 
 This repository is evolving into a catalog for an eventual **online game dashboard**: one place where players can choose from classic 1v1 games, multiplayer strategy, cards, party games, social deduction, word games, dice games, cooperative games, and digital-first variants.
