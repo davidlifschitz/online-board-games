@@ -1,0 +1,28 @@
+name: Report a game or catalog bug
+about: Report a broken live link, incorrect status, prompt/catalog issue, or problem in a linked game
+labels: []
+body:
+  - type: input
+    id: game
+    attributes:
+      label: Game / page
+      placeholder: Fourfront / games.json / GAME_CATALOG.md
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What happened, and what did you expect instead?
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Relevant URL
+      placeholder: https://...
+  - type: textarea
+    id: details
+    attributes:
+      label: Reproduction details
+      description: Browser/device, steps, screenshots, or other useful context.

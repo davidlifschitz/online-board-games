@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Play the live collection
+    url: https://os-online-board-games.vercel.app
+    about: Try the currently deployed games before opening an issue.
+  - name: Browse the game catalog
+    url: https://github.com/davidlifschitz/online-board-games/blob/main/GAME_CATALOG.md
+    about: Browse the 51 implementation prompts and game categories.

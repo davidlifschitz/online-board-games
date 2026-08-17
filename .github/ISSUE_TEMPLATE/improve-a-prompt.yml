@@ -1,0 +1,23 @@
+name: Improve a prompt
+about: Report an ambiguity, missing rule, architectural issue, or recurring implementation problem
+labels: []
+body:
+  - type: input
+    id: prompt
+    attributes:
+      label: Prompt file
+      placeholder: prompts/06-backgammon.md
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong or missing?
+      description: Describe the ambiguity, missing edge case, licensing concern, architectural issue, or observed implementation failure.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Suggested improvement
+      description: Optional proposed wording or requirement.

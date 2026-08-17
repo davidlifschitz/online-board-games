@@ -1,0 +1,51 @@
+name: Claim a game
+about: Tell the community which game prompt you want to implement
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for building a game. Claims are coordination signals, not exclusive reservations; multiple implementations are welcome.
+  - type: input
+    id: game
+    attributes:
+      label: Game / prompt
+      description: Name the game and link the matching prompt file if possible.
+      placeholder: Hex — prompts/41-hex.md
+    validations:
+      required: true
+  - type: dropdown
+    id: difficulty
+    attributes:
+      label: Difficulty tier
+      options:
+        - Starter
+        - Intermediate
+        - Advanced
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: plan
+    attributes:
+      label: What do you plan to build?
+      description: Mention framework, bots, multiplayer, offline/PWA plans, or any original twist if you already know them.
+    validations:
+      required: true
+  - type: input
+    id: repo
+    attributes:
+      label: Source repository
+      description: Optional if you have not created it yet.
+      placeholder: https://github.com/username/project
+  - type: checkboxes
+    id: expectations
+    attributes:
+      label: Contribution expectations
+      options:
+        - label: I plan to keep the implementation open source.
+          required: true
+        - label: I will use original or appropriately licensed assets/presentation.
+          required: true
+        - label: I understand another contributor may build the same game independently.
+          required: true

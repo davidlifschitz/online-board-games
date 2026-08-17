@@ -1,0 +1,69 @@
+name: Submit a deployed game
+about: Submit a live open-source implementation for inclusion in the collection
+labels: []
+body:
+  - type: input
+    id: game
+    attributes:
+      label: Game / concept
+      placeholder: Mancala
+    validations:
+      required: true
+  - type: input
+    id: live
+    attributes:
+      label: Live production URL
+      placeholder: https://example.vercel.app
+    validations:
+      required: true
+  - type: input
+    id: repo
+    attributes:
+      label: Source repository URL
+      placeholder: https://github.com/username/project
+    validations:
+      required: true
+  - type: input
+    id: prompt
+    attributes:
+      label: Matching prompt
+      description: Link the prompt in this repository when applicable.
+      placeholder: prompts/37-mancala.md
+  - type: checkboxes
+    id: modes
+    attributes:
+      label: Supported modes
+      options:
+        - label: Solo
+        - label: Computer / bot opponent
+        - label: Local multiplayer / pass-and-play
+        - label: Online multiplayer
+        - label: Cooperative
+        - label: Offline/PWA support for non-network modes
+  - type: textarea
+    id: summary
+    attributes:
+      label: Implementation summary
+      description: What is distinctive about this build? Mention AI, networking, UI, accessibility, persistence, or other choices.
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification performed
+      description: Tests, build checks, multiplayer tests, production checks, offline tests, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: licensing
+    attributes:
+      label: Assets and licensing
+      description: Note any third-party libraries/assets and their licenses. Confirm proprietary presentation was not copied.
+    validations:
+      required: true
+  - type: input
+    id: credit
+    attributes:
+      label: Contributor credit
+      description: GitHub handle/name to show with the implementation, or say no credit.
+      placeholder: '@username'
