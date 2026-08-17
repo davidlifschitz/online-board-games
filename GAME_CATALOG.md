@@ -50,7 +50,6 @@ This catalog groups the project by **play pattern**, not by one exclusive genre.
 - [Rummy 500](prompts/21-rummy-500.md)
 - [Play-money Poker](prompts/22-poker.md)
 - [Blackjack strategy trainer](prompts/23-blackjack.md)
-- [Dominion-style](prompts/14-dominion-style.md)
 - [Hanabi-style](prompts/33-hanabi-style.md)
 
 ## Party, team, and social deduction
