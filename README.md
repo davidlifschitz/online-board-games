@@ -9,22 +9,22 @@ This repository is evolving into a catalog for an eventual **online game dashboa
 See **[GAME_CATALOG.md](GAME_CATALOG.md)** for the full categorized collection and overlapping tags.
 
 ### 1v1 abstract strategy
-Connect Four · Checkers · Chess · Mancala · Nine Men's Morris · Reversi · Go · Hex · Santorini-style · Hive-style · Dots and Boxes
+Connect Four ([Fourfront](https://fourfront-virid.vercel.app)) · Checkers ([Crown Jump](https://crown-jump-checkers.vercel.app)) · Chess · Mancala · Nine Men's Morris · Reversi / Othello ([Othello](https://othello-vs-computer.vercel.app)) · Go · Hex · Santorini-style · Hive-style · Dots and Boxes
 
 ### Multiplayer strategy / board games
 Risk-style · Settlers-style · Ticket-to-Ride-style · Carcassonne-style · Stratego-inspired · Pandemic-style · Qwirkle-style · Sequence-style
 
 ### Cards
-Uno-style · Dominion-style · Love-Letter-style · Coup-style · President-style · Hearts · Spades · Gin Rummy · Rummy 500 · play-money Poker · Blackjack trainer · Hanabi-style
+Uno-style ([HueBreak](https://huebreak-card-game.vercel.app)) · Dominion-style · Love-Letter-style · Coup-style · President-style · Hearts · Spades · Gin Rummy · Rummy 500 · play-money Poker · Blackjack trainer · Hanabi-style · Monopoly Deal ([Deal Room](https://monopoly-deal-online.vercel.app))
 
 ### Party / social deduction
-Codenames-style · Scattergories-style · Pictionary-style · Charades · Werewolf/Mafia · secret-government-style · Resistance/Avalon-style · Coup-style
+Codenames-style ([Threadmark](https://threadmark-delta.vercel.app)) · Scattergories-style · Pictionary-style · Charades · Werewolf/Mafia · secret-government-style · Resistance/Avalon-style · Coup-style
 
 ### Word games
-Codenames-style · Scrabble-style · Boggle-style · Scattergories-style · Pictionary-style · Charades
+Codenames-style ([Threadmark](https://threadmark-delta.vercel.app)) · Scrabble-style · Boggle-style · Scattergories-style · Pictionary-style · Charades
 
 ### Dice / probability
-Backgammon · Five Dice · Farkle · Liar's Dice · Perudo-style · Blackjack trainer
+Backgammon · Five Dice ([Five Dice](https://five-dice.vercel.app)) · Farkle · Liar's Dice · Perudo-style · Blackjack trainer
 
 ### Digital-first / newer formats
 2048 races/battle/co-op · daily seeded challenges · real-time drawing · automated social-deduction moderator · cryptographically committed hidden-board games
