@@ -8,12 +8,14 @@ OS Online Board Games is an open-source experiment to build a broad library of p
 
 **8 live games · 51 build prompts · 44 prompt concepts waiting for a first deployment**
 
+**Want to build one now? → [Claim a starter game](BUILD_QUEUE.md)**
+
 > Multiple implementations of the same game are welcome. The goal is not to produce one canonical version of every game; it is to make it easy to experiment, compare approaches, and grow a useful open-source browser-game ecosystem.
 
 ## How it works
 
 1. **Play one** — try the [live arcade](https://os-online-board-games.vercel.app).
-2. **Pick one** — browse the [51-game catalog](GAME_CATALOG.md) or choose a difficulty tier in [BUILD_CHALLENGE.md](BUILD_CHALLENGE.md).
+2. **Pick one** — claim a starter from the [Build Queue](BUILD_QUEUE.md), browse the [51-game catalog](GAME_CATALOG.md), or choose a difficulty tier in [BUILD_CHALLENGE.md](BUILD_CHALLENGE.md).
 3. **Build and deploy it** — use the prompt as a starting specification, implement a complete browser game, test it, and deploy it publicly.
 4. **Contribute it back** — follow [CONTRIBUTING.md](CONTRIBUTING.md) and submit your deployment so the community can play it too.
 
@@ -43,7 +45,7 @@ Want an open-source weekend project? **Pick a game, build it, deploy it, and add
 - A complete playable core is more valuable than a large unfinished feature list.
 - Contributors receive visible credit alongside their implementation when it is added to the collection.
 
-See **[BUILD_CHALLENGE.md](BUILD_CHALLENGE.md)** for starter, intermediate, and advanced suggestions.
+Start with the **[Build Queue](BUILD_QUEUE.md)** for claimable starter issues, or see **[BUILD_CHALLENGE.md](BUILD_CHALLENGE.md)** for starter, intermediate, and advanced suggestions.
 
 ## Browse by game type
 
@@ -87,7 +89,7 @@ The prompts are intended to produce complete, usable open-source browser games r
 
 ## How to use these prompts
 
-1. **Choose a game.** Start with [GAME_CATALOG.md](GAME_CATALOG.md), [BUILD_CHALLENGE.md](BUILD_CHALLENGE.md), or any file under [`prompts/`](prompts/).
+1. **Choose a game.** Start with the [Build Queue](BUILD_QUEUE.md), [GAME_CATALOG.md](GAME_CATALOG.md), [BUILD_CHALLENGE.md](BUILD_CHALLENGE.md), or any file under [`prompts/`](prompts/).
 2. **Copy the full prompt.** Paste it into ChatGPT, Codex, Claude Code, Cursor, another coding agent, or use it as a conventional engineering specification.
 3. **Tell the builder where to work.** Point it at an existing repository or ask it to create a clean standalone app.
 4. **Customize before building.** Add your preferred visual theme, game name, player limits, AI difficulty, persistence, multiplayer architecture, or experimental mechanics.
@@ -108,7 +110,7 @@ Then paste the selected game prompt directly below it.
 
 Contributions can be full game implementations, alternate implementations, prompt improvements, bug reports, accessibility improvements, AI upgrades, multiplayer fixes, or better documentation.
 
-Start with **[CONTRIBUTING.md](CONTRIBUTING.md)**. If you want to build an unimplemented game, use the **Claim a game** issue template so other contributors can see what is in progress. Once deployed, use **Submit a deployed game**.
+Start with the **[Build Queue](BUILD_QUEUE.md)** for a claimable starter issue or **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full contribution flow. If you want to build another unimplemented game, use the **Claim a game** issue template so other contributors can see what is in progress. Once deployed, use **Submit a deployed game**.
 
 The machine-readable status of the collection lives in [`games.json`](games.json) so the arcade and future tooling can eventually consume the same catalog.
 
