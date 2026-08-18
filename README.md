@@ -8,7 +8,8 @@ OS Online Board Games is an open-source experiment to build a broad library of p
 
 **8 live games · 51 build prompts · 44 prompt concepts waiting for a first deployment**
 
-**Want to build one now? → [Claim a starter game](BUILD_QUEUE.md)**
+**Want to build one now? → [Claim a starter game](BUILD_QUEUE.md)**  
+**Already deployed one? → [Submit it to the Builder Board](https://os-online-board-games.vercel.app/#submit)**
 
 > Multiple implementations of the same game are welcome. The goal is not to produce one canonical version of every game; it is to make it easy to experiment, compare approaches, and grow a useful open-source browser-game ecosystem.
 
@@ -17,7 +18,7 @@ OS Online Board Games is an open-source experiment to build a broad library of p
 1. **Play one** — try the [live arcade](https://os-online-board-games.vercel.app).
 2. **Pick one** — claim a starter from the [Build Queue](BUILD_QUEUE.md), browse the [51-game catalog](GAME_CATALOG.md), or choose a difficulty tier in [BUILD_CHALLENGE.md](BUILD_CHALLENGE.md).
 3. **Build and deploy it** — use the prompt as a starting specification, implement a complete browser game, test it, and deploy it publicly.
-4. **Contribute it back** — follow [CONTRIBUTING.md](CONTRIBUTING.md) and submit your deployment so the community can play it too.
+4. **Contribute it back** — sign in to the [Builder Board submission flow](https://os-online-board-games.vercel.app/#submit) with GitHub or Google, provide the live URL, public GitHub source, and model/model list used, then submit it for review. The GitHub issue template remains available as an alternate path.
 
 ## Live games
 
@@ -43,9 +44,24 @@ Want an open-source weekend project? **Pick a game, build it, deploy it, and add
 - Keep the implementation open source and browser playable.
 - Use original or appropriately licensed assets and presentation.
 - A complete playable core is more valuable than a large unfinished feature list.
-- Contributors receive visible credit alongside their implementation when it is added to the collection.
+- Contributors receive visible credit alongside approved implementations.
+- Builder Board submissions require GitHub or Google sign-in and a declared model/model list; use `None` when no AI model was materially used.
 
 Start with the **[Build Queue](BUILD_QUEUE.md)** for claimable starter issues, or see **[BUILD_CHALLENGE.md](BUILD_CHALLENGE.md)** for starter, intermediate, and advanced suggestions.
+
+## Builder Board
+
+The live arcade includes a contributor leaderboard and submission workflow. It reports objective counts rather than a custom point system:
+
+- approved implementations shipped,
+- first approved Builder Board submission for a game concept,
+- distinct game concepts shipped.
+
+The first-submission metric refers to the first approved implementation recorded on this Builder Board; it does not claim that no implementation existed before the leaderboard.
+
+New website submissions begin as pending and are visible to the submitter. Only approved submissions enter the public Builder Board, recently approved builds, and model-usage summary. The authenticated identity is derived server-side from Supabase Auth rather than from a user-editable form field.
+
+See **[BUILDER_BOARD.md](BUILDER_BOARD.md)** for the auth, data, moderation, and security model. The reproducible database definition is in **[`supabase/schema.sql`](supabase/schema.sql)**.
 
 ## Browse by game type
 
@@ -98,7 +114,7 @@ The prompts are intended to produce complete, usable open-source browser games r
 7. **Verify multiplayer separately.** Test with at least two independent clients/devices and check hidden-information games for state leakage.
 8. **Verify offline behavior where applicable.** Load once online, disconnect, reload, and make sure non-network modes still function.
 9. **Deploy it.** Publish a production URL and verify the deployed version rather than only the local build.
-10. **Submit it back.** Open a `Submit a deployed game` issue or pull request following [CONTRIBUTING.md](CONTRIBUTING.md).
+10. **Submit it back.** Use the authenticated [Builder Board submission flow](https://os-online-board-games.vercel.app/#submit), or open a `Submit a deployed game` issue following [CONTRIBUTING.md](CONTRIBUTING.md).
 
 A useful starter instruction is:
 
@@ -110,9 +126,9 @@ Then paste the selected game prompt directly below it.
 
 Contributions can be full game implementations, alternate implementations, prompt improvements, bug reports, accessibility improvements, AI upgrades, multiplayer fixes, or better documentation.
 
-Start with the **[Build Queue](BUILD_QUEUE.md)** for a claimable starter issue or **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full contribution flow. If you want to build another unimplemented game, use the **Claim a game** issue template so other contributors can see what is in progress. Once deployed, use **Submit a deployed game**.
+Start with the **[Build Queue](BUILD_QUEUE.md)** for a claimable starter issue or **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full contribution flow. If you want to build another unimplemented game, use the **Claim a game** issue template so other contributors can see what is in progress. Once deployed, submit through the **[Builder Board](https://os-online-board-games.vercel.app/#submit)** or use **Submit a deployed game** on GitHub.
 
-The machine-readable status of the collection lives in [`games.json`](games.json) so the arcade and future tooling can eventually consume the same catalog.
+The machine-readable status of the collection lives in [`games.json`](games.json) so the arcade and future tooling can consume the same catalog.
 
 ## Design principles
 

@@ -2,6 +2,10 @@ name: Submit a deployed game
 about: Submit a live open-source implementation for inclusion in the collection
 labels: []
 body:
+  - type: markdown
+    attributes:
+      value: |
+        The main website also has an authenticated submission flow at https://os-online-board-games.vercel.app/#submit. Website submissions require GitHub or Google sign-in and feed the Builder Board after review.
   - type: input
     id: game
     attributes:
@@ -20,6 +24,7 @@ body:
     id: repo
     attributes:
       label: Source repository URL
+      description: This must be a public GitHub repository.
       placeholder: https://github.com/username/project
     validations:
       required: true
@@ -29,6 +34,14 @@ body:
       label: Matching prompt
       description: Link the prompt in this repository when applicable.
       placeholder: prompts/37-mancala.md
+  - type: textarea
+    id: models
+    attributes:
+      label: Model(s) used
+      description: List every AI model materially used to build this implementation. If no AI model was used, say "None".
+      placeholder: One model per line, or a comma-separated list.
+    validations:
+      required: true
   - type: checkboxes
     id: modes
     attributes:
