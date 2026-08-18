@@ -167,10 +167,16 @@ create trigger set_builder_submission_approval_metadata
 before update of status on public.builder_submissions
 for each row execute function private.set_builder_submission_approval_metadata();
 
-create policy "approved submissions are public; owners see theirs"
+create policy "approved submissions are public"
 on public.builder_submissions
 for select
-to anon, authenticated
+to anon
+using (status = 'approved');
+
+create policy "authenticated users see approved and own submissions"
+on public.builder_submissions
+for select
+to authenticated
 using (
   status = 'approved'
   or (select auth.uid()) = user_id
