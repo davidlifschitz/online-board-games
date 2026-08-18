@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#0d1720" />
+  <meta name="description" content="Frontiers — an original open-source turn-based world-conquest strategy game." />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles.css" />
+  <title>Frontiers — Open Strategy Game</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-wrap">
+        <button class="icon-button mobile-only" id="sidebarToggle" aria-label="Toggle game panel">☰</button>
+        <div>
+          <h1>FRONTIERS</h1>
+          <p>Chart the edge. Hold the line.</p>
+        </div>
+      </div>
+      <div class="phase-strip" aria-live="polite">
+        <span id="turnLabel">New expedition</span>
+        <span class="phase-pill" id="phaseLabel">Setup</span>
+        <span class="timer-pill hidden" id="timerLabel"></span>
+      </div>
+      <div class="top-actions">
+        <button class="button ghost" id="rulesButton">Rules</button>
+        <button class="button ghost" id="newGameButton">New</button>
+      </div>
+    </header>
+
+    <main class="game-layout">
+      <section class="map-panel" aria-label="Frontiers world map">
+        <div class="map-toolbar">
+          <button class="map-button" id="zoomIn" aria-label="Zoom in">＋</button>
+          <button class="map-button" id="zoomOut" aria-label="Zoom out">−</button>
+          <button class="map-button" id="zoomReset" aria-label="Reset map view">⌂</button>
+        </div>
+        <div id="mapViewport" class="map-viewport">
+          <svg id="worldMap" viewBox="0 0 1020 650" role="img" aria-label="Fictional world map of 36 territories">
+            <defs>
+              <filter id="territoryShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="2" stdDeviation="2" flood-opacity=".25"/></filter>
+              <marker id="attackArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#fff3c4"/></marker>
+              <radialGradient id="oceanGlow"><stop offset="0" stop-color="#173e51"/><stop offset="1" stop-color="#081923"/></radialGradient>
+            </defs>
+            <rect x="0" y="0" width="1020" height="650" rx="20" fill="url(#oceanGlow)" />
+            <g class="ocean-lines" opacity=".16">
+              <path d="M35 330 C210 250 340 380 510 320 S810 260 990 335" />
+              <path d="M80 90 C250 30 380 110 540 75 S820 35 970 110" />
+              <path d="M70 560 C250 500 390 615 560 560 S850 510 980 575" />
+            </g>
+            <g id="routeLayer" class="sea-routes" pointer-events="none"></g>
+            <g id="territoryLayer"></g>
+            <g id="counterLayer"></g>
+            <g id="arrowLayer" pointer-events="none"></g>
+            <g id="regionLabelLayer" pointer-events="none"></g>
+          </svg>
+        </div>
+        <div class="map-footer">
+          <div id="regionLegend" class="region-legend"></div>
+          <div id="hoverInfo" class="hover-info">Tap a territory for details.</div>
+        </div>
+      </section>
+
+      <aside class="side-panel" id="sidePanel">
+        <div id="playerRoster" class="card roster-card"></div>
+        <div id="actionPanel" class="card action-card"></div>
+        <div id="combatPanel" class="card combat-card hidden"></div>
+        <div id="cardsPanel" class="card cards-card"></div>
+        <div class="card history-card">
+          <div class="card-title-row"><h2>Turn history</h2><span class="subtle" id="historyCount"></span></div>
+          <ol id="historyList" class="history-list"></ol>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <div class="overlay" id="startOverlay">
+    <section class="modal start-modal" aria-labelledby="startTitle">
+      <div class="eyebrow">OPEN-SOURCE STRATEGY</div>
+      <h2 id="startTitle">Enter the Frontiers</h2>
+      <p class="modal-lede">Six regions. Thirty-six territories. One shifting frontier.</p>
+      <div class="mode-tabs" role="tablist">
+        <button class="mode-tab active" data-mode="local">Local / Bots</button>
+        <button class="mode-tab" data-mode="host">Host Online</button>
+        <button class="mode-tab" data-mode="join">Join Room</button>
+      </div>
+      <div id="localSetup" class="setup-pane"></div>
+      <div id="hostSetup" class="setup-pane hidden"></div>
+      <div id="joinSetup" class="setup-pane hidden"></div>
+      <div class="resume-row hidden" id="resumeRow"><button class="button ghost full" id="resumeButton">Resume saved local game</button></div>
+      <div class="attribution-line">Original map, names, symbols, and rules. MIT licensed.</div>
+    </section>
+  </div>
+
+  <div class="overlay hidden" id="lobbyOverlay">
+    <section class="modal lobby-modal">
+      <div class="eyebrow">HOST-AUTHORITATIVE ROOM</div>
+      <h2>Room <button id="roomCodeButton" class="room-code" title="Copy room code"></button></h2>
+      <p id="lobbyStatus" class="modal-lede">Share the code. Guests join directly browser-to-browser.</p>
+      <div id="lobbyPlayers" class="lobby-players"></div>
+      <div class="button-row">
+        <button class="button secondary" id="addBotButton">Add bot</button>
+        <button class="button primary" id="launchOnlineButton">Launch game</button>
+      </div>
+      <button class="button ghost full" id="cancelLobbyButton">Cancel room</button>
+    </section>
+  </div>
+
+  <div class="overlay hidden" id="rulesOverlay">
+    <section class="modal rules-modal">
+      <button class="close-button" id="closeRules" aria-label="Close rules">×</button>
+      <div class="eyebrow">FIELD MANUAL</div>
+      <h2>How Frontiers works</h2>
+      <div class="rules-grid">
+        <article><h3>1 · Reinforce</h3><p>Gain at least 3 armies, plus more for holding territory and complete regions. Deploy them before marching.</p></article>
+        <article><h3>2 · Attack</h3><p>Attack adjacent enemy land while leaving one army behind. Commit up to 4 attackers; defenders commit up to 3.</p></article>
+        <article><h3>3 · Clash</h3><p>Each committed army rolls a d6. Rolls of 5–6 score hits simultaneously. If nobody hits, the highest roll breaks the deadlock.</p></article>
+        <article><h3>4 · Fortify</h3><p>Once per turn, move armies along any connected chain of territories you control. Every territory must remain occupied.</p></article>
+        <article><h3>Frontier cards</h3><p>Conquer at least once to draw a Forge, Beacon, Aegis, or rare Prism. Redeem three matching symbols or a mixed trio for escalating reinforcements.</p></article>
+        <article><h3>Victory</h3><p>Choose domination, capital ascendancy, an objective mission, or a turn-limited score race before the game.</p></article>
+      </div>
+      <p class="rules-note">Capital Ascendancy requires holding your own capital plus a majority threshold of capitals. Score mode rewards territory, regions, capitals, and fielded armies.</p>
+    </section>
+  </div>
+
+  <div class="overlay hidden" id="victoryOverlay">
+    <section class="modal victory-modal">
+      <div class="victory-mark">✦</div><div class="eyebrow">FRONTIER SECURED</div>
+      <h2 id="victoryTitle"></h2><p id="victoryReason"></p>
+      <button class="button primary full" id="victoryNewGame">Play again</button>
+    </section>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/map.js"></script>
+<script src="/engine-a.js"></script>
+<script src="/engine-b.js"></script>
+<script src="/bots.js"></script>
+<script src="/online.js"></script>
+<script src="/app-a.js"></script>
+<script src="/app-b.js"></script>
+<script src="/app-c.js"></script>
+</body>
+</html>
