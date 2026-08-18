@@ -10,6 +10,10 @@ This repository is the source of truth for the OS Online Board Games hub.
 - Supabase project: `os-online-board-games` (`slnvfdkyvijrhmisurhw`)
 - Supabase Auth callback: `https://slnvfdkyvijrhmisurhw.supabase.co/auth/v1/callback`
 
+## Deployment
+
+The Vercel project is connected to this repository. Changes merged or committed to `main` are intended to trigger the production deployment.
+
 ## Release verification
 
 After a production deployment, verify:
