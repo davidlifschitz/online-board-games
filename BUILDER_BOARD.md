@@ -1,10 +1,10 @@
 # Builder Board
 
-The main arcade includes a contributor leaderboard and authenticated submission flow.
+The repository includes a contributor leaderboard and authenticated submission flow for the main arcade. The implementation and Supabase schema are in place; production OAuth/deployment activation is tracked in [issue #13](https://github.com/davidlifschitz/online-board-games/issues/13). Until that issue is complete, the public arcade continues to serve the earlier static version and contributors should use the GitHub `Submit a deployed game` form.
 
 ## Submission contract
 
-A website submission requires:
+Once the website flow is activated, a submission requires:
 
 - GitHub or Google authentication through Supabase Auth.
 - A game / prompt from `games.json`.
