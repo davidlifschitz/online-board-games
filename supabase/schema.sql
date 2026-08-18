@@ -12,15 +12,18 @@ create table public.builder_submissions (
   builder_key text not null,
   game_id text not null check (char_length(game_id) between 1 and 80),
   implementation_name text not null check (char_length(implementation_name) between 2 and 100),
-  live_url text not null check (live_url ~ '^https://[^[:space:]]+$'),
+  live_url text not null check (
+    live_url ~ '^https://[^[:space:]]+$' and char_length(live_url) <= 2048
+  ),
   source_url text not null check (
     source_url ~* '^https://github\.com/[^/[:space:]]+/[^/[:space:]]+(/.*)?$'
+    and char_length(source_url) <= 2048
   ),
   models text[] not null check (cardinality(models) between 1 and 12),
   notes text check (notes is null or char_length(notes) <= 2000),
   status public.submission_status not null default 'pending',
-  builder_display_name text not null,
-  builder_avatar_url text,
+  builder_display_name text not null check (char_length(builder_display_name) between 1 and 120),
+  builder_avatar_url text check (builder_avatar_url is null or char_length(builder_avatar_url) <= 2048),
   identity_provider text not null check (identity_provider in ('github', 'google')),
   first_implementation boolean not null default false,
   submitted_at timestamptz not null default now(),
@@ -73,14 +76,14 @@ begin
     raise exception 'Sign in with GitHub or Google to submit';
   end if;
 
-  new.builder_display_name := coalesce(
+  new.builder_display_name := left(coalesce(
     nullif(auth_user.raw_user_meta_data ->> 'user_name', ''),
     nullif(auth_user.raw_user_meta_data ->> 'preferred_username', ''),
     nullif(auth_user.raw_user_meta_data ->> 'full_name', ''),
     nullif(auth_user.raw_user_meta_data ->> 'name', ''),
     'Verified builder'
-  );
-  new.builder_avatar_url := nullif(auth_user.raw_user_meta_data ->> 'avatar_url', '');
+  ), 120);
+  new.builder_avatar_url := nullif(left(coalesce(auth_user.raw_user_meta_data ->> 'avatar_url', ''), 2048), '');
 
   select array_agg(model order by model)
   into normalized_models
@@ -92,6 +95,13 @@ begin
 
   if normalized_models is null or cardinality(normalized_models) = 0 then
     raise exception 'At least one model is required';
+  end if;
+
+  if exists (
+    select 1 from unnest(normalized_models) as model
+    where char_length(model) > 120
+  ) then
+    raise exception 'Model names must be 120 characters or fewer';
   end if;
 
   new.models := normalized_models;
@@ -238,7 +248,7 @@ select
   max(approved_at) as latest_ship_at
 from public.builder_submissions
 where status = 'approved'
-group by game_id;
+  group by game_id;
 
 grant select on public.game_implementation_counts to anon, authenticated;
 
