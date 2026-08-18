@@ -1,0 +1,9 @@
+{
+  "name":"Frontiers — World Conquest",
+  "short_name":"Frontiers",
+  "start_url":"/",
+  "display":"standalone",
+  "background_color":"#071117",
+  "theme_color":"#0d1720",
+  "icons":[{"src":"/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
