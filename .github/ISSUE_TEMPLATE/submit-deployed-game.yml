@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        The authenticated Builder Board submission flow is implemented and will become the preferred path after production activation. Until issue #13 is complete, use this GitHub form. Website submissions will require GitHub or Google sign-in and will feed the Builder Board after review.
+        The authenticated Builder Board submission flow is live at https://os-online-board-games.vercel.app and is the preferred submission path. Use this GitHub form as a fallback if you cannot use the website flow. Website submissions require GitHub or Google sign-in and enter the Builder Board after review.
   - type: input
     id: game
     attributes:
