@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="description" content="Rank approved OS Online Board Games builds, compare builders and model stacks, and vote for community favorites." />
+  <title>Leaderboard • OS Online Board Games</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/navigation.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.3/dist/umd/supabase.js"></script>
+  <script defer src="/leaderboard.js"></script>
+</head>
+<body data-page="leaderboard">
+  <div class="page-shell">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a class="site-brand" href="/" aria-label="OS Online Board Games home"><span>OS</span> Board Games</a>
+      <div class="nav-links">
+        <a class="nav-link" data-page="play" href="/play.html">Play</a>
+        <a class="nav-link" data-page="build" href="/build.html">Build</a>
+        <a class="nav-link" data-page="leaderboard" href="/leaderboard.html" aria-current="page">Leaderboard</a>
+      </div>
+      <a class="nav-github" href="https://github.com/davidlifschitz/online-board-games" target="_blank" rel="noreferrer">GitHub ↗</a>
+    </nav>
+
+    <header class="page-hero">
+      <div class="eyebrow">COMMUNITY RANKINGS</div>
+      <h1>Leaderboard.</h1>
+      <p class="lede">See who is shipping, what models they used, and which approved implementations the community likes most. Anyone can vote; no sign-in is required.</p>
+      <div class="hero-actions">
+        <a class="primary" href="#leaderboard">View rankings</a>
+        <a class="secondary" href="/build.html#submit">Submit your build</a>
+      </div>
+      <div class="stats" aria-label="Leaderboard stats">
+        <div><strong id="approvedBuildCount">0</strong><span>Approved builds</span></div>
+        <div><strong>Open</strong><span>Voting</span></div>
+        <div><strong>0</strong><span>Login required to vote</span></div>
+        <div><strong>2</strong><span>Verified submit providers</span></div>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <section class="leaderboard standalone-section" id="leaderboard">
+        <div class="section-heading">
+          <div>
+            <p class="section-label">BUILDER BOARD</p>
+            <h2>People shipping the collection.</h2>
+          </div>
+          <a class="primary compact" href="/build.html#submit">Submit your build</a>
+        </div>
+        <p class="section-copy">Builder rankings use approved open-source implementations. Submission identity is verified through GitHub or Google; community favorites are ranked separately by public likes.</p>
+
+        <div class="board-layout">
+          <div class="board-panel">
+            <div class="board-header"><span>Builder</span><span>Shipped</span><span>Firsts</span><span>Concepts</span></div>
+            <div id="builderBoard" class="board-body" aria-live="polite"><div class="empty-state">Loading Builder Board…</div></div>
+          </div>
+          <aside class="model-panel">
+            <p class="section-label">MODELS USED</p>
+            <h3>Build stack</h3>
+            <div id="modelUsage" class="model-list"><div class="empty-state">Loading…</div></div>
+          </aside>
+        </div>
+
+        <div class="recent-block">
+          <div class="mini-heading"><h3>Recently approved builds</h3><span id="recentBuildMeta"></span></div>
+          <div id="recentBuilds" class="recent-grid"><div class="empty-state wide">No approved community builds yet. The first accepted submission will appear here.</div></div>
+        </div>
+      </section>
+    </main>
+
+    <footer><span>OS Online Board Games</span><span><a href="/play.html">Go play something →</a></span></footer>
+  </div>
+</body>
+</html>

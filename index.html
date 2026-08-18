@@ -4,226 +4,68 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b1020" />
-  <meta name="description" content="Play open-source browser games, build an implementation from a detailed spec, deploy it, and join the Builder Board." />
+  <meta name="description" content="Play open-source browser games, build your own implementation, and vote on community builds." />
   <title>OS Online Board Games</title>
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/navigation.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.3/dist/umd/supabase.js"></script>
-  <script defer src="/app.js"></script>
+  <script defer src="/auth-landing.js"></script>
 </head>
-<body>
+<body data-page="home">
   <div class="page-shell">
-    <header class="hero">
-      <div class="eyebrow">OPEN SOURCE • BROWSER FIRST • BUILD CHALLENGE</div>
-      <h1>OS Online<br><span>Board Games</span></h1>
-      <p class="lede">Play one. Build one. Deploy one. Contribute it back. A growing collection of open-source board, card, word, dice, and strategy games with detailed implementation specs.</p>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a class="site-brand" href="/" aria-label="OS Online Board Games home"><span>OS</span> Board Games</a>
+      <div class="nav-links">
+        <a class="nav-link" data-page="play" href="/play.html">Play</a>
+        <a class="nav-link" data-page="build" href="/build.html">Build</a>
+        <a class="nav-link" data-page="leaderboard" href="/leaderboard.html">Leaderboard</a>
+      </div>
+      <a class="nav-github" href="https://github.com/davidlifschitz/online-board-games" target="_blank" rel="noreferrer">GitHub ↗</a>
+    </nav>
+
+    <header class="hero home-hero">
+      <div class="eyebrow">OPEN SOURCE • BROWSER FIRST • COMMUNITY BUILT</div>
+      <h1>Play it.<br><span>Build it. Rank it.</span></h1>
+      <p class="lede">A growing collection of open-source board, card, word, dice, and strategy games. Pick what you want to do instead of hunting through one long page.</p>
       <div class="hero-actions">
-        <a class="primary" href="#games">Play a game</a>
-        <a class="secondary" href="#submit">Submit a build</a>
-        <a class="secondary" href="https://github.com/davidlifschitz/online-board-games" target="_blank" rel="noreferrer">View source & prompts ↗</a>
+        <a class="primary" href="/play.html">Start playing</a>
+        <a class="secondary" href="/build.html">Build a game</a>
+        <a class="secondary" href="/leaderboard.html">See the leaderboard</a>
       </div>
       <div class="stats" aria-label="Collection stats">
         <div><strong>8</strong><span>Live games</span></div>
         <div><strong>51</strong><span>Game prompts</span></div>
-        <div><strong>44</strong><span>Awaiting first build</span></div>
-        <div><strong id="approvedBuildCount">0</strong><span>Community builds</span></div>
+        <div><strong>Open</strong><span>Source code</span></div>
+        <div><strong>Public</strong><span>Community voting</span></div>
       </div>
     </header>
 
-    <main>
-      <section id="games">
-        <div class="toolbar" aria-label="Game filters">
-          <div>
-            <p class="section-label">LIVE COLLECTION</p>
-            <h2>Choose a game</h2>
-          </div>
-          <div class="filters" role="group" aria-label="Filter games">
-            <button class="filter active" data-filter="all">All</button>
-            <button class="filter" data-filter="strategy">Strategy</button>
-            <button class="filter" data-filter="cards">Cards</button>
-            <button class="filter" data-filter="word">Word</button>
-            <button class="filter" data-filter="dice">Dice</button>
-          </div>
-        </div>
-
-        <section class="grid" aria-live="polite">
-          <article class="game-card featured" data-tags="cards multiplayer strategy">
-            <div class="card-top"><span class="number">01</span><span class="status">LIVE</span></div>
-            <div class="icon">◆</div><h3>Deal Room</h3>
-            <p>Fast property-set card battles inspired by deal-making games. Play solo against a bot or open a room for friends.</p>
-            <div class="tags"><span>Cards</span><span>Bot</span><span>Online</span></div>
-            <a href="https://monopoly-deal-online.vercel.app" target="_blank" rel="noreferrer">Play Deal Room <b>↗</b></a>
-          </article>
-          <article class="game-card" data-tags="strategy 1v1 bot">
-            <div class="card-top"><span class="number">02</span><span class="status">LIVE</span></div><div class="icon">◑</div><h3>Othello</h3>
-            <p>Classic disk-flipping strategy against the computer. Control the board by trapping and converting opposing pieces.</p>
-            <div class="tags"><span>1v1</span><span>Strategy</span><span>Bot</span></div>
-            <a href="https://othello-vs-computer.vercel.app" target="_blank" rel="noreferrer">Play Othello <b>↗</b></a>
-          </article>
-          <article class="game-card" data-tags="strategy 1v1 bot">
-            <div class="card-top"><span class="number">03</span><span class="status">LIVE</span></div><div class="icon">♛</div><h3>Crown Jump</h3>
-            <p>Open-source American checkers with mandatory captures, multi-jumps, kings, and computer opponents.</p>
-            <div class="tags"><span>1v1</span><span>Strategy</span><span>Bot</span></div>
-            <a href="https://crown-jump-checkers.vercel.app" target="_blank" rel="noreferrer">Play Crown Jump <b>↗</b></a>
-          </article>
-          <article class="game-card" data-tags="dice multiplayer bot">
-            <div class="card-top"><span class="number">04</span><span class="status">LIVE</span></div><div class="icon">⚄</div><h3>Five Dice</h3>
-            <p>Roll, hold, and score five dice across a full scorecard. Built for quick solo sessions and repeat play.</p>
-            <div class="tags"><span>Dice</span><span>Solo</span><span>PWA</span></div>
-            <a href="https://five-dice.vercel.app" target="_blank" rel="noreferrer">Play Five Dice <b>↗</b></a>
-          </article>
-          <article class="game-card" data-tags="cards multiplayer bot">
-            <div class="card-top"><span class="number">05</span><span class="status">LIVE</span></div><div class="icon">▰</div><h3>HueBreak</h3>
-            <p>An original shedding-card game built for fast browser play with colorful hands, action cards, and tactical turns.</p>
-            <div class="tags"><span>Cards</span><span>Multiplayer</span><span>Fast</span></div>
-            <a href="https://huebreak-card-game.vercel.app" target="_blank" rel="noreferrer">Play HueBreak <b>↗</b></a>
-          </article>
-          <article class="game-card" data-tags="word multiplayer party">
-            <div class="card-top"><span class="number">06</span><span class="status">LIVE</span></div><div class="icon">Aa</div><h3>Threadmark</h3>
-            <p>Team word association with private clue-giver information, shared boards, and online room-based play.</p>
-            <div class="tags"><span>Word</span><span>Teams</span><span>Party</span></div>
-            <a href="https://threadmark-delta.vercel.app" target="_blank" rel="noreferrer">Play Threadmark <b>↗</b></a>
-          </article>
-          <article class="game-card" data-tags="strategy 1v1 bot">
-            <div class="card-top"><span class="number">07</span><span class="status">LIVE</span></div><div class="icon">●</div><h3>Fourfront</h3>
-            <p>Original open-source Connect Four: drop pieces, create threats, block your opponent, and connect four first.</p>
-            <div class="tags"><span>1v1</span><span>Strategy</span><span>Bot</span></div>
-            <a href="https://fourfront-virid.vercel.app" target="_blank" rel="noreferrer">Play Fourfront <b>↗</b></a>
-          </article>
-          <article class="game-card" data-tags="strategy multiplayer bot">
-            <div class="card-top"><span class="number">08</span><span class="status">LIVE</span></div><div class="icon">◎</div><h3>Frontiers</h3>
-            <p>World-scale territory control across a real map. Reinforce, attack, fortify, and pursue multiple victory paths.</p>
-            <div class="tags"><span>Strategy</span><span>2–6 Players</span><span>Bots</span></div>
-            <a href="https://frontiers-snowy.vercel.app" target="_blank" rel="noreferrer">Play Frontiers <b>↗</b></a>
-          </article>
-        </section>
-      </section>
-
-      <section class="challenge" id="build">
-        <div class="section-heading">
-          <div>
-            <p class="section-label">OPEN SOURCE GAME BUILD CHALLENGE</p>
-            <h2>Pick a spec. Ship your version.</h2>
-          </div>
-          <a class="text-link" href="https://github.com/davidlifschitz/online-board-games/blob/main/BUILD_QUEUE.md" target="_blank" rel="noreferrer">Full build queue ↗</a>
-        </div>
-        <p class="section-copy">Multiple implementations of the same prompt are welcome. Different bots, frameworks, networking approaches, and UI decisions are part of the experiment.</p>
-        <div class="starter-grid">
-          <a href="https://github.com/davidlifschitz/online-board-games/issues/3" target="_blank" rel="noreferrer"><span>STARTER</span><strong>Mancala</strong><small>Claim issue #3 ↗</small></a>
-          <a href="https://github.com/davidlifschitz/online-board-games/issues/4" target="_blank" rel="noreferrer"><span>STARTER</span><strong>Dots and Boxes</strong><small>Claim issue #4 ↗</small></a>
-          <a href="https://github.com/davidlifschitz/online-board-games/issues/5" target="_blank" rel="noreferrer"><span>STARTER</span><strong>Mastermind-style</strong><small>Claim issue #5 ↗</small></a>
-          <a href="https://github.com/davidlifschitz/online-board-games/issues/6" target="_blank" rel="noreferrer"><span>STARTER</span><strong>Farkle</strong><small>Claim issue #6 ↗</small></a>
-          <a href="https://github.com/davidlifschitz/online-board-games/issues/7" target="_blank" rel="noreferrer"><span>STARTER</span><strong>Boggle-style</strong><small>Claim issue #7 ↗</small></a>
-          <a href="https://github.com/davidlifschitz/online-board-games/issues/8" target="_blank" rel="noreferrer"><span>STARTER</span><strong>Love-Letter-style</strong><small>Claim issue #8 ↗</small></a>
-        </div>
-      </section>
-
-      <section class="leaderboard" id="leaderboard">
-        <div class="section-heading">
-          <div>
-            <p class="section-label">BUILDER BOARD</p>
-            <h2>People shipping the collection</h2>
-          </div>
-          <a class="primary compact" href="#submit">Submit your build</a>
-        </div>
-        <p class="section-copy">Rankings use approved open-source implementations. Identity is verified through GitHub or Google sign-in; every submission also records the model or models used to build it.</p>
-        <div class="board-layout">
-          <div class="board-panel">
-            <div class="board-header"><span>Builder</span><span>Shipped</span><span>Firsts</span><span>Concepts</span></div>
-            <div id="builderBoard" class="board-body" aria-live="polite"><div class="empty-state">Loading Builder Board…</div></div>
-          </div>
-          <aside class="model-panel">
-            <p class="section-label">MODELS USED</p>
-            <h3>Build stack</h3>
-            <div id="modelUsage" class="model-list"><div class="empty-state">Loading…</div></div>
-          </aside>
-        </div>
-
-        <div class="recent-block">
-          <div class="mini-heading"><h3>Recently approved builds</h3><span id="recentBuildMeta"></span></div>
-          <div id="recentBuilds" class="recent-grid"><div class="empty-state wide">No approved community builds yet. The first accepted submission will appear here.</div></div>
-        </div>
-      </section>
-
-      <section class="submit-section" id="submit">
-        <div class="section-heading">
-          <div>
-            <p class="section-label">SUBMIT AN IMPLEMENTATION</p>
-            <h2>Get your build onto the board</h2>
-          </div>
-        </div>
-        <div class="submit-layout">
-          <div class="auth-panel">
-            <div id="signedOutState">
-              <p class="auth-kicker">VERIFIED SUBMISSIONS</p>
-              <h3>Sign in before submitting</h3>
-              <p>GitHub or Google authentication ties a submission to a real account. No password is stored by this site.</p>
-              <div class="auth-actions">
-                <button id="githubLogin" class="auth-button" type="button">Continue with GitHub</button>
-                <button id="googleLogin" class="auth-button" type="button">Continue with Google</button>
-              </div>
-              <p id="authMessage" class="form-message" role="status"></p>
-            </div>
-            <div id="signedInState" class="hidden">
-              <p class="auth-kicker">SIGNED IN</p>
-              <div class="identity-row">
-                <img id="userAvatar" alt="" class="user-avatar hidden" />
-                <div><strong id="userName">Verified builder</strong><span id="userProvider"></span></div>
-              </div>
-              <button id="signOut" class="text-button" type="button">Sign out</button>
-            </div>
-            <div class="review-note">
-              <strong>How validation works</strong>
-              <p>Your identity is validated at sign-in. The live URL, public GitHub source, game concept, and model list are stored with the submission. New builds are pending until review, then approved builds enter the public Builder Board.</p>
-            </div>
-          </div>
-
-          <form id="submissionForm" class="submission-form locked" novalidate>
-            <div class="form-grid">
-              <label class="full">Game / concept
-                <select id="gameId" name="gameId" required disabled>
-                  <option value="">Loading catalog…</option>
-                </select>
-              </label>
-              <label>Implementation name
-                <input id="implementationName" name="implementationName" maxlength="100" placeholder="Your game name" required disabled />
-              </label>
-              <label>Model(s) used
-                <input id="models" name="models" placeholder="Model A, Model B" required disabled />
-                <small>Comma-separate every model you materially used.</small>
-              </label>
-              <label class="full">Live production URL
-                <input id="liveUrl" name="liveUrl" type="url" inputmode="url" placeholder="https://your-game.example" required disabled />
-              </label>
-              <label class="full">Public GitHub source URL
-                <input id="sourceUrl" name="sourceUrl" type="url" inputmode="url" placeholder="https://github.com/username/repository" required disabled />
-              </label>
-              <label class="full">Build notes <span class="optional">optional</span>
-                <textarea id="notes" name="notes" maxlength="2000" rows="5" placeholder="What is distinctive about this implementation?" disabled></textarea>
-              </label>
-              <label class="confirm-row full">
-                <input id="confirmOpenSource" type="checkbox" required disabled />
-                <span>I confirm the source repository is public and the submitted implementation is mine or I have permission to submit it.</span>
-              </label>
-            </div>
-            <button id="submitBuild" class="primary submit-button" type="submit" disabled>Submit for review</button>
-            <p id="submissionMessage" class="form-message" role="status"></p>
-          </form>
-        </div>
-
-        <div id="mySubmissionsBlock" class="my-submissions hidden">
-          <div class="mini-heading"><h3>Your submissions</h3><span>Visible only to you until approved</span></div>
-          <div id="mySubmissions" class="submission-list"></div>
-        </div>
-      </section>
-
-      <section class="roadmap">
-        <p class="section-label">WHAT'S NEXT</p>
-        <div class="roadmap-inner">
-          <div><h2>51 game concepts.<br>One growing arcade.</h2></div>
-          <div><p>The prompt library covers chess, backgammon, Battleship-style games, social deduction, word games, route building, cooperative strategy, and more. Build a first implementation or take an existing prompt in a different direction.</p><a href="https://github.com/davidlifschitz/online-board-games/blob/main/GAME_CATALOG.md" target="_blank" rel="noreferrer">Explore the full catalog ↗</a></div>
-        </div>
+    <main class="home-main">
+      <section class="portal-grid" aria-label="Choose a section">
+        <a class="portal-card" href="/play.html">
+          <span class="portal-number">01</span>
+          <span class="portal-kicker">PLAY</span>
+          <h2>Pick a game and jump in.</h2>
+          <p>Browse the live collection, filter by game type, and launch any game directly.</p>
+          <span class="portal-cta">Browse games <b>→</b></span>
+        </a>
+        <a class="portal-card" href="/build.html">
+          <span class="portal-number">02</span>
+          <span class="portal-kicker">BUILD</span>
+          <h2>Choose a spec and ship yours.</h2>
+          <p>Claim a prompt, deploy your implementation, sign in with Google or GitHub, and submit it.</p>
+          <span class="portal-cta">Start building <b>→</b></span>
+        </a>
+        <a class="portal-card" href="/leaderboard.html">
+          <span class="portal-number">03</span>
+          <span class="portal-kicker">LEADERBOARD</span>
+          <h2>See what the community likes.</h2>
+          <p>Compare approved builds, builders, model stacks, and vote without creating an account.</p>
+          <span class="portal-cta">View rankings <b>→</b></span>
+        </a>
       </section>
     </main>
+
     <footer><span>OS Online Board Games</span><span>Play one • Build one • Deploy one</span></footer>
   </div>
 </body>
