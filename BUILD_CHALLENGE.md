@@ -4,10 +4,12 @@
 
 The repository contains 51 implementation prompts covering classic abstract strategy, cards, party games, social deduction, word games, dice games, cooperative games, and digital-first experiments.
 
+**Want a concrete issue to claim right now? Start with the [Build Queue](BUILD_QUEUE.md).** Six starter games already have open build issues with a clear acceptance bar and claim flow.
+
 The challenge is intentionally simple:
 
-1. Pick a prompt.
-2. Open a **Claim a game** issue.
+1. Pick a prompt or an open issue in [BUILD_QUEUE.md](BUILD_QUEUE.md).
+2. Claim it by commenting on the build issue, or open a **Claim a game** issue for another prompt.
 3. Build a complete open-source browser implementation.
 4. Deploy it publicly.
 5. Submit the live URL and source repository.
@@ -20,12 +22,12 @@ AI coding tools are allowed. Traditional hand-written implementations are allowe
 
 Good candidates for a weekend-sized first contribution:
 
-- Mastermind-style
-- Mancala
-- Dots and Boxes
-- Farkle
-- Boggle-style
-- Love-Letter-style
+- [Mastermind-style — issue #5](https://github.com/davidlifschitz/online-board-games/issues/5)
+- [Mancala — issue #3](https://github.com/davidlifschitz/online-board-games/issues/3)
+- [Dots and Boxes — issue #4](https://github.com/davidlifschitz/online-board-games/issues/4)
+- [Farkle — issue #6](https://github.com/davidlifschitz/online-board-games/issues/6)
+- [Boggle-style — issue #7](https://github.com/davidlifschitz/online-board-games/issues/7)
+- [Love-Letter-style — issue #8](https://github.com/davidlifschitz/online-board-games/issues/8)
 - Nine Men's Morris
 - 2048 multiplayer variants
 
