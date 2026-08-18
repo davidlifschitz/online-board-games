@@ -19,7 +19,7 @@ This catalog groups the project by **play pattern**, not by one exclusive genre.
 
 ## Multiplayer strategy / board games
 - [Stratego-inspired](prompts/08-stratego-inspired.md) — 1v1, hidden information, strategy
-- [Risk-style](prompts/09-risk-style.md) — 2–6, territory control, negotiation
+- [Risk-style / Frontiers](prompts/09-risk-style.md) — 2–6, territory control, negotiation — [play Frontiers](https://frontiers-snowy.vercel.app)
 - [Settlers-style](prompts/10-settlers-style.md) — 2–4, economy, trading, network building
 - [Ticket-to-Ride-style](prompts/11-ticket-to-ride-style.md) — 2–5, route building, set collection
 - [Carcassonne-style](prompts/13-carcassonne-style.md) — 2–5, tile placement, spatial strategy
@@ -100,7 +100,7 @@ These require substantially more rule, AI, or multiplayer work than the smaller 
 - Chess
 - Go
 - Mahjong
-- Risk-style territory game
+- [Frontiers](https://frontiers-snowy.vercel.app) territory-control game
 - Settlers-style resource game
 - Pandemic-style cooperative game
 - Stratego-inspired hidden-information game
