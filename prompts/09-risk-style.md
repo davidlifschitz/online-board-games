@@ -1,5 +1,7 @@
 # Risk-style territory game
 
+**Live implementation: [Frontiers — The Shattered World](https://frontiers-snowy.vercel.app)**
+
 Build an original open-source turn-based world-conquest strategy game inspired by territory-control board games.
 
 Do not reproduce Risk’s map, cards, branding, rules text, or artwork. Create an original fictional world map and rule set.
