@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "updated": "2026-08-17",
   "summary": {
-    "liveGames": 7,
+    "liveGames": 8,
     "promptConcepts": 51,
-    "promptConceptsWithLiveImplementations": 6,
-    "promptConceptsAwaitingFirstDeployment": 45
+    "promptConceptsWithLiveImplementations": 7,
+    "promptConceptsAwaitingFirstDeployment": 44
   },
   "games": [
     {"id":"deal-room","title":"Deal Room","prompt":null,"categories":["cards","multiplayer","bot"],"difficulty":"intermediate","status":"live","liveUrl":"https://monopoly-deal-online.vercel.app"},
@@ -17,7 +17,7 @@
     {"id":"backgammon","title":"Backgammon","prompt":"prompts/06-backgammon.md","categories":["1v1","strategy","dice","bot"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
     {"id":"battleship-style","title":"Battleship-style","prompt":"prompts/07-battleship.md","categories":["1v1","hidden-information","strategy","bot"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
     {"id":"stratego-inspired","title":"Stratego-inspired","prompt":"prompts/08-stratego-inspired.md","categories":["1v1","hidden-information","strategy","bot"],"difficulty":"advanced","status":"unbuilt","liveUrl":null},
-    {"id":"risk-style","title":"Risk-style territory game","prompt":"prompts/09-risk-style.md","categories":["multiplayer","strategy","territory"],"difficulty":"advanced","status":"unbuilt","liveUrl":null},
+    {"id":"risk-style","title":"Frontiers","prompt":"prompts/09-risk-style.md","categories":["multiplayer","strategy","territory","bot"],"difficulty":"advanced","status":"live","liveUrl":"https://frontiers-snowy.vercel.app"},
     {"id":"settlers-style","title":"Settlers-style resource game","prompt":"prompts/10-settlers-style.md","categories":["multiplayer","strategy","trading","network"],"difficulty":"advanced","status":"unbuilt","liveUrl":null},
     {"id":"ticket-to-ride-style","title":"Ticket-to-Ride-style route game","prompt":"prompts/11-ticket-to-ride-style.md","categories":["multiplayer","strategy","route-building"],"difficulty":"advanced","status":"unbuilt","liveUrl":null},
     {"id":"five-dice","title":"Five Dice","prompt":"prompts/12-yahtzee-style.md","categories":["dice","solo","multiplayer"],"difficulty":"starter","status":"live","liveUrl":"https://five-dice.vercel.app"},
@@ -40,7 +40,7 @@
     {"id":"charades","title":"Charades / Heads-Up-style","prompt":"prompts/29-charades-heads-up-style.md","categories":["party","teams","multiplayer"],"difficulty":"starter","status":"unbuilt","liveUrl":null},
     {"id":"werewolf-mafia","title":"Werewolf / Mafia","prompt":"prompts/30-werewolf-mafia.md","categories":["social-deduction","party","hidden-information","multiplayer"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
     {"id":"secret-government","title":"Secret-government-style","prompt":"prompts/31-secret-government-style.md","categories":["social-deduction","party","hidden-information","multiplayer"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
-    {"id":"resistance-avalon","title":"Resistance / Avalon-style","prompt":"prompts/32-resistance-avalon-style.md","categories":["social-deduction","party","hidden-information","multiplayer"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
+    {"id":"resistance-avalon","title":"Resistance / Avalon-style","prompt":"prompts/32-resistance-avalon.md","categories":["social-deduction","party","hidden-information","multiplayer"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
     {"id":"hanabi-style","title":"Hanabi-style","prompt":"prompts/33-hanabi-style.md","categories":["cards","cooperative","hidden-information"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
     {"id":"pandemic-style","title":"Pandemic-style","prompt":"prompts/34-pandemic-style.md","categories":["cooperative","strategy","multiplayer"],"difficulty":"advanced","status":"unbuilt","liveUrl":null},
     {"id":"2048-multiplayer","title":"2048 multiplayer variants","prompt":"prompts/35-2048-multiplayer.md","categories":["digital-first","puzzle","multiplayer"],"difficulty":"starter","status":"unbuilt","liveUrl":null},
