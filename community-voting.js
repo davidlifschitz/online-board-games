@@ -1,6 +1,3 @@
-const VOTING_SUPABASE_URL='https://slnvfdkyvijrhmisurhw.supabase.co';
-const VOTING_SUPABASE_PUBLISHABLE_KEY='sb_publishable_zUTHu9mHMbPfNKIgM_O0Zg_INCN9yF6';
-
 const votingState={
   client:null,
   session:null,
@@ -255,17 +252,34 @@ async function syncVotingSession(){
   await refreshVotingBoard();
 }
 
+function getSharedVotingClient(){
+  if(window.builderBoardSupabaseClient)return Promise.resolve(window.builderBoardSupabaseClient);
+
+  return new Promise((resolve,reject)=>{
+    let settled=false;
+    const finish=client=>{
+      if(settled)return;
+      settled=true;
+      window.clearTimeout(timeout);
+      window.removeEventListener('builder-board-client-ready',onReady);
+      resolve(client);
+    };
+    const onReady=event=>finish(event.detail?.client||window.builderBoardSupabaseClient);
+    const timeout=window.setTimeout(()=>{
+      if(settled)return;
+      settled=true;
+      window.removeEventListener('builder-board-client-ready',onReady);
+      reject(new Error('Builder Board Supabase client was not initialized'));
+    },10000);
+    window.addEventListener('builder-board-client-ready',onReady);
+    if(window.builderBoardSupabaseClient)finish(window.builderBoardSupabaseClient);
+  });
+}
+
 async function initCommunityVoting(){
   if(!mountVotingUi())return;
-  if(!window.supabase?.createClient){
-    setVoteMessage('Community voting could not initialize. Refresh and try again.','error');
-    return;
-  }
 
-  votingState.client=window.supabase.createClient(VOTING_SUPABASE_URL,VOTING_SUPABASE_PUBLISHABLE_KEY,{
-    auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}
-  });
-
+  votingState.client=await getSharedVotingClient();
   await loadVotingGameTitles();
   const {data,error}=await votingState.client.auth.getSession();
   if(error)console.error('Voting session lookup failed',error);
@@ -277,9 +291,6 @@ async function initCommunityVoting(){
     window.setTimeout(()=>refreshVotingBoard(),0);
   });
 
-  document.querySelector('#signOut')?.addEventListener('click',()=>{
-    window.setTimeout(()=>syncVotingSession(),100);
-  });
   window.addEventListener('pageshow',()=>syncVotingSession());
 }
 
