@@ -3,8 +3,9 @@ const SUPABASE_PUBLISHABLE_KEY='sb_publishable_zUTHu9mHMbPfNKIgM_O0Zg_INCN9yF6';
 
 async function handleBuilderAuthReturn(){
   const shouldReturn=sessionStorage.getItem('builderBoardReturnToSubmit')==='1';
-  const params=new URLSearchParams(window.location.search);
-  const authError=params.get('error_description')||params.get('error');
+  const searchParams=new URLSearchParams(window.location.search);
+  const hashParams=new URLSearchParams(window.location.hash.replace(/^#/,'') );
+  const authError=searchParams.get('error_description')||searchParams.get('error')||hashParams.get('error_description')||hashParams.get('error');
   if(authError&&shouldReturn){
     sessionStorage.removeItem('builderBoardReturnToSubmit');
     sessionStorage.setItem('builderBoardAuthError',authError);
