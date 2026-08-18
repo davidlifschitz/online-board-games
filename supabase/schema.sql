@@ -54,6 +54,8 @@ set search_path = ''
 as $$
 declare
   auth_user auth.users%rowtype;
+  provider_identity auth.identities%rowtype;
+  provider_name text;
   normalized_models text[];
 begin
   if (select auth.uid()) is null then
@@ -68,22 +70,37 @@ begin
     raise exception 'Authenticated user not found';
   end if;
 
-  new.user_id := auth_user.id;
-  new.builder_key := md5(auth_user.id::text);
-  new.identity_provider := coalesce(auth_user.raw_app_meta_data ->> 'provider', '');
-
-  if new.identity_provider not in ('github', 'google') then
+  provider_name := coalesce(auth_user.raw_app_meta_data ->> 'provider', '');
+  if provider_name not in ('github', 'google') then
     raise exception 'Sign in with GitHub or Google to submit';
   end if;
 
+  select * into provider_identity
+  from auth.identities
+  where user_id = auth_user.id
+    and provider = provider_name
+  order by last_sign_in_at desc nulls last, created_at desc nulls last
+  limit 1;
+
+  if not found then
+    raise exception 'Verified provider identity not found';
+  end if;
+
+  new.user_id := auth_user.id;
+  new.builder_key := md5(auth_user.id::text);
+  new.identity_provider := provider_identity.provider;
   new.builder_display_name := left(coalesce(
-    nullif(auth_user.raw_user_meta_data ->> 'user_name', ''),
-    nullif(auth_user.raw_user_meta_data ->> 'preferred_username', ''),
-    nullif(auth_user.raw_user_meta_data ->> 'full_name', ''),
-    nullif(auth_user.raw_user_meta_data ->> 'name', ''),
+    nullif(provider_identity.identity_data ->> 'user_name', ''),
+    nullif(provider_identity.identity_data ->> 'preferred_username', ''),
+    nullif(provider_identity.identity_data ->> 'full_name', ''),
+    nullif(provider_identity.identity_data ->> 'name', ''),
     'Verified builder'
   ), 120);
-  new.builder_avatar_url := nullif(left(coalesce(auth_user.raw_user_meta_data ->> 'avatar_url', ''), 2048), '');
+  new.builder_avatar_url := nullif(left(coalesce(
+    provider_identity.identity_data ->> 'avatar_url',
+    provider_identity.identity_data ->> 'picture',
+    ''
+  ), 2048), '');
 
   select array_agg(model order by model)
   into normalized_models
