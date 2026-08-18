@@ -14,7 +14,7 @@ A website submission requires:
 - At least one declared AI model, or `None` when no AI model was materially used.
 - Optional implementation notes.
 
-The authenticated user's provider identity is captured server-side. The browser cannot choose the displayed builder name, provider, approval status, first-implementation flag, or owner UUID.
+The authenticated user's provider identity is captured server-side. The browser cannot choose the displayed builder name, provider, approval status, first-on-board flag, or owner UUID.
 
 ## Leaderboard behavior
 
@@ -23,10 +23,10 @@ New submissions start as `pending`. Pending rows are visible only to their owner
 The Builder Board reports objective counts rather than an arbitrary point system:
 
 - approved implementations shipped,
-- first implementations,
+- first approved Builder Board submission for a game concept,
 - distinct game concepts shipped.
 
-`first_implementation` is assigned automatically when a moderator approves the first accepted submission for a game concept.
+The database field is named `first_implementation` for compatibility, but it means **first approved implementation recorded on the Builder Board**. It does not claim that no implementation existed before this leaderboard. The flag is assigned automatically when a moderator approves the first accepted Board submission for a game concept.
 
 ## Supabase project
 
