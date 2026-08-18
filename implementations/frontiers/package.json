@@ -1,0 +1,12 @@
+{
+  "name": "frontiers-world-conquest",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "check": "node scripts/validate.mjs && npm test",
+    "simulate": "node scripts/simulate.mjs"
+  },
+  "license": "MIT"
+}
