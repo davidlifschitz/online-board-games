@@ -143,14 +143,8 @@ function renderBoard(rows){
   rows.forEach((row,index)=>{
     const item=make('div','board-row');
     const builder=make('div','builder-cell');
-    if(row.builder_avatar_url){
-      const img=make('img');
-      img.src=row.builder_avatar_url;
-      img.alt='';
-      builder.appendChild(img);
-    }else{
-      builder.appendChild(make('div','builder-avatar-fallback',String(index+1)));
-    }
+    const initial=(row.builder_display_name||'').trim().charAt(0).toUpperCase()||String(index+1);
+    builder.appendChild(make('div','builder-avatar-fallback',initial));
     const copy=make('div','builder-copy');
     copy.appendChild(make('strong','',row.builder_display_name));
     copy.appendChild(make('small','',`Verified via ${row.identity_provider}`));
@@ -269,9 +263,13 @@ async function loadMySubmissions(){
 async function signIn(provider){
   if(!supabaseClient)return;
   setMessage($('#authMessage'),'');
-  const redirectTo=`${window.location.origin}${window.location.pathname}#submit`;
+  sessionStorage.setItem('builderBoardReturnToSubmit','1');
+  const redirectTo=`${window.location.origin}${window.location.pathname}`;
   const {error}=await supabaseClient.auth.signInWithOAuth({provider,options:{redirectTo}});
-  if(error)setMessage($('#authMessage'),error.message,'error');
+  if(error){
+    sessionStorage.removeItem('builderBoardReturnToSubmit');
+    setMessage($('#authMessage'),error.message,'error');
+  }
 }
 
 async function handleSubmit(event){
@@ -360,7 +358,13 @@ async function init(){
   renderAuth();
   await loadCatalog();
   await loadPublicData();
-  if(state.session)await loadMySubmissions();
+  if(state.session){
+    await loadMySubmissions();
+    if(sessionStorage.getItem('builderBoardReturnToSubmit')==='1'){
+      sessionStorage.removeItem('builderBoardReturnToSubmit');
+      window.location.hash='submit';
+    }
+  }
 
   supabaseClient.auth.onAuthStateChange(async(_event,session)=>{
     state.session=session;
