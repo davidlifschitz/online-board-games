@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 jobs:
   production-smoke:
@@ -14,6 +15,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Verify production UI, assets, and OAuth handoffs
+        id: smoke
         env:
           SITE_URL: https://os-online-board-games.vercel.app
           SUPABASE_URL: https://slnvfdkyvijrhmisurhw.supabase.co
@@ -75,3 +77,22 @@ jobs:
 
           console.log('Production UI/assets OK; GitHub and Google Auth enabled; OAuth handoffs OK.');
           NODE
+
+      - name: Report requested verification to issue 13
+        if: ${{ always() && github.event_name == 'push' && contains(github.event.head_commit.message, '[verify-production-smoke]') }}
+        uses: actions/github-script@v7
+        env:
+          SMOKE_OUTCOME: ${{ steps.smoke.outcome }}
+        with:
+          script: |
+            const passed = process.env.SMOKE_OUTCOME === 'success';
+            const icon = passed ? '✅' : '❌';
+            const summary = passed
+              ? 'Production smoke passed: live Builder Board UI/assets returned successfully, Supabase reports GitHub and Google enabled, and both OAuth initiation endpoints redirected to the expected provider hosts.'
+              : 'Production smoke failed. Inspect the workflow run for the failing production, Supabase settings, or OAuth handoff check.';
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: 13,
+              body: `${icon} ${summary}\n\nCommit: \`${context.sha}\``
+            });
