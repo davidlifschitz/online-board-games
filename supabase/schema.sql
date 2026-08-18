@@ -31,6 +31,9 @@ create table public.builder_submissions (
 
 create unique index builder_submissions_source_game_unique
   on public.builder_submissions (lower(source_url), game_id);
+create unique index builder_submissions_one_first_per_game
+  on public.builder_submissions (game_id)
+  where first_implementation = true;
 create index builder_submissions_status_submitted_idx
   on public.builder_submissions (status, submitted_at desc);
 create index builder_submissions_game_id_status_idx
@@ -211,9 +214,9 @@ with (security_invoker = true)
 as
 select
   builder_key as builder_id,
-  builder_display_name,
-  builder_avatar_url,
-  identity_provider,
+  (array_agg(builder_display_name order by approved_at desc))[1] as builder_display_name,
+  (array_agg(builder_avatar_url order by approved_at desc))[1] as builder_avatar_url,
+  (array_agg(identity_provider order by approved_at desc))[1] as identity_provider,
   count(*)::int as games_shipped,
   count(*) filter (where first_implementation)::int as first_implementations,
   count(distinct game_id)::int as distinct_game_concepts,
@@ -221,7 +224,7 @@ select
   max(approved_at) as latest_ship_at
 from public.builder_submissions
 where status = 'approved'
-group by builder_key, builder_display_name, builder_avatar_url, identity_provider;
+group by builder_key;
 
 grant select on public.builder_leaderboard to anon, authenticated;
 
@@ -231,7 +234,7 @@ as
 select
   game_id,
   count(*)::int as implementations,
-  count(distinct builder_display_name)::int as builders,
+  count(distinct builder_key)::int as builders,
   max(approved_at) as latest_ship_at
 from public.builder_submissions
 where status = 'approved'
