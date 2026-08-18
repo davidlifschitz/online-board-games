@@ -351,6 +351,8 @@ async function init(){
   supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{
     auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
   });
+  window.builderBoardSupabaseClient=supabaseClient;
+  window.dispatchEvent(new CustomEvent('builder-board-client-ready',{detail:{client:supabaseClient}}));
 
   const {data,error}=await supabaseClient.auth.getSession();
   if(error)console.error('Session lookup failed',error);
