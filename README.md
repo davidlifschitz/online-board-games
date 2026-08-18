@@ -54,8 +54,10 @@ Start with the **[Build Queue](BUILD_QUEUE.md)** for claimable starter issues, o
 The live arcade includes a contributor leaderboard and submission workflow. It reports objective counts rather than a custom point system:
 
 - approved implementations shipped,
-- first implementations of a prompt concept,
+- first approved Builder Board submission for a game concept,
 - distinct game concepts shipped.
+
+The first-submission metric refers to the first approved implementation recorded on this Builder Board; it does not claim that no implementation existed before the leaderboard.
 
 New website submissions begin as pending and are visible to the submitter. Only approved submissions enter the public Builder Board, recently approved builds, and model-usage summary. The authenticated identity is derived server-side from Supabase Auth rather than from a user-editable form field.
 
