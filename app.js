@@ -366,11 +366,13 @@ async function init(){
     }
   }
 
-  supabaseClient.auth.onAuthStateChange(async(_event,session)=>{
+  supabaseClient.auth.onAuthStateChange((_event,session)=>{
     state.session=session;
     renderAuth();
-    await loadCatalog();
-    if(session)await loadMySubmissions();
+    window.setTimeout(async()=>{
+      await loadCatalog();
+      if(session)await loadMySubmissions();
+    },0);
   });
 }
 
