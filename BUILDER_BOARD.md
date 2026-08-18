@@ -1,10 +1,10 @@
 # Builder Board
 
-The repository includes a contributor leaderboard and authenticated submission flow for the main arcade. The implementation and Supabase schema are in place; production OAuth/deployment activation is tracked in [issue #13](https://github.com/davidlifschitz/online-board-games/issues/13). Until that issue is complete, the public arcade continues to serve the earlier static version and contributors should use the GitHub `Submit a deployed game` form.
+The contributor leaderboard and authenticated submission flow are live on the main arcade at `https://os-online-board-games.vercel.app`. The production site is deployed from this repository's `main` branch to the Vercel project `os-online-board-games`, and the Supabase schema and OAuth provider configuration are in place. Initial real-account OAuth and end-to-end production verification are tracked in [issue #13](https://github.com/davidlifschitz/online-board-games/issues/13).
 
 ## Submission contract
 
-Once the website flow is activated, a submission requires:
+A website submission requires:
 
 - GitHub or Google authentication through Supabase Auth.
 - A game / prompt from `games.json`.
@@ -42,13 +42,13 @@ The production app URL is:
 
 `https://os-online-board-games.vercel.app`
 
-The Supabase OAuth callback URL to register with GitHub and Google is:
+The Supabase OAuth callback URL registered with GitHub and Google is:
 
 `https://slnvfdkyvijrhmisurhw.supabase.co/auth/v1/callback`
 
-In Supabase Auth URL Configuration, set the Site URL to the production app URL and allow the production redirect. Vercel preview URLs can be added separately for preview testing.
+The Supabase Auth Site URL and allowed production redirect are set to the production app URL. GitHub and Google are enabled as Auth providers with credentials stored privately outside the repository.
 
-GitHub and Google each require their own OAuth client ID and secret in Supabase Auth provider settings. Those provider secrets must remain outside the repository.
+Issue #13 tracks the initial real-account GitHub and Google sign-in checks and the first end-to-end production submission test.
 
 ## Moderation
 
