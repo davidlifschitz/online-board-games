@@ -6,7 +6,7 @@
 
 OS Online Board Games is an open-source experiment to build a broad library of polished browser-based board, card, word, party, dice, and strategy games. You can play the finished games immediately, inspect the implementation prompts, build your own version with any coding workflow you like, deploy it, and submit it back to the collection.
 
-**7 live games · 51 build prompts · 45 prompt concepts waiting for a first deployment**
+**8 live games · 51 build prompts · 44 prompt concepts waiting for a first deployment**
 
 > Multiple implementations of the same game are welcome. The goal is not to produce one canonical version of every game; it is to make it easy to experiment, compare approaches, and grow a useful open-source browser-game ecosystem.
 
@@ -28,8 +28,9 @@ OS Online Board Games is an open-source experiment to build a broad library of p
 | HueBreak | Cards · shedding · multiplayer | [Play](https://huebreak-card-game.vercel.app) |
 | Threadmark | Word · teams · party | [Play](https://threadmark-delta.vercel.app) |
 | Fourfront | Connect Four · 1v1 · strategy · bot | [Play](https://fourfront-virid.vercel.app) |
+| Frontiers | Territory control · multiplayer · bot | [Play](https://frontiers-snowy.vercel.app) |
 
-Six of the 51 prompt concepts currently have a live implementation. Deal Room is an additional deployed project outside the numbered 51-prompt catalog.
+Seven of the 51 prompt concepts currently have a live implementation. Deal Room is an additional deployed project outside the numbered 51-prompt catalog.
 
 ## Build-a-Game Challenge
 
@@ -52,7 +53,7 @@ See **[GAME_CATALOG.md](GAME_CATALOG.md)** for the complete categorized collecti
 Connect Four ([Fourfront](https://fourfront-virid.vercel.app)) · Checkers ([Crown Jump](https://crown-jump-checkers.vercel.app)) · Chess · Mancala · Nine Men's Morris · Reversi / Othello ([Othello](https://othello-vs-computer.vercel.app)) · Go · Hex · Santorini-style · Hive-style · Dots and Boxes
 
 ### Multiplayer strategy / board games
-Risk-style · Settlers-style · Ticket-to-Ride-style · Carcassonne-style · Stratego-inspired · Pandemic-style · Qwirkle-style · Sequence-style
+Risk-style ([Frontiers](https://frontiers-snowy.vercel.app)) · Settlers-style · Ticket-to-Ride-style · Carcassonne-style · Stratego-inspired · Pandemic-style · Qwirkle-style · Sequence-style
 
 ### Cards
 Uno-style ([HueBreak](https://huebreak-card-game.vercel.app)) · Dominion-style · Love-Letter-style · Coup-style · President-style · Hearts · Spades · Gin Rummy · Rummy 500 · play-money Poker · Blackjack trainer · Hanabi-style · Monopoly Deal ([Deal Room](https://monopoly-deal-online.vercel.app))
