@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Verify production UI, assets, and OAuth handoffs
+      - name: Verify production UI, assets, OAuth handoffs, and voting privacy
         id: smoke
         env:
           SITE_URL: https://os-online-board-games.vercel.app
@@ -38,8 +38,34 @@ jobs:
             if (!html.includes(marker)) throw new Error(`Production HTML missing: ${marker}`);
           }
 
-          for (const path of ['/games.json', '/styles.css', '/app.js']) {
+          for (const path of ['/games.json', '/styles.css', '/app.js', '/community-voting.js']) {
             await requireOk(`${site}${path}`);
+          }
+
+          const votingModule = await (await requireOk(`${site}/community-voting.js`)).text();
+          for (const marker of ['COMMUNITY FAVORITES', 'build_votes', 'vote_count']) {
+            if (!votingModule.includes(marker)) throw new Error(`Voting module missing: ${marker}`);
+          }
+
+          const approvedResponse = await fetch(`${supabase}/rest/v1/builder_submissions?select=id,vote_count&status=eq.approved&order=vote_count.desc&limit=100`, {
+            headers: { apikey: key },
+          });
+          if (!approvedResponse.ok) throw new Error(`Public voting aggregate returned ${approvedResponse.status}`);
+          const approvedBuilds = await approvedResponse.json();
+          if (!Array.isArray(approvedBuilds) || approvedBuilds.length < 1) {
+            throw new Error('Public voting aggregate returned no approved builds');
+          }
+          for (const build of approvedBuilds) {
+            if (!Number.isInteger(build.vote_count) || build.vote_count < 0) {
+              throw new Error(`Invalid public vote_count for ${build.id}`);
+            }
+          }
+
+          const privateVotesResponse = await fetch(`${supabase}/rest/v1/build_votes?select=submission_id&limit=1`, {
+            headers: { apikey: key },
+          });
+          if (privateVotesResponse.ok) {
+            throw new Error('Anonymous client unexpectedly received direct build_votes access');
           }
 
           const settingsResponse = await fetch(`${supabase}/auth/v1/settings`, {
@@ -75,7 +101,7 @@ jobs:
             }
           }
 
-          console.log('Production UI/assets OK; GitHub and Google Auth enabled; OAuth handoffs OK.');
+          console.log('Production UI/assets, voting aggregates/privacy, GitHub/Google Auth, and OAuth handoffs OK.');
           NODE
 
       - name: Report requested verification to issue 13
@@ -88,8 +114,8 @@ jobs:
             const passed = process.env.SMOKE_OUTCOME === 'success';
             const icon = passed ? '✅' : '❌';
             const summary = passed
-              ? 'Production smoke passed: live Builder Board UI/assets returned successfully, Supabase reports GitHub and Google enabled, and both OAuth initiation endpoints redirected to the expected provider hosts.'
-              : 'Production smoke failed. Inspect the workflow run for the failing production, Supabase settings, or OAuth handoff check.';
+              ? 'Production smoke passed: live Builder Board and Community Favorites assets returned successfully, voting aggregates were public while individual vote rows stayed private, Supabase reports GitHub and Google enabled, and both OAuth initiation endpoints redirected to the expected provider hosts.'
+              : 'Production smoke failed. Inspect the workflow run for the failing production, voting privacy, Supabase settings, or OAuth handoff check.';
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
