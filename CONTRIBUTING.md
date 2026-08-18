@@ -6,12 +6,18 @@ Thanks for helping grow the collection. The core loop is simple:
 
 You do not need to implement an entire platform to contribute. A polished single game, a prompt improvement, a bug fix, an accessibility improvement, or a better bot is useful.
 
+## Fastest way to start
+
+If you want a concrete weekend-sized task instead of browsing all 51 prompts, open **[BUILD_QUEUE.md](BUILD_QUEUE.md)**. The queue links directly to starter build issues that you can claim by commenting on the issue.
+
+Claims are coordination signals, not exclusive reservations. Multiple independent implementations of the same game are welcome.
+
 ## Ways to contribute
 
 ### Build a game
 
-1. Browse [GAME_CATALOG.md](GAME_CATALOG.md) or [BUILD_CHALLENGE.md](BUILD_CHALLENGE.md).
-2. Open a **Claim a game** issue so others can see that an implementation is in progress.
+1. Browse [BUILD_QUEUE.md](BUILD_QUEUE.md), [GAME_CATALOG.md](GAME_CATALOG.md), or [BUILD_CHALLENGE.md](BUILD_CHALLENGE.md).
+2. For a queued starter game, comment on the linked build issue that you want to build it. For another prompt, open a **Claim a game** issue so others can see that an implementation is in progress.
 3. Use the matching file under `prompts/` as your starting specification.
 4. Build a complete playable browser version.
 5. Open-source your implementation.
@@ -79,4 +85,4 @@ Contributors who submit implementations may be credited in the dashboard/catalog
 
 ## Good first projects
 
-For a smaller weekend-sized contribution, start with Mastermind-style, Mancala, Dots and Boxes, Farkle, Boggle-style, Love-Letter-style, or a small digital-first variant. See [BUILD_CHALLENGE.md](BUILD_CHALLENGE.md) for more.
+For a smaller weekend-sized contribution, start with the live issues in [BUILD_QUEUE.md](BUILD_QUEUE.md), including Mastermind-style, Mancala, Dots and Boxes, Farkle, Boggle-style, and Love-Letter-style. See [BUILD_CHALLENGE.md](BUILD_CHALLENGE.md) for more.
