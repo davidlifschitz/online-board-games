@@ -391,3 +391,5 @@ init().catch(error=>{
   console.error('App initialization failed',error);
   setMessage($('#authMessage'),'The Builder Board could not initialize. Refresh and try again.','error');
 });
+
+import('/community-voting.js').catch(error=>console.error('Community voting module failed',error));
