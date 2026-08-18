@@ -76,7 +76,7 @@ where id = '<submission-id>'
 - Anonymous users can read approved submissions only.
 - Authenticated users can read their own pending/rejected submissions in addition to approved submissions.
 - Authenticated users can create submissions only for themselves and can edit/delete only their own pending submissions.
-- Builder identity fields are derived from `auth.users` inside a database trigger.
+- The accepted provider is taken from server-controlled Auth app metadata, while the public builder name/avatar are derived from the matching provider-issued record in `auth.identities`; user-editable `raw_user_meta_data` is not trusted for Builder Board identity.
 - Only GitHub or Google authenticated identities are accepted for website submissions.
 - Public GitHub source URLs are required.
 - Model metadata is required and normalized server-side.
