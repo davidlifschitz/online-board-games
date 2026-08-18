@@ -133,23 +133,22 @@ grant select (
   vote_count
 ) on table public.builder_submissions to anon, authenticated;
 
--- Drop/recreate so this extension works whether the base schema used the
--- historical builder_id view column or the newer builder_key spelling.
-drop view if exists public.builder_leaderboard;
-create view public.builder_leaderboard
+-- Preserve the base Builder Board's latest-approved identity semantics and
+-- append only the aggregate community-vote column.
+create or replace view public.builder_leaderboard
 with (security_invoker = true)
 as
 select
   builder_key as builder_id,
-  max(builder_display_name) as builder_display_name,
-  max(builder_avatar_url) as builder_avatar_url,
-  max(identity_provider) as identity_provider,
-  count(*)::integer as games_shipped,
-  count(*) filter (where first_implementation)::integer as first_implementations,
-  count(distinct game_id)::integer as distinct_game_concepts,
+  (array_agg(builder_display_name order by approved_at desc))[1] as builder_display_name,
+  (array_agg(builder_avatar_url order by approved_at desc))[1] as builder_avatar_url,
+  (array_agg(identity_provider order by approved_at desc))[1] as identity_provider,
+  count(*)::int as games_shipped,
+  count(*) filter (where first_implementation)::int as first_implementations,
+  count(distinct game_id)::int as distinct_game_concepts,
   min(approved_at) as first_ship_at,
   max(approved_at) as latest_ship_at,
-  sum(vote_count)::integer as community_votes
+  sum(vote_count)::int as community_votes
 from public.builder_submissions
 where status = 'approved'
 group by builder_key;
