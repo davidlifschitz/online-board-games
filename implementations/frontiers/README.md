@@ -22,8 +22,8 @@ The clash system is also original: attackers commit up to four armies, defenders
 - Reconnect identity via a locally stored client token; hosts can replace disconnected human seats with bots.
 - Optional turn timers.
 - SVG map with click/tap interactions, cross-region sea routes, army counters, attack arrows, region legend, keyboard territory activation, wheel zoom, drag pan, and touch pinch zoom.
-- Pure rules modules with deterministic RNG support.
-- Node built-in tests for map adjacency, reinforcement math, combat, capture, region bonuses, cards, victory conditions, fortification, and seeded bot simulations.
+- Deterministic RNG support in the rules engine.
+- Node built-in tests for map adjacency, reinforcement math, combat, capture, region bonuses, cards, victory conditions, fortification, setup, and seeded bot simulations.
 - Service worker caching for the local game shell. Online rooms still inherently require network signaling/connectivity.
 
 ## Online architecture
@@ -54,16 +54,22 @@ npm run simulate
 
 ## Deploy
 
-The repository includes `vercel.json` and can be deployed as a static Vercel project.
+The repository includes `vercel.json` and can be deployed as a static Vercel project with `implementations/frontiers` as the project root.
 
 ## Project layout
 
-- `src/map-data.js` — explicit territory, region, SVG polygon, and adjacency data.
-- `src/engine.js` — deterministic game rules and state transitions.
-- `src/bots.js` — Easy/Medium/Hard heuristics and bot turn runner.
-- `src/online.js` — lazy-loaded PeerJS room transport.
-- `src/app.js` — browser UI and host-side command routing.
-- `tests/` — rules and bot simulations.
+The browser runtime is intentionally split into classic scripts so it can be served directly by a static host without bundling:
+
+- `map.js` — explicit territory, region, SVG polygon, and adjacency data used by the browser.
+- `engine-a.js` / `engine-b.js` — deterministic rules, setup, combat, cards, fortification, scoring, and victory state transitions.
+- `bots.js` — Easy/Medium/Hard heuristics and bot turn runner.
+- `online.js` — lazy-loaded PeerJS room transport.
+- `app-a.js` / `app-b.js` / `app-c.js` — setup/lobby, rendering, interactions, timer, mobile map controls, and host-side command routing.
+- `src/map-data.js` — ES-module copy of the map graph used for structural validation.
+- `tests/harness.mjs` — isolated VM harness that loads the exact browser engine chunks for tests.
+- `tests/runtime.test.mjs` — rules and bot tests against that runtime.
+- `scripts/validate.mjs` — graph, syntax, and license checks.
+- `scripts/simulate.mjs` — randomized seeded bot simulations across 2–6 players.
 
 ## License
 
