@@ -17,7 +17,7 @@
     {"id":"backgammon","title":"Backgammon","prompt":"prompts/06-backgammon.md","categories":["1v1","strategy","dice","bot"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
     {"id":"battleship-style","title":"Battleship-style","prompt":"prompts/07-battleship.md","categories":["1v1","hidden-information","strategy","bot"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
     {"id":"stratego-inspired","title":"Stratego-inspired","prompt":"prompts/08-stratego-inspired.md","categories":["1v1","hidden-information","strategy","bot"],"difficulty":"advanced","status":"unbuilt","liveUrl":null},
-    {"id":"risk-style","title":"Frontiers","prompt":"prompts/09-risk-style.md","categories":["multiplayer","strategy","territory","bot"],"difficulty":"advanced","status":"live","liveUrl":"https://frontiers-snowy.vercel.app"},
+    {"id":"risk-style","title":"Risk-style / Frontiers","prompt":"prompts/09-risk-style.md","categories":["multiplayer","strategy","territory","bot"],"difficulty":"advanced","status":"live","liveUrl":"https://frontiers-snowy.vercel.app"},
     {"id":"settlers-style","title":"Settlers-style resource game","prompt":"prompts/10-settlers-style.md","categories":["multiplayer","strategy","trading","network"],"difficulty":"advanced","status":"unbuilt","liveUrl":null},
     {"id":"ticket-to-ride-style","title":"Ticket-to-Ride-style route game","prompt":"prompts/11-ticket-to-ride-style.md","categories":["multiplayer","strategy","route-building"],"difficulty":"advanced","status":"unbuilt","liveUrl":null},
     {"id":"five-dice","title":"Five Dice","prompt":"prompts/12-yahtzee-style.md","categories":["dice","solo","multiplayer"],"difficulty":"starter","status":"live","liveUrl":"https://five-dice.vercel.app"},
