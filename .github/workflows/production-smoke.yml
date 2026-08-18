@@ -1,0 +1,77 @@
+name: Production smoke
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  production-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify production UI, assets, and OAuth handoffs
+        env:
+          SITE_URL: https://os-online-board-games.vercel.app
+          SUPABASE_URL: https://slnvfdkyvijrhmisurhw.supabase.co
+          SUPABASE_PUBLISHABLE_KEY: sb_publishable_zUTHu9mHMbPfNKIgM_O0Zg_INCN9yF6
+        run: |
+          node <<'NODE'
+          const site = process.env.SITE_URL;
+          const supabase = process.env.SUPABASE_URL;
+          const key = process.env.SUPABASE_PUBLISHABLE_KEY;
+
+          const requireOk = async (url) => {
+            const response = await fetch(url, { redirect: 'follow' });
+            if (!response.ok) throw new Error(`${url} returned ${response.status}`);
+            return response;
+          };
+
+          const root = await requireOk(site);
+          const html = await root.text();
+          for (const marker of ['BUILDER BOARD', 'SUBMIT AN IMPLEMENTATION', 'Continue with GitHub', 'Continue with Google']) {
+            if (!html.includes(marker)) throw new Error(`Production HTML missing: ${marker}`);
+          }
+
+          for (const path of ['/games.json', '/styles.css', '/app.js']) {
+            await requireOk(`${site}${path}`);
+          }
+
+          const settingsResponse = await fetch(`${supabase}/auth/v1/settings`, {
+            headers: { apikey: key },
+          });
+          if (!settingsResponse.ok) throw new Error(`Auth settings returned ${settingsResponse.status}`);
+          const settings = await settingsResponse.json();
+          if (!settings.external?.github) throw new Error('GitHub Auth is not enabled in Supabase');
+          if (!settings.external?.google) throw new Error('Google Auth is not enabled in Supabase');
+
+          const expectedHosts = {
+            github: new Set(['github.com']),
+            google: new Set(['accounts.google.com']),
+          };
+
+          for (const provider of ['github', 'google']) {
+            const authorize = new URL(`${supabase}/auth/v1/authorize`);
+            authorize.searchParams.set('provider', provider);
+            authorize.searchParams.set('redirect_to', site);
+            const response = await fetch(authorize, {
+              headers: { apikey: key },
+              redirect: 'manual',
+            });
+            if (![301, 302, 303, 307, 308].includes(response.status)) {
+              const body = await response.text();
+              throw new Error(`${provider} authorize returned ${response.status}: ${body.slice(0, 300)}`);
+            }
+            const location = response.headers.get('location');
+            if (!location) throw new Error(`${provider} authorize did not return a Location header`);
+            const host = new URL(location).hostname;
+            if (!expectedHosts[provider].has(host)) {
+              throw new Error(`${provider} authorize redirected to unexpected host ${host}`);
+            }
+          }
+
+          console.log('Production UI/assets OK; GitHub and Google Auth enabled; OAuth handoffs OK.');
+          NODE
