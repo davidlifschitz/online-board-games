@@ -32,10 +32,19 @@ jobs:
             return response;
           };
 
-          const root = await requireOk(site);
-          const html = await root.text();
-          for (const marker of ['BUILDER BOARD', 'SUBMIT AN IMPLEMENTATION', 'Continue with GitHub', 'Continue with Google']) {
-            if (!html.includes(marker)) throw new Error(`Production HTML missing: ${marker}`);
+          const home = await (await requireOk(site)).text();
+          for (const marker of ['Start playing', 'Build a game', 'See the leaderboard']) {
+            if (!home.includes(marker)) throw new Error(`Production home missing: ${marker}`);
+          }
+
+          const buildHtml = await (await requireOk(`${site}/build.html`)).text();
+          for (const marker of ['SUBMIT AN IMPLEMENTATION', 'Continue with GitHub', 'Continue with Google']) {
+            if (!buildHtml.includes(marker)) throw new Error(`Production build page missing: ${marker}`);
+          }
+
+          const leaderboardHtml = await (await requireOk(`${site}/leaderboard.html`)).text();
+          if (!leaderboardHtml.includes('BUILDER BOARD')) {
+            throw new Error('Production leaderboard missing: BUILDER BOARD');
           }
 
           for (const path of ['/games.json', '/styles.css', '/app.js', '/community-voting.js']) {
