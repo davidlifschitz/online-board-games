@@ -13,6 +13,8 @@ OS Online Board Games is an open-source experiment to build a broad library of p
 
 > Multiple implementations of the same game are welcome. The goal is not to produce one canonical version of every game; it is to make it easy to experiment, compare approaches, and grow a useful open-source browser-game ecosystem.
 
+**Source provenance:** Every live game now has a documented permissive upstream baseline for rules, AI, or structured game data. See [OPEN_SOURCE_LINEAGE.md](OPEN_SOURCE_LINEAGE.md), the [live provenance page](https://os-online-board-games.vercel.app/open-source.html), and the machine-readable [`upstreams.json`](upstreams.json).
+
 ## How it works
 
 1. **Play one** — try the [live arcade](https://os-online-board-games.vercel.app).
@@ -24,7 +26,7 @@ OS Online Board Games is an open-source experiment to build a broad library of p
 
 | Game | Type | Play |
 |---|---|---|
-| Deal Room | Cards · multiplayer · bot | [Play](https://monopoly-deal-online.vercel.app) |
+| Deal Room | Cards · multiplayer · bot | [Play](https://os-online-board-games.vercel.app/games/deal-room/) |
 | DiscShift | 1v1 · strategy · bot | [Play](https://os-online-board-games.vercel.app/games/discshift/) |
 | Crown Jump | Checkers · 1v1 · strategy · bot | [Play](https://crown-jump-checkers.vercel.app) |
 | Five Dice | Dice · solo · PWA | [Play](https://five-dice.vercel.app) |
@@ -77,7 +79,7 @@ Connect Four ([Fourfront](https://fourfront-virid.vercel.app)) · Checkers ([Cro
 Risk-style ([Frontiers](https://frontiers-snowy.vercel.app)) · Settlers-style · Ticket-to-Ride-style · Carcassonne-style ([Tilebound](https://os-online-board-games.vercel.app/games/tilebound/)) · Stratego-inspired · Pandemic-style · Qwirkle-style · Sequence-style
 
 ### Cards
-Uno-style ([HueBreak](https://huebreak-card-game.vercel.app)) · Dominion-style · Love-Letter-style · Coup-style · President-style · Hearts · Spades · Gin Rummy · Rummy 500 · play-money Poker · Blackjack trainer · Hanabi-style · Monopoly Deal ([Deal Room](https://monopoly-deal-online.vercel.app))
+Uno-style ([HueBreak](https://huebreak-card-game.vercel.app)) · Dominion-style · Love-Letter-style · Coup-style · President-style · Hearts · Spades · Gin Rummy · Rummy 500 · play-money Poker · Blackjack trainer · Hanabi-style · property-set cards ([Deal Room](https://os-online-board-games.vercel.app/games/deal-room/))
 
 ### Party / social deduction
 Codenames-style ([Threadmark](https://threadmark-delta.vercel.app)) · Scattergories-style · Pictionary-style · Charades · Werewolf/Mafia · secret-government-style · Resistance/Avalon-style · Coup-style
@@ -131,7 +133,7 @@ Contributions can be full game implementations, alternate implementations, promp
 
 Start with the **[Build Queue](BUILD_QUEUE.md)** for a claimable starter issue or **[CONTRIBUTING.md](CONTRIBUTING.md)** for the full contribution flow. If you want to build another unimplemented game, use the **Claim a game** issue template so other contributors can see what is in progress. Once deployed, use the **[live Builder Board submission flow](https://os-online-board-games.vercel.app/#submit)**; the **[Submit a deployed game](https://github.com/davidlifschitz/online-board-games/issues/new?template=submit-deployed-game.yml)** issue remains available as a fallback.
 
-The machine-readable status of the collection lives in [`games.json`](games.json) so the arcade and future tooling can consume the same catalog.
+The machine-readable status of the collection lives in [`games.json`](games.json) so the arcade and future tooling can consume the same catalog. The permissive upstream/source map lives in [`upstreams.json`](upstreams.json).
 
 ## Design principles
 
