@@ -1,121 +1,102 @@
 # Game Catalog
 
-This catalog groups the project by **play pattern**, not by one exclusive genre. A game can belong to several categories at once. That is intentional and should eventually power filters in an online game dashboard.
+The repository contains **51 numbered prompt concepts**. As of 2026-08-19, **13** have a live implementation, plus **Deal Room** as an additional non-prompt live game. **38 numbered concepts remain unbuilt.**
+
+`games.json` is the machine-readable source of truth for live/unbuilt status. Categories overlap intentionally.
 
 ## 1v1 abstract strategy
-- [Connect Four](prompts/03-connect-four.md) — 1v1, abstract strategy, perfect information, AI-friendly
-- [Checkers](prompts/04-checkers.md) — 1v1, abstract strategy, perfect information
-- [Chess](prompts/05-chess.md) — 1v1, abstract strategy, perfect information
-- [Backgammon](prompts/06-backgammon.md) — 1v1, strategy, dice, probability
-- [Dots and Boxes](prompts/36-dots-and-boxes.md) — 1v1/multiplayer, abstract strategy
-- [Mancala](prompts/37-mancala.md) — 1v1, abstract strategy
-- [Nine Men's Morris](prompts/38-nine-mens-morris.md) — 1v1, abstract strategy
-- [Reversi](prompts/39-reversi-othello.md) — 1v1, abstract strategy
-- [Go](prompts/40-go.md) — 1v1, abstract strategy
-- [Hex](prompts/41-hex.md) — 1v1, connection strategy
-- [Santorini-style](prompts/42-santorini-style.md) — 1v1/teams, spatial strategy
-- [Hive-style](prompts/43-hive-style.md) — 1v1, tile strategy
-- [Mastermind-style](prompts/44-mastermind.md) — 1v1/solo, deduction
 
-## Multiplayer strategy / board games
-- [Stratego-inspired](prompts/08-stratego-inspired.md) — 1v1, hidden information, strategy
-- [Risk-style / Frontiers](prompts/09-risk-style.md) — 2–6, territory control, negotiation — [play Frontiers](https://frontiers-snowy.vercel.app)
-- [Settlers-style](prompts/10-settlers-style.md) — 2–4, economy, trading, network building
-- [Ticket-to-Ride-style](prompts/11-ticket-to-ride-style.md) — 2–5, route building, set collection
-- [Carcassonne-style](prompts/13-carcassonne-style.md) — 2–5, tile placement, spatial strategy
-- [Pandemic-style](prompts/34-pandemic-style.md) — cooperative, network strategy
-- [Qwirkle-style](prompts/50-qwirkle-style.md) — abstract multiplayer, tile placement
-- [Sequence-style](prompts/51-sequence-style.md) — teams/1v1, cards + spatial patterns
+- [Connect Four / Fourfront](prompts/03-connect-four.md) — **LIVE** — abstract strategy, bot
+- [Checkers / Crown Jump](prompts/04-checkers.md) — **LIVE** — abstract strategy, bot
+- [Chess](prompts/05-chess.md) — unbuilt
+- [Dots and Boxes / Boxline](prompts/36-dots-and-boxes.md) — **LIVE** — 2–4 local, bot
+- [Mancala / Sowstone](prompts/37-mancala.md) — **LIVE** — Kalah, bot
+- [Nine Men's Morris](prompts/38-nine-mens-morris.md) — unbuilt
+- [Reversi / DiscShift](prompts/39-reversi-othello.md) — **LIVE** — abstract strategy, bot
+- [Go](prompts/40-go.md) — unbuilt
+- [Hex](prompts/41-hex.md) — unbuilt
+- [Santorini-style](prompts/42-santorini-style.md) — unbuilt
+- [Hive-style](prompts/43-hive-style.md) — unbuilt
+- [Qwirkle-style](prompts/50-qwirkle-style.md) — unbuilt
 
-## Hidden-information and deduction
-- [Battleship-style](prompts/07-battleship.md)
-- [Stratego-inspired](prompts/08-stratego-inspired.md)
-- [Love-Letter-style](prompts/15-love-letter-style.md)
-- [Coup-style](prompts/16-coup-style.md)
-- [Mastermind-style](prompts/44-mastermind.md)
-- [Guess-Who-style](prompts/45-guess-who-style.md)
-- [Clue-style](prompts/46-clue-style.md)
-- [Liar's Dice](prompts/48-liars-dice.md)
-- [Perudo-style](prompts/49-perudo.md)
+## Multiplayer board and network strategy
+
+- [Risk-style / Frontiers](prompts/09-risk-style.md) — **LIVE** — territory control, bot
+- [Settlers-style](prompts/10-settlers-style.md) — unbuilt
+- [Ticket-to-Ride-style](prompts/11-ticket-to-ride-style.md) — unbuilt
+- [Carcassonne-style / Tilebound](prompts/13-carcassonne-style.md) — **LIVE** — tile placement, bot
+- [Pandemic-style](prompts/34-pandemic-style.md) — unbuilt
+- [Sequence-style](prompts/51-sequence-style.md) — unbuilt
 
 ## Traditional and modern card games
-- [Uno-style](prompts/01-uno-style.md)
-- [Dominion-style deck builder](prompts/14-dominion-style.md)
-- [Love-Letter-style](prompts/15-love-letter-style.md)
-- [Coup-style](prompts/16-coup-style.md)
-- [President-style](prompts/17-president-card-game.md)
-- [Hearts](prompts/18-hearts.md)
-- [Spades](prompts/19-spades.md)
-- [Gin Rummy](prompts/20-gin-rummy.md)
-- [Rummy 500](prompts/21-rummy-500.md)
-- [Play-money Poker](prompts/22-poker.md)
-- [Blackjack strategy trainer](prompts/23-blackjack.md)
-- [Hanabi-style](prompts/33-hanabi-style.md)
 
-## Party, team, and social deduction
-- [Codenames-style](prompts/02-codenames-style.md)
-- [Coup-style](prompts/16-coup-style.md)
-- [Scattergories-style](prompts/27-scattergories-style.md)
-- [Pictionary-style](prompts/28-pictionary-style.md)
-- [Charades / Heads-Up-style](prompts/29-charades-heads-up-style.md)
-- [Werewolf / Mafia](prompts/30-werewolf-mafia.md)
-- [Secret-government-style](prompts/31-secret-government-style.md)
-- [Resistance/Avalon-style](prompts/32-resistance-avalon-style.md)
+- Deal Room — **LIVE** — property-set card game outside the numbered prompt catalog
+- [Uno-style / HueBreak](prompts/01-uno-style.md) — **LIVE** — shedding cards
+- [Dominion-style deck builder](prompts/14-dominion-style.md) — unbuilt
+- [Love-Letter-style](prompts/15-love-letter-style.md) — unbuilt
+- [Coup-style](prompts/16-coup-style.md) — unbuilt
+- [President-style](prompts/17-president-card-game.md) — unbuilt
+- [Hearts](prompts/18-hearts.md) — unbuilt
+- [Spades](prompts/19-spades.md) — unbuilt
+- [Gin Rummy](prompts/20-gin-rummy.md) — unbuilt
+- [Rummy 500](prompts/21-rummy-500.md) — unbuilt
+- [Play-money Poker](prompts/22-poker.md) — unbuilt
+- [Blackjack strategy trainer](prompts/23-blackjack.md) — unbuilt
+- [Hanabi-style](prompts/33-hanabi-style.md) — unbuilt
 
-## Word games
-- [Codenames-style](prompts/02-codenames-style.md)
-- [Scrabble-style](prompts/25-scrabble-style.md)
-- [Boggle-style](prompts/26-boggle-style.md)
-- [Scattergories-style](prompts/27-scattergories-style.md)
-- [Pictionary-style](prompts/28-pictionary-style.md)
-- [Charades / Heads-Up-style](prompts/29-charades-heads-up-style.md)
+## Word, party, and social deduction
+
+- [Codenames-style / Threadmark](prompts/02-codenames-style.md) — **LIVE** — word association, teams
+- [Scrabble-style](prompts/25-scrabble-style.md) — unbuilt
+- [Boggle-style](prompts/26-boggle-style.md) — unbuilt
+- [Scattergories-style](prompts/27-scattergories-style.md) — unbuilt
+- [Pictionary-style](prompts/28-pictionary-style.md) — unbuilt
+- [Charades / Heads-Up-style](prompts/29-charades-heads-up-style.md) — unbuilt
+- [Werewolf / Mafia](prompts/30-werewolf-mafia.md) — unbuilt
+- [Secret-government-style](prompts/31-secret-government-style.md) — unbuilt
+- [Resistance / Avalon-style](prompts/32-resistance-avalon-style.md) — unbuilt
 
 ## Dice and probability
-- [Backgammon](prompts/06-backgammon.md)
-- [Five Dice / Yahtzee-style](prompts/12-yahtzee-style.md)
-- [Blackjack strategy trainer](prompts/23-blackjack.md)
-- [Farkle](prompts/47-farkle.md)
-- [Liar's Dice](prompts/48-liars-dice.md)
-- [Perudo-style](prompts/49-perudo.md)
 
-## Cooperative games
-- [Codenames-style cooperative variant](prompts/02-codenames-style.md)
-- [Hanabi-style](prompts/33-hanabi-style.md)
-- [Pandemic-style](prompts/34-pandemic-style.md)
-- [2048 cooperative variant](prompts/35-2048-multiplayer.md)
+- [Backgammon](prompts/06-backgammon.md) — unbuilt
+- [Five Dice](prompts/12-yahtzee-style.md) — **LIVE**
+- [Blackjack strategy trainer](prompts/23-blackjack.md) — unbuilt
+- [Farkle / Spark Six](prompts/47-farkle.md) — **LIVE** — bot, local multiplayer
+- [Liar's Dice](prompts/48-liars-dice.md) — unbuilt
+- [Perudo-style](prompts/49-perudo.md) — unbuilt
 
-## Digital-first / newer-format games
-These are especially good candidates for mechanics that would be awkward or impossible on a physical table.
+## Hidden information and deduction
 
-- [2048 multiplayer variants](prompts/35-2048-multiplayer.md) — synchronized seeds, races, battle effects
-- [Pictionary-style](prompts/28-pictionary-style.md) — real-time shared canvas
-- [Daily Boggle-style](prompts/26-boggle-style.md) — seeded daily boards and global comparisons
-- [Daily Five Dice](prompts/12-yahtzee-style.md) — deterministic daily rolls
-- [Online Battleship-style](prompts/07-battleship.md) — cryptographic commitments for hidden boards
-- [Online social deduction](prompts/30-werewolf-mafia.md) — automated moderator/private role delivery
+- [Battleship-style](prompts/07-battleship.md) — unbuilt
+- [Stratego-inspired](prompts/08-stratego-inspired.md) — unbuilt
+- [Love-Letter-style](prompts/15-love-letter-style.md) — unbuilt
+- [Coup-style](prompts/16-coup-style.md) — unbuilt
+- [Play-money Poker](prompts/22-poker.md) — unbuilt
+- [Werewolf / Mafia](prompts/30-werewolf-mafia.md) — unbuilt
+- [Secret-government-style](prompts/31-secret-government-style.md) — unbuilt
+- [Resistance / Avalon-style](prompts/32-resistance-avalon-style.md) — unbuilt
+- [Hanabi-style](prompts/33-hanabi-style.md) — unbuilt
+- [Mastermind-style / Cipherloom](prompts/44-mastermind.md) — **LIVE** — deduction, solver
+- [Guess-Who-style](prompts/45-guess-who-style.md) — unbuilt
+- [Clue-style](prompts/46-clue-style.md) — unbuilt
+- [Liar's Dice](prompts/48-liars-dice.md) — unbuilt
+- [Perudo-style](prompts/49-perudo.md) — unbuilt
 
-## Large / advanced builds
-These require substantially more rule, AI, or multiplayer work than the smaller games.
+## Cooperative and digital-first
 
-- Chess
-- Go
-- Mahjong
-- [Frontiers](https://frontiers-snowy.vercel.app) territory-control game
-- Settlers-style resource game
-- Pandemic-style cooperative game
-- Stratego-inspired hidden-information game
-- Scrabble-style word board game
+- [Hanabi-style](prompts/33-hanabi-style.md) — unbuilt
+- [Pandemic-style](prompts/34-pandemic-style.md) — unbuilt
+- [2048 multiplayer / Mergefront](prompts/35-2048-multiplayer.md) — **LIVE** — seeded race, battle, co-op
 
-## Fastest games to build well
-- Connect Four
-- Dots and Boxes
-- Mancala
-- Mastermind-style
-- Boggle-style
-- Farkle
-- Five Dice
-- Love-Letter-style
-- 2048 multiplayer variants
+## Tile and spatial games
 
-## Full collection
-There are **51 game concepts** in the repository. The `prompts/` directory contains one implementation prompt per concept.
+- [Mahjong](prompts/24-mahjong.md) — unbuilt
+- [Carcassonne-style / Tilebound](prompts/13-carcassonne-style.md) — **LIVE**
+- [Santorini-style](prompts/42-santorini-style.md) — unbuilt
+- [Hive-style](prompts/43-hive-style.md) — unbuilt
+- [Qwirkle-style](prompts/50-qwirkle-style.md) — unbuilt
+- [Sequence-style](prompts/51-sequence-style.md) — unbuilt
+
+## Conversion sequence
+
+See [CONVERSION_PLAN_43.md](CONVERSION_PLAN_43.md) for the implementation batches covering the 43 concepts that were unbuilt when this conversion effort started.
