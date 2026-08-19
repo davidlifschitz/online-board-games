@@ -47,7 +47,16 @@ jobs:
             throw new Error('Production leaderboard missing: BUILDER BOARD');
           }
 
-          for (const path of ['/games.json', '/styles.css', '/app.js', '/community-voting.js']) {
+          for (const path of [
+            '/games.json',
+            '/styles.css',
+            '/navigation.css',
+            '/app.js',
+            '/auth-landing.js',
+            '/build.js',
+            '/leaderboard.js',
+            '/community-voting.js',
+          ]) {
             await requireOk(`${site}${path}`);
           }
 
@@ -110,7 +119,7 @@ jobs:
             }
           }
 
-          console.log('Production UI/assets, voting aggregates/privacy, GitHub/Google Auth, and OAuth handoffs OK.');
+          console.log('Production split-page UI/assets, voting aggregates/privacy, GitHub/Google Auth, and OAuth handoffs OK.');
           NODE
 
       - name: Report requested verification to issue 13
@@ -123,8 +132,8 @@ jobs:
             const passed = process.env.SMOKE_OUTCOME === 'success';
             const icon = passed ? '✅' : '❌';
             const summary = passed
-              ? 'Production smoke passed: live Builder Board and Community Favorites assets returned successfully, voting aggregates were public while individual vote rows stayed private, Supabase reports GitHub and Google enabled, and both OAuth initiation endpoints redirected to the expected provider hosts.'
-              : 'Production smoke failed. Inspect the workflow run for the failing production, voting privacy, Supabase settings, or OAuth handoff check.';
+              ? 'Production smoke passed: split-page UI and current assets returned successfully, voting aggregates were public while individual vote rows stayed private, Supabase reports GitHub and Google enabled, and both OAuth initiation endpoints redirected to the expected provider hosts.'
+              : 'Production smoke failed. Inspect the workflow run for the failing production UI/assets, voting privacy, Supabase settings, or OAuth handoff check.';
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
