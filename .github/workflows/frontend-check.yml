@@ -21,3 +21,10 @@ jobs:
           node --check app.js
           node --check community-voting.js
           node --check leaderboard.js
+          node --check games/crown-jump/engine.js
+          node --check games/crown-jump/ai.js
+          node --check games/crown-jump/ai-worker.js
+          node --check games/crown-jump/persistence.js
+          node --check games/crown-jump/app.js
+      - name: Test Crown Jump engine and repetition behavior
+        run: npm test --prefix games/crown-jump
