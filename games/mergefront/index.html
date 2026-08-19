@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="Mergefront is an original seeded sliding-number puzzle with solo, race, time attack, battle and co-op modes.">
+  <title>Mergefront • OS Online Board Games</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <nav><a href="/play.html">← Arcade</a><span>OS Online Board Games</span></nav>
+    <header>
+      <p class="eyebrow">SEEDED PUZZLE • LOCAL MULTIPLAYER • OFFLINE READY</p>
+      <h1>Mergefront</h1>
+      <p>Slide equal tiles together. Race on the same seed, share one board, or pressure an opponent with blocker tiles.</p>
+    </header>
+
+    <section class="controls" aria-label="Game setup">
+      <label>Mode
+        <select id="mode">
+          <option value="solo">Solo</option>
+          <option value="race">Race · 2 players</option>
+          <option value="time">Time attack · 2 players</option>
+          <option value="battle">Battle · 2 players</option>
+          <option value="coop">Co-op · alternating</option>
+        </select>
+      </label>
+      <label>Grid
+        <select id="size"><option>4</option><option>5</option><option>6</option></select>
+      </label>
+      <label>Seed <input id="seed" inputmode="numeric" value="20260819"></label>
+      <button id="newGame">New game</button>
+      <button id="daily">Daily seed</button>
+    </section>
+
+    <section class="statusbar">
+      <div><span>Mode</span><strong id="modeLabel">Solo</strong></div>
+      <div><span>Target</span><strong>2048</strong></div>
+      <div><span>Clock</span><strong id="clock">—</strong></div>
+      <div><span>Replay</span><strong id="replayCount">0 moves</strong></div>
+    </section>
+
+    <section id="boards" class="boards one" aria-live="polite"></section>
+    <p id="message" class="message" role="status"></p>
+
+    <section class="help">
+      <h2>Controls</h2>
+      <p><b>Player 1:</b> W A S D. <b>Player 2:</b> arrow keys. On touch devices, swipe directly on a board. In co-op, each successful move hands control to the other player.</p>
+      <p>In Battle, a merge of 64 or higher sends one to three blockers to the other board. Blockers split a row or column into independent sliding segments.</p>
+      <details><summary>Rules & provenance</summary><p>The engine is an original deterministic implementation. The classic slide/merge semantics were audited against permissively licensed 2048 implementations; no upstream artwork or branding is used. See THIRD_PARTY_NOTICES.md in the repository.</p></details>
+    </section>
+  </main>
+  <script src="engine.js"></script>
+  <script src="game.js"></script>
+  <script>if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});</script>
+</body>
+</html>
