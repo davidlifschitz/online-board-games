@@ -22,98 +22,35 @@
     </nav>
 
     <header class="page-hero">
-      <div class="eyebrow">LIVE COLLECTION</div>
+      <div class="eyebrow">LIVE COLLECTION • OPEN-SOURCE BASELINES VERIFIED</div>
       <h1>Play.</h1>
-      <p class="lede">Nine live browser games, from quick solo sessions to strategy and online multiplayer. Pick one and open it directly.</p>
+      <p class="lede">Nine live browser games. Each game now has a documented permissive upstream baseline for rules, AI, or structured game data; original branding and presentation stay ours.</p>
     </header>
 
     <main class="page-main">
       <section id="games">
         <div class="toolbar" aria-label="Game filters">
-          <div>
-            <p class="section-label">CHOOSE A GAME</p>
-            <h2>What are you in the mood for?</h2>
-          </div>
+          <div><p class="section-label">CHOOSE A GAME</p><h2>What are you in the mood for?</h2></div>
           <div class="filters" role="group" aria-label="Filter games">
-            <button class="filter active" data-filter="all">All</button>
-            <button class="filter" data-filter="strategy">Strategy</button>
-            <button class="filter" data-filter="cards">Cards</button>
-            <button class="filter" data-filter="word">Word</button>
-            <button class="filter" data-filter="dice">Dice</button>
+            <button class="filter active" data-filter="all">All</button><button class="filter" data-filter="strategy">Strategy</button><button class="filter" data-filter="cards">Cards</button><button class="filter" data-filter="word">Word</button><button class="filter" data-filter="dice">Dice</button>
           </div>
         </div>
 
         <section class="grid" aria-live="polite">
-          <article class="game-card featured" data-tags="cards multiplayer strategy">
-            <div class="card-top"><span class="number">01</span><span class="status">LIVE</span></div>
-            <div class="icon">◆</div><h3>Deal Room</h3>
-            <p>Fast property-set card battles inspired by deal-making games. Play solo against a bot or open a room for friends.</p>
-            <div class="tags"><span>Cards</span><span>Bot</span><span>Online</span></div>
-            <a href="https://monopoly-deal-online.vercel.app" target="_blank" rel="noreferrer">Play Deal Room <b>↗</b></a>
-          </article>
-          <article class="game-card" data-tags="strategy 1v1 bot">
-            <div class="card-top"><span class="number">02</span><span class="status">LIVE</span></div><div class="icon">◑</div><h3>DiscShift</h3>
-            <p>Disk-flipping strategy against the computer. Control the board by trapping and converting opposing pieces.</p>
-            <div class="tags"><span>1v1</span><span>Strategy</span><span>Bot</span></div>
-            <a href="/games/discshift/">Play DiscShift <b>→</b></a>
-          </article>
-          <article class="game-card" data-tags="strategy 1v1 bot">
-            <div class="card-top"><span class="number">03</span><span class="status">LIVE</span></div><div class="icon">♛</div><h3>Crown Jump</h3>
-            <p>Open-source American checkers with mandatory captures, multi-jumps, kings, and computer opponents.</p>
-            <div class="tags"><span>1v1</span><span>Strategy</span><span>Bot</span></div>
-            <a href="https://crown-jump-checkers.vercel.app" target="_blank" rel="noreferrer">Play Crown Jump <b>↗</b></a>
-          </article>
-          <article class="game-card" data-tags="dice multiplayer bot">
-            <div class="card-top"><span class="number">04</span><span class="status">LIVE</span></div><div class="icon">⚄</div><h3>Five Dice</h3>
-            <p>Roll, hold, and score five dice across a full scorecard. Built for quick solo sessions and repeat play.</p>
-            <div class="tags"><span>Dice</span><span>Solo</span><span>PWA</span></div>
-            <a href="https://five-dice.vercel.app" target="_blank" rel="noreferrer">Play Five Dice <b>↗</b></a>
-          </article>
-          <article class="game-card" data-tags="cards multiplayer bot">
-            <div class="card-top"><span class="number">05</span><span class="status">LIVE</span></div><div class="icon">▰</div><h3>HueBreak</h3>
-            <p>An original shedding-card game built for fast browser play with colorful hands, action cards, and tactical turns.</p>
-            <div class="tags"><span>Cards</span><span>Multiplayer</span><span>Fast</span></div>
-            <a href="https://huebreak-card-game.vercel.app" target="_blank" rel="noreferrer">Play HueBreak <b>↗</b></a>
-          </article>
-          <article class="game-card" data-tags="word multiplayer party">
-            <div class="card-top"><span class="number">06</span><span class="status">LIVE</span></div><div class="icon">Aa</div><h3>Threadmark</h3>
-            <p>Team word association with private clue-giver information, shared boards, and online room-based play.</p>
-            <div class="tags"><span>Word</span><span>Teams</span><span>Party</span></div>
-            <a href="https://threadmark-delta.vercel.app" target="_blank" rel="noreferrer">Play Threadmark <b>↗</b></a>
-          </article>
-          <article class="game-card" data-tags="strategy 1v1 bot">
-            <div class="card-top"><span class="number">07</span><span class="status">LIVE</span></div><div class="icon">●</div><h3>Fourfront</h3>
-            <p>Original open-source Connect Four: drop pieces, create threats, block your opponent, and connect four first.</p>
-            <div class="tags"><span>1v1</span><span>Strategy</span><span>Bot</span></div>
-            <a href="https://fourfront-virid.vercel.app" target="_blank" rel="noreferrer">Play Fourfront <b>↗</b></a>
-          </article>
-          <article class="game-card" data-tags="strategy multiplayer bot">
-            <div class="card-top"><span class="number">08</span><span class="status">LIVE</span></div><div class="icon">◎</div><h3>Frontiers</h3>
-            <p>World-scale territory control across a real map. Reinforce, attack, fortify, and pursue multiple victory paths.</p>
-            <div class="tags"><span>Strategy</span><span>2–6 Players</span><span>Bots</span></div>
-            <a href="https://frontiers-snowy.vercel.app" target="_blank" rel="noreferrer">Play Frontiers <b>↗</b></a>
-          </article>
-          <article class="game-card" data-tags="strategy multiplayer bot">
-            <div class="card-top"><span class="number">09</span><span class="status">LIVE</span></div><div class="icon">▦</div><h3>Tilebound</h3>
-            <p>An original tile-placement strategy game converted from MIT-licensed Tabletop Simulator tile data. Rotate, match terrain, score, and play against a bot.</p>
-            <div class="tags"><span>Strategy</span><span>Tiles</span><span>Bot</span></div>
-            <a href="/games/tilebound/">Play Tilebound <b>→</b></a>
-          </article>
+          <article class="game-card featured" data-tags="cards multiplayer strategy"><div class="card-top"><span class="number">01</span><span class="status">MIT BASELINE</span></div><div class="icon">◆</div><h3>Deal Room</h3><p>Original property-set card battles, now aligned to the MIT DealBench state model with original action names instead of commercial card names.</p><div class="tags"><span>Cards</span><span>Bot</span><span>Online</span></div><a href="/games/deal-room/">Play Deal Room <b>→</b></a></article>
+          <article class="game-card" data-tags="strategy 1v1 bot"><div class="card-top"><span class="number">02</span><span class="status">MIT BASELINE</span></div><div class="icon">◑</div><h3>DiscShift</h3><p>Disk-flipping strategy with the move-hint toggle you requested and stronger mobility, parity, frontier, edge-stability and positional AI evaluation.</p><div class="tags"><span>1v1</span><span>Strategy</span><span>Bot</span></div><a href="/games/discshift/">Play DiscShift <b>→</b></a></article>
+          <article class="game-card" data-tags="strategy 1v1 bot"><div class="card-top"><span class="number">03</span><span class="status">MIT AUDITED</span></div><div class="icon">♛</div><h3>Crown Jump</h3><p>American checkers with mandatory captures, multi-jumps, kings, local play, online rooms and computer opponents.</p><div class="tags"><span>1v1</span><span>Strategy</span><span>Bot</span></div><a href="https://crown-jump-checkers.vercel.app" target="_blank" rel="noreferrer">Play Crown Jump <b>↗</b></a></article>
+          <article class="game-card" data-tags="dice multiplayer bot"><div class="card-top"><span class="number">04</span><span class="status">MIT AUDITED</span></div><div class="icon">⚄</div><h3>Five Dice</h3><p>Full five-dice scorecard with projected scores, bots, local play, daily challenges and online rooms; optimal-strategy work is the AI reference.</p><div class="tags"><span>Dice</span><span>Solo</span><span>PWA</span></div><a href="https://five-dice.vercel.app" target="_blank" rel="noreferrer">Play Five Dice <b>↗</b></a></article>
+          <article class="game-card" data-tags="cards multiplayer bot"><div class="card-top"><span class="number">05</span><span class="status">MIT AUDITED</span></div><div class="icon">▰</div><h3>HueBreak</h3><p>Original shedding-card game checked against a permissively licensed UNO implementation while keeping original hues, symbols, rules presentation and multiplayer.</p><div class="tags"><span>Cards</span><span>Multiplayer</span><span>Fast</span></div><a href="https://huebreak-card-game.vercel.app" target="_blank" rel="noreferrer">Play HueBreak <b>↗</b></a></article>
+          <article class="game-card" data-tags="word multiplayer party"><div class="card-top"><span class="number">06</span><span class="status">MIT AUDITED</span></div><div class="icon">Aa</div><h3>Threadmark</h3><p>Team word association with private Navigator information, custom word packs, local/offline modes and online rooms, audited against an MIT Codenames AI framework.</p><div class="tags"><span>Word</span><span>Teams</span><span>Party</span></div><a href="https://threadmark-delta.vercel.app" target="_blank" rel="noreferrer">Play Threadmark <b>↗</b></a></article>
+          <article class="game-card" data-tags="strategy 1v1 bot"><div class="card-top"><span class="number">07</span><span class="status">MIT AUDITED</span></div><div class="icon">●</div><h3>Fourfront</h3><p>Connect-four strategy with variable boards, strong worker-based AI, local matches and peer-to-peer rooms; rules checked against an MIT browser game suite.</p><div class="tags"><span>1v1</span><span>Strategy</span><span>Bot</span></div><a href="https://fourfront-virid.vercel.app" target="_blank" rel="noreferrer">Play Fourfront <b>↗</b></a></article>
+          <article class="game-card" data-tags="strategy multiplayer bot"><div class="card-top"><span class="number">08</span><span class="status">MIT AUDITED</span></div><div class="icon">◎</div><h3>Frontiers</h3><p>42-territory world conquest with reinforcement, attack, fortify, cards, bots and multiple victory modes; audited against MIT Risk-like implementations.</p><div class="tags"><span>Strategy</span><span>2–6 Players</span><span>Bots</span></div><a href="https://frontiers-snowy.vercel.app" target="_blank" rel="noreferrer">Play Frontiers <b>↗</b></a></article>
+          <article class="game-card" data-tags="strategy multiplayer bot"><div class="card-top"><span class="number">09</span><span class="status">MIT ADAPTED</span></div><div class="icon">▦</div><h3>Tilebound</h3><p>Original tile-placement strategy adapted from MIT-licensed Tabletop Simulator tile data with original SVG art, scoring, bot play and offline support.</p><div class="tags"><span>Strategy</span><span>Tiles</span><span>Bot</span></div><a href="/games/tilebound/">Play Tilebound <b>→</b></a></article>
         </section>
+        <p style="margin-top:20px"><a href="/open-source.html">See the complete upstream/license map →</a></p>
       </section>
     </main>
-
     <footer><span>OS Online Board Games</span><span><a href="/build.html">Build one next →</a></span></footer>
   </div>
-  <script>
-    const filters=[...document.querySelectorAll('.filter')];
-    const cards=[...document.querySelectorAll('.game-card')];
-    filters.forEach(button=>button.addEventListener('click',()=>{
-      filters.forEach(item=>item.classList.remove('active'));
-      button.classList.add('active');
-      const filter=button.dataset.filter;
-      cards.forEach(card=>card.classList.toggle('hidden',filter!=='all'&&!card.dataset.tags.split(' ').includes(filter)));
-    }));
-  </script>
-</body>
-</html>
+  <script>const filters=[...document.querySelectorAll('.filter')],cards=[...document.querySelectorAll('.game-card')];filters.forEach(b=>b.addEventListener('click',()=>{filters.forEach(x=>x.classList.remove('active'));b.classList.add('active');const f=b.dataset.filter;cards.forEach(c=>c.classList.toggle('hidden',f!=='all'&&!c.dataset.tags.split(' ').includes(f)))}));</script>
+</body></html>
