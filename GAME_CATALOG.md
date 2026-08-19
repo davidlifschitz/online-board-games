@@ -1,6 +1,6 @@
 # Game Catalog
 
-The repository contains **51 numbered prompt concepts**. As of 2026-08-19, **13** have a live implementation, plus **Deal Room** as an additional non-prompt live game. **38 numbered concepts remain unbuilt.**
+The repository contains **51 numbered prompt concepts**. As of 2026-08-19, **18** have a live implementation, plus **Deal Room** as an additional non-prompt live game. **33 numbered concepts remain unbuilt.**
 
 `games.json` is the machine-readable source of truth for live/unbuilt status. Categories overlap intentionally.
 
@@ -11,10 +11,10 @@ The repository contains **51 numbered prompt concepts**. As of 2026-08-19, **13*
 - [Chess](prompts/05-chess.md) — unbuilt
 - [Dots and Boxes / Boxline](prompts/36-dots-and-boxes.md) — **LIVE** — 2–4 local, bot
 - [Mancala / Sowstone](prompts/37-mancala.md) — **LIVE** — Kalah, bot
-- [Nine Men's Morris](prompts/38-nine-mens-morris.md) — unbuilt
+- [Nine Men's Morris / Millstone](prompts/38-nine-mens-morris.md) — **LIVE** — local, bot
 - [Reversi / DiscShift](prompts/39-reversi-othello.md) — **LIVE** — abstract strategy, bot
 - [Go](prompts/40-go.md) — unbuilt
-- [Hex](prompts/41-hex.md) — unbuilt
+- [Hex / Hexline](prompts/41-hex.md) — **LIVE** — connection strategy, bot, analysis
 - [Santorini-style](prompts/42-santorini-style.md) — unbuilt
 - [Hive-style](prompts/43-hive-style.md) — unbuilt
 - [Qwirkle-style](prompts/50-qwirkle-style.md) — unbuilt
@@ -41,7 +41,7 @@ The repository contains **51 numbered prompt concepts**. As of 2026-08-19, **13*
 - [Gin Rummy](prompts/20-gin-rummy.md) — unbuilt
 - [Rummy 500](prompts/21-rummy-500.md) — unbuilt
 - [Play-money Poker](prompts/22-poker.md) — unbuilt
-- [Blackjack strategy trainer](prompts/23-blackjack.md) — unbuilt
+- [Blackjack strategy trainer / Twenty-One Lab](prompts/23-blackjack.md) — **LIVE** — play-money strategy trainer
 - [Hanabi-style](prompts/33-hanabi-style.md) — unbuilt
 
 ## Word, party, and social deduction
@@ -58,16 +58,16 @@ The repository contains **51 numbered prompt concepts**. As of 2026-08-19, **13*
 
 ## Dice and probability
 
-- [Backgammon](prompts/06-backgammon.md) — unbuilt
+- [Backgammon / Racehome](prompts/06-backgammon.md) — **LIVE** — complete-turn legality, bot
 - [Five Dice](prompts/12-yahtzee-style.md) — **LIVE**
-- [Blackjack strategy trainer](prompts/23-blackjack.md) — unbuilt
+- [Blackjack strategy trainer / Twenty-One Lab](prompts/23-blackjack.md) — **LIVE** — play-money trainer
 - [Farkle / Spark Six](prompts/47-farkle.md) — **LIVE** — bot, local multiplayer
 - [Liar's Dice](prompts/48-liars-dice.md) — unbuilt
 - [Perudo-style](prompts/49-perudo.md) — unbuilt
 
 ## Hidden information and deduction
 
-- [Battleship-style](prompts/07-battleship.md) — unbuilt
+- [Battleship-style / Gridwake](prompts/07-battleship.md) — **LIVE** — commitments, privacy screen, bot
 - [Stratego-inspired](prompts/08-stratego-inspired.md) — unbuilt
 - [Love-Letter-style](prompts/15-love-letter-style.md) — unbuilt
 - [Coup-style](prompts/16-coup-style.md) — unbuilt
