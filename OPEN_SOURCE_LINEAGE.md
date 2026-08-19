@@ -20,10 +20,19 @@ The live collection follows a permissive-upstream-only rule for copied or materi
 | Sowstone | `josephsivits/mancala-js` + `OguzhanUmutlu/webmancala` | MIT | `audited` | Mancala/Kalah turn-flow reference |
 | Cipherloom | `nuragic/MastermindJS` + `geobalas/colorbreaker` | MIT | `audited` | Feedback/browser game-loop reference |
 | Spark Six | `Varrus/JMFarkle` + `opub/farkle` | MIT | `audited` | Scoring and roll/keep/bank reference |
+| Millstone | `EstevesX10/Web-Nine-Mens-Morris` + `antonioc-26/Web-Games` | MIT | `audited` | Board graph, phase, mill/removal and browser-play reference |
+| Hexline | `GTmmiller/hex-game` + `ddepasquali/roentgen` | MIT | `audited` | Browser hex board/grid interaction reference |
+| Racehome | `quasoft/backgammonjs` + `binarymax/backgammon.js` | MIT | `audited` | Move-flow and browser Backgammon regression reference |
+| Gridwake | `KelvinQiu802/battleship` + `kbennett2000/lan-games` | MIT | `audited` | Naval-grid placement/shot and multiplayer architecture reference |
+| Twenty-One Lab | `K9wwh/blackjack-basic-strategy-trainer` + `joshknopp/Train21` | MIT | `audited` | Basic-strategy decision and trainer-flow reference |
 
 ## Batch 1
 
 Mergefront, Boxline, Sowstone, Cipherloom, and Spark Six are independently implemented browser games. Their selected MIT upstreams are regression/mechanics/UX references only; no upstream source code or artwork was copied. Each includes `THIRD_PARTY_NOTICES.md`.
+
+## Batch 2
+
+Millstone, Hexline, Racehome, Gridwake, and Twenty-One Lab are also independently implemented. The selected reference repositories were directly checked for MIT license files. Their code, artwork, branding, fonts, audio, and presentation were not copied; the references were used for rule, architecture, interaction, and regression comparison only. Each game includes `THIRD_PARTY_NOTICES.md`.
 
 ## Migration policy
 
