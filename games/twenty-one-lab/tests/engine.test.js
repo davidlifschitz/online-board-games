@@ -1,0 +1,13 @@
+const assert=require('node:assert/strict'),E=require('../engine.js');assert.deepEqual(E.handValue([1,6]),{total:17,soft:true,bust:false});assert.deepEqual(E.handValue([1,6,10]),{total:17,soft:false,bust:false});assert.equal(E.handValue([10,9,5]).bust,true);assert.equal(E.basicStrategy([8,8],10,{},true,true),'split');assert.equal(E.basicStrategy([10,6],10,{},false,true),'surrender');assert.equal(E.basicStrategy([1,7],6,{},false,false),'double');assert.equal(E.basicStrategy([10,7],11,{},false,false),'stand');
+let s=E.createSession({decks:1,seed:123});assert.equal(s.shoe.length,52);let x=E.startRound(s);assert.equal(x.round.dealer.length,2);assert.equal(x.round.hands[0].cards.length,2);
+// deterministic custom session for split
+s=E.createSession({decks:1,seed:1});s.shoe=[2,3,4,5,6,7,8,9];let r={dealer:[6,10],hands:[{cards:[8,8],bet:1,done:false,fromSplit:false,splitAces:false,surrendered:false}],active:0,insurance:0,over:false,net:0,actions:[]};let y=E.applyAction(s,r,'split');assert.equal(y.round.hands.length,2);assert.equal(y.round.hands[0].cards.length,2);assert.ok(y.round.hands.every(h=>h.fromSplit));
+// double draws one and ends hand/dealer resolves
+s=E.createSession({decks:1,seed:2});s.shoe=[10,10,10,5];r={dealer:[10,7],hands:[{cards:[5,6],bet:1,done:false,fromSplit:false,splitAces:false,surrendered:false}],active:0,insurance:0,over:false,net:0,actions:[]};y=E.applyAction(s,r,'double');assert.equal(y.round.hands[0].bet,2);assert.equal(y.round.over,true);
+// natural payout
+s=E.createSession({decks:1,blackjackPayout:1.5});r={dealer:[10,7],hands:[{cards:[1,13],bet:1,done:false,fromSplit:false,splitAces:false,surrendered:false}],active:0,insurance:0,over:false,net:0,actions:[]};E.settle(s,r);assert.equal(r.net,1.5);
+
+// Insurance gate: player may take/decline before ordinary actions, and insurance offsets a dealer blackjack.
+s=E.createSession({decks:1,insurance:true});r={dealer:[1,10],hands:[{cards:[10,9],bet:1,done:false,fromSplit:false,splitAces:false,surrendered:false}],active:0,insurance:0,insuranceResolved:false,over:false,net:0,actions:[]};assert.deepEqual(E.legalActions(s,r),['insurance','decline-insurance']);y=E.applyAction(s,r,'insurance');assert.equal(y.round.over,true);assert.equal(y.round.net,0);s=E.createSession({decks:1,insurance:true});r={dealer:[1,10],hands:[{cards:[10,9],bet:1,done:false,fromSplit:false,splitAces:false,surrendered:false}],active:0,insurance:0,insuranceResolved:false,over:false,net:0,actions:[]};y=E.applyAction(s,r,'decline-insurance');assert.equal(y.round.net,-1);
+
+assert.ok(Number.isFinite(E.trueCount(E.createSession({decks:6,seed:4}))));console.log('twenty-one engine tests passed');
