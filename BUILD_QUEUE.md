@@ -8,12 +8,10 @@ Claims are coordination signals, not exclusive reservations. Multiple independen
 
 | Game | Prompt | Build issue | Difficulty | Status |
 |---|---|---|---|---|
-| Mancala | [`prompts/37-mancala.md`](prompts/37-mancala.md) | [#3](https://github.com/davidlifschitz/online-board-games/issues/3) | Starter | Open |
-| Dots and Boxes | [`prompts/36-dots-and-boxes.md`](prompts/36-dots-and-boxes.md) | [#4](https://github.com/davidlifschitz/online-board-games/issues/4) | Starter | Open |
-| Mastermind-style | [`prompts/44-mastermind.md`](prompts/44-mastermind.md) | [#5](https://github.com/davidlifschitz/online-board-games/issues/5) | Starter | Open |
-| Farkle | [`prompts/47-farkle.md`](prompts/47-farkle.md) | [#6](https://github.com/davidlifschitz/online-board-games/issues/6) | Starter | Open |
 | Boggle-style | [`prompts/26-boggle-style.md`](prompts/26-boggle-style.md) | [#7](https://github.com/davidlifschitz/online-board-games/issues/7) | Starter | Open |
 | Love-Letter-style | [`prompts/15-love-letter-style.md`](prompts/15-love-letter-style.md) | [#8](https://github.com/davidlifschitz/online-board-games/issues/8) | Starter | Open |
+
+Mancala, Dots and Boxes, Mastermind-style, and Farkle were previously listed here and now have live first-party implementations in the collection. See [`games.json`](games.json) for current status across all 51 prompt concepts.
 
 ## How to claim one
 

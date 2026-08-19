@@ -6,7 +6,7 @@
 
 OS Online Board Games is an Apache-2.0 experiment to build a broad library of polished browser-based board, card, word, party, dice, and strategy games with transparent open-source provenance.
 
-**14 live games · 51 build prompts · 38 prompt concepts waiting for a first deployment**
+**19 live games · 51 build prompts · 33 prompt concepts waiting for a first deployment**
 
 - [Play the live arcade](https://os-online-board-games.vercel.app/play.html)
 - [Claim a starter game](BUILD_QUEUE.md)
@@ -23,17 +23,22 @@ OS Online Board Games is an Apache-2.0 experiment to build a broad library of po
 | Codenames-style / Threadmark | word · party · teams | [Play](https://threadmark-delta.vercel.app) |
 | Connect Four / Fourfront | abstract · bot | [Play](https://fourfront-virid.vercel.app) |
 | Checkers / Crown Jump | abstract · bot | [Play](https://crown-jump-checkers.vercel.app) |
+| Racehome | Backgammon · dice · bot | [Play](/games/racehome/) |
+| Gridwake | hidden-fleet strategy · bot | [Play](/games/gridwake/) |
 | Risk-style / Frontiers | territory · bot | [Play](https://frontiers-snowy.vercel.app) |
 | Five Dice | dice · solo · multiplayer | [Play](https://five-dice.vercel.app) |
 | Carcassonne-style / Tilebound | tile placement · bot | [Play](/games/tilebound/) |
+| Twenty-One Lab | play-money Blackjack trainer | [Play](/games/twenty-one-lab/) |
 | Mergefront | seeded puzzle · multiplayer | [Play](/games/mergefront/) |
 | Boxline | Dots and Boxes · bot | [Play](/games/boxline/) |
 | Sowstone | Kalah · bot | [Play](/games/sowstone/) |
+| Millstone | Nine Men's Morris · bot | [Play](/games/millstone/) |
 | DiscShift | disk-flipping strategy · bot | [Play](/games/discshift/) |
+| Hexline | Hex connection strategy · bot | [Play](/games/hexline/) |
 | Cipherloom | deduction · solver | [Play](/games/cipherloom/) |
 | Spark Six | dice · probability · bot | [Play](/games/spark-six/) |
 
-**13 of the 51 numbered prompt concepts have a live implementation.** Deal Room is an additional deployed game outside the numbered prompt catalog.
+**18 of the 51 numbered prompt concepts have a live implementation.** Deal Room is an additional deployed game outside the numbered prompt catalog.
 
 ## 2026-08-19 conversion Batch 1
 
@@ -45,7 +50,21 @@ Five concepts that were unbuilt at the start of this pass are now production rou
 - **Cipherloom** — code-breaking; daily puzzle, local maker/breaker and candidate-elimination solver.
 - **Spark Six** — Farkle-family dice; combination scoring, hot dice, risk model, bots and final round.
 
-Every Batch 1 game includes a service worker/manifest, local-state resume, rules tests, and `THIRD_PARTY_NOTICES.md`. Source selection is documented in [`SOURCE_RESEARCH_BATCH_1.md`](SOURCE_RESEARCH_BATCH_1.md). The remaining sequence is in [`CONVERSION_PLAN_43.md`](CONVERSION_PLAN_43.md).
+Every Batch 1 game includes a service worker/manifest, local-state resume, rules tests, and `THIRD_PARTY_NOTICES.md`. Source selection is documented in [`SOURCE_RESEARCH_BATCH_1.md`](SOURCE_RESEARCH_BATCH_1.md).
+
+## 2026-08-19 conversion Batch 2
+
+Five more previously unbuilt concepts have production-verified routes:
+
+- **Millstone** — Nine Men's Morris with placement, movement, optional flying, mill removals, repetition handling, local play, and alpha-beta computer opponents.
+- **Hexline** — configurable Hex with pie rule, graph winner detection, path-cost analysis, local/analysis modes, and computer opponents.
+- **Racehome** — Backgammon with complete-turn legal sequence generation, bar entry, hits, bearing off, gammons/backgammons, doubling cube flow, match scoring, and bots.
+- **Gridwake** — original hidden-fleet naval game with local privacy screen, bot modes, SHA-256 fleet commitments, and probability-density targeting.
+- **Twenty-One Lab** — play-money Blackjack/basic-strategy trainer with configurable shoe/rules, splits, doubles, surrender, insurance, deterministic simulation support, and hidden-hole-safe counting feedback.
+
+Every Batch 2 game includes offline caching, local-state persistence, rules tests, and `THIRD_PARTY_NOTICES.md`. All selected reference repositories were directly license-checked as MIT and are used only as audited/reference baselines; no upstream code or artwork was copied. Research is documented in [`SOURCE_RESEARCH_BATCH_2.md`](SOURCE_RESEARCH_BATCH_2.md).
+
+The remaining sequence is tracked in [`CONVERSION_PLAN_43.md`](CONVERSION_PLAN_43.md).
 
 ## Collection architecture
 
