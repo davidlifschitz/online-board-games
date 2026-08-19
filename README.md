@@ -6,7 +6,7 @@
 
 OS Online Board Games is an open-source experiment to build a broad library of polished browser-based board, card, word, party, dice, and strategy games. You can play the finished games immediately, inspect the implementation prompts, build your own version with any coding workflow you like, deploy it, and submit it back to the collection.
 
-**8 live games · 51 build prompts · 44 prompt concepts waiting for a first deployment**
+**9 live games · 51 build prompts · 43 prompt concepts waiting for a first deployment**
 
 **Want to build one now? → [Claim a starter game](BUILD_QUEUE.md)**  
 **Already deployed one? → [Submit it through the live Builder Board](https://os-online-board-games.vercel.app/#submit).** If the website submission flow is unavailable, use the [Submit a deployed game](https://github.com/davidlifschitz/online-board-games/issues/new?template=submit-deployed-game.yml) GitHub issue as a fallback.
@@ -32,8 +32,9 @@ OS Online Board Games is an open-source experiment to build a broad library of p
 | Threadmark | Word · teams · party | [Play](https://threadmark-delta.vercel.app) |
 | Fourfront | Connect Four · 1v1 · strategy · bot | [Play](https://fourfront-virid.vercel.app) |
 | Frontiers | Territory control · multiplayer · bot | [Play](https://frontiers-snowy.vercel.app) |
+| Tilebound | Tile placement · strategy · bot · local | [Play](https://os-online-board-games.vercel.app/games/tilebound/) |
 
-Seven of the 51 prompt concepts currently have a live implementation. Deal Room is an additional deployed project outside the numbered 51-prompt catalog.
+Eight of the 51 prompt concepts currently have a live implementation. Deal Room is an additional deployed project outside the numbered 51-prompt catalog.
 
 ## Build-a-Game Challenge
 
@@ -73,7 +74,7 @@ See **[GAME_CATALOG.md](GAME_CATALOG.md)** for the complete categorized collecti
 Connect Four ([Fourfront](https://fourfront-virid.vercel.app)) · Checkers ([Crown Jump](https://crown-jump-checkers.vercel.app)) · Chess · Mancala · Nine Men's Morris · Reversi / Othello ([Othello](https://othello-vs-computer.vercel.app)) · Go · Hex · Santorini-style · Hive-style · Dots and Boxes
 
 ### Multiplayer strategy / board games
-Risk-style ([Frontiers](https://frontiers-snowy.vercel.app)) · Settlers-style · Ticket-to-Ride-style · Carcassonne-style · Stratego-inspired · Pandemic-style · Qwirkle-style · Sequence-style
+Risk-style ([Frontiers](https://frontiers-snowy.vercel.app)) · Settlers-style · Ticket-to-Ride-style · Carcassonne-style ([Tilebound](https://os-online-board-games.vercel.app/games/tilebound/)) · Stratego-inspired · Pandemic-style · Qwirkle-style · Sequence-style
 
 ### Cards
 Uno-style ([HueBreak](https://huebreak-card-game.vercel.app)) · Dominion-style · Love-Letter-style · Coup-style · President-style · Hearts · Spades · Gin Rummy · Rummy 500 · play-money Poker · Blackjack trainer · Hanabi-style · Monopoly Deal ([Deal Room](https://monopoly-deal-online.vercel.app))
