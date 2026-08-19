@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-08-18",
+  "updated": "2026-08-19",
   "summary": {
     "liveGames": 9,
     "promptConcepts": 51,
@@ -47,7 +47,7 @@
     {"id":"dots-and-boxes","title":"Dots and Boxes","prompt":"prompts/36-dots-and-boxes.md","categories":["1v1","abstract","strategy"],"difficulty":"starter","status":"unbuilt","liveUrl":null},
     {"id":"mancala","title":"Mancala","prompt":"prompts/37-mancala.md","categories":["1v1","abstract","strategy","bot"],"difficulty":"starter","status":"unbuilt","liveUrl":null},
     {"id":"nine-mens-morris","title":"Nine Men's Morris","prompt":"prompts/38-nine-mens-morris.md","categories":["1v1","abstract","strategy"],"difficulty":"starter","status":"unbuilt","liveUrl":null},
-    {"id":"reversi","title":"Reversi / Othello","prompt":"prompts/39-reversi-othello.md","categories":["1v1","abstract","strategy","bot"],"difficulty":"starter","status":"live","liveUrl":"https://othello-vs-computer.vercel.app"},
+    {"id":"reversi","title":"DiscShift","prompt":"prompts/39-reversi-othello.md","categories":["1v1","abstract","strategy","bot"],"difficulty":"starter","status":"live","liveUrl":"https://os-online-board-games.vercel.app/games/discshift/"},
     {"id":"go","title":"Go","prompt":"prompts/40-go.md","categories":["1v1","abstract","strategy"],"difficulty":"advanced","status":"unbuilt","liveUrl":null},
     {"id":"hex","title":"Hex","prompt":"prompts/41-hex.md","categories":["1v1","abstract","connection","strategy"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
     {"id":"santorini-style","title":"Santorini-style","prompt":"prompts/42-santorini-style.md","categories":["1v1","spatial","strategy"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
