@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#111827" />
+  <meta name="theme-color" content="#07111f" />
   <meta name="description" content="Turn any photo into a private, browser-based jigsaw puzzle with desktop and mobile controls." />
   <title>Photo Puzzle • OS Online Board Games</title>
   <link rel="stylesheet" href="styles.css" />
@@ -12,63 +12,100 @@
   <main class="app-shell">
     <header class="topbar">
       <a class="back-link" href="/play.html" aria-label="Back to game catalog">← Games</a>
-      <div>
-        <p class="eyebrow">PUZZLE · PRIVATE BY DEFAULT</p>
-        <h1>Photo Puzzle</h1>
+      <div class="brand-lockup">
+        <span class="brand-mark" aria-hidden="true">🧩</span>
+        <div>
+          <p class="eyebrow">PUZZLE · PRIVATE BY DEFAULT</p>
+          <h1>Photo Puzzle</h1>
+          <p class="brand-subtitle">Turn your own photo into a puzzle.</p>
+        </div>
       </div>
       <a class="code-link" href="https://github.com/davidlifschitz/online-board-games/tree/main/games/photo-puzzle" target="_blank" rel="noreferrer">Code ↗</a>
     </header>
 
     <section class="setup-card" id="setup-card" aria-labelledby="setup-title">
-      <div class="setup-copy">
-        <p class="step-label">1 · CHOOSE A PHOTO</p>
-        <h2 id="setup-title">Make a puzzle from any picture.</h2>
-        <p>Your photo stays in this browser. Pick a piece count and how much help you want, then start.</p>
-      </div>
+      <div class="setup-main">
+        <div class="setup-copy">
+          <p class="step-label">CREATE YOUR PUZZLE</p>
+          <h2 id="setup-title">Your photo. Your difficulty.</h2>
+          <p>Choose a picture, decide how many pieces you want, and tune how much help the board gives you.</p>
+        </div>
 
-      <label class="upload-zone" id="upload-zone" for="photo-input">
-        <input id="photo-input" type="file" accept="image/*" />
-        <span class="upload-icon" aria-hidden="true">＋</span>
-        <strong id="upload-title">Choose a photo</strong>
-        <span id="upload-help">Tap to use your photo library or camera</span>
-        <img id="setup-preview" alt="Selected puzzle preview" hidden />
-      </label>
+        <div class="setup-section">
+          <div class="section-heading">
+            <span class="section-number">1</span>
+            <div><strong>Choose your photo</strong><span>Photo library, camera, or image file</span></div>
+          </div>
+          <label class="upload-zone" id="upload-zone" for="photo-input">
+            <input id="photo-input" type="file" accept="image/*" />
+            <span class="upload-icon" aria-hidden="true">↑</span>
+            <strong id="upload-title">Upload photo</strong>
+            <span id="upload-help">Tap to choose · up to 25 MB</span>
+            <img id="setup-preview" alt="Selected puzzle preview" hidden />
+          </label>
+        </div>
 
-      <div class="setup-options">
-        <div class="option-block">
-          <span class="field-label">Pieces</span>
+        <div class="setup-section">
+          <div class="section-heading">
+            <span class="section-number">2</span>
+            <div><strong>Piece count</strong><span>More pieces means a longer puzzle</span></div>
+          </div>
           <div class="piece-presets" role="group" aria-label="Number of puzzle pieces">
-            <button type="button" data-count="12">12</button>
-            <button type="button" data-count="24" class="active">24</button>
-            <button type="button" data-count="40">40</button>
-            <button type="button" data-count="60">60</button>
-            <button type="button" data-count="96">96</button>
+            <button type="button" data-count="12"><strong>12</strong><span>Quick</span></button>
+            <button type="button" data-count="24" class="active"><strong>24</strong><span>Classic</span></button>
+            <button type="button" data-count="40"><strong>40</strong><span>Focused</span></button>
+            <button type="button" data-count="60"><strong>60</strong><span>Hard</span></button>
+            <button type="button" data-count="96"><strong>96</strong><span>Expert</span></button>
           </div>
         </div>
 
-        <label class="option-block" for="complexity">
-          <span class="field-label">Complexity</span>
-          <select id="complexity">
-            <option value="relaxed">Relaxed · strong photo guide</option>
-            <option value="classic" selected>Classic · light photo guide</option>
-            <option value="challenge">Challenge · no photo guide</option>
-          </select>
-        </label>
+        <div class="setup-section">
+          <div class="section-heading">
+            <span class="section-number">3</span>
+            <div><strong>Complexity</strong><span>Control the amount of visual assistance</span></div>
+          </div>
+          <label class="complexity-select" for="complexity">
+            <span class="complexity-icon" aria-hidden="true">◈</span>
+            <span class="complexity-copy"><strong>Assistance level</strong><small>Relaxed, Classic, or Challenge</small></span>
+            <select id="complexity">
+              <option value="relaxed">Relaxed · strong photo guide</option>
+              <option value="classic" selected>Classic · light photo guide</option>
+              <option value="challenge">Challenge · no photo guide</option>
+            </select>
+          </label>
+        </div>
+
+        <button class="start-button" id="start-button" type="button" disabled><span aria-hidden="true">▶</span> Start puzzle</button>
+        <p class="privacy-note"><span aria-hidden="true">⌾</span> Your photo stays on this device. It is stored locally only so you can resume.</p>
       </div>
 
-      <button class="start-button" id="start-button" type="button" disabled>Start puzzle</button>
-      <p class="privacy-note">The selected image is stored locally for resume support. It is not sent to Supabase or any game server.</p>
+      <aside class="setup-preview-panel" aria-hidden="true">
+        <div class="preview-orbit preview-orbit-one"></div>
+        <div class="preview-orbit preview-orbit-two"></div>
+        <div class="preview-card">
+          <div class="preview-piece preview-piece-a">🧩</div>
+          <div class="preview-piece preview-piece-b">🧩</div>
+          <div class="preview-piece preview-piece-c">🧩</div>
+          <span class="preview-kicker">BUILD THE BORDER</span>
+          <strong>Start with the edges.</strong>
+          <p>Then switch to all pieces when the frame is complete.</p>
+        </div>
+      </aside>
     </section>
 
     <section class="game-shell" id="game-shell" hidden aria-label="Photo puzzle game">
       <div class="game-toolbar">
-        <div class="progress-copy">
-          <strong id="progress-text">0 / 24 placed</strong>
-          <span id="timer-text">00:00</span>
+        <div class="progress-block">
+          <div class="progress-icon" aria-hidden="true">🧩</div>
+          <div class="progress-copy">
+            <strong id="progress-text">0 / 24 placed</strong>
+            <div class="progress-track" aria-hidden="true"><span></span></div>
+          </div>
         </div>
+        <div class="timer-chip"><span aria-hidden="true">◷</span><strong id="timer-text">00:00</strong></div>
         <div class="toolbar-actions">
-          <button type="button" id="reference-button">Reference</button>
-          <button type="button" id="restart-button">Setup</button>
+          <button type="button" id="reference-button"><span aria-hidden="true">◉</span> Reference</button>
+          <button type="button" id="restart-button"><span aria-hidden="true">↺</span> Setup</button>
         </div>
       </div>
 
@@ -80,12 +117,18 @@
       <div class="game-layout">
         <section class="board-panel mobile-view active" id="board-view" data-mobile-view="board">
           <div class="board-controls">
-            <div class="zoom-control" aria-label="Board zoom">
-              <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
-              <span id="zoom-label">100%</span>
-              <button type="button" id="zoom-in" aria-label="Zoom in">＋</button>
+            <div class="board-title">
+              <span class="status-dot" aria-hidden="true"></span>
+              <div><strong>Puzzle board</strong><small>Tap a piece, then tap its spot</small></div>
             </div>
-            <button class="guide-toggle" id="guide-toggle" type="button" aria-pressed="true">Photo guide on</button>
+            <div class="board-control-actions">
+              <div class="zoom-control" aria-label="Board zoom">
+                <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
+                <span id="zoom-label">100%</span>
+                <button type="button" id="zoom-in" aria-label="Zoom in">＋</button>
+              </div>
+              <button class="guide-toggle" id="guide-toggle" type="button" aria-pressed="true"><span aria-hidden="true">◉</span> Photo guide on</button>
+            </div>
           </div>
 
           <div class="board-scroller" id="board-scroller">
@@ -94,6 +137,8 @@
               <div class="board" id="board" role="grid" aria-label="Puzzle board"></div>
             </div>
           </div>
+
+          <div class="board-tip"><span aria-hidden="true">✦</span><strong>Edges first</strong><span>Build the frame, then fill the middle.</span></div>
 
           <div class="mobile-selection" id="mobile-selection" hidden>
             <div class="selection-thumb" id="selection-thumb"></div>
@@ -108,16 +153,17 @@
         <aside class="pieces-panel mobile-view" id="pieces-view" data-mobile-view="pieces">
           <div class="pieces-header">
             <div>
-              <p class="step-label">2 · BUILD IT</p>
-              <h2>Pieces</h2>
+              <p class="step-label">PIECES TRAY</p>
+              <h2>Your pieces</h2>
             </div>
             <div class="piece-filter" role="group" aria-label="Piece filter">
               <button type="button" data-piece-filter="edges" class="active">Edges first</button>
               <button type="button" data-piece-filter="all">All</button>
             </div>
           </div>
-          <p class="piece-help" id="piece-help">Start with the border. On desktop, drag a piece to the board or click it and then click a slot.</p>
+          <p class="piece-help" id="piece-help">Drag a piece to the board on desktop, or tap a piece and then tap its destination.</p>
           <div class="piece-tray" id="piece-tray" aria-live="polite"></div>
+          <div class="tray-footer"><span aria-hidden="true">☝</span><span>Select a piece to highlight it.</span></div>
         </aside>
       </div>
     </section>
@@ -133,6 +179,7 @@
 
   <dialog class="complete-dialog" id="complete-dialog">
     <div class="complete-card">
+      <div class="complete-icon" aria-hidden="true">🧩</div>
       <p class="eyebrow">PUZZLE COMPLETE</p>
       <h2>You put it together.</h2>
       <p id="complete-summary"></p>
