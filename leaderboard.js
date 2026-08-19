@@ -1,7 +1,8 @@
 const SUPABASE_URL='https://slnvfdkyvijrhmisurhw.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_zUTHu9mHMbPfNKIgM_O0Zg_INCN9yF6';
+const VOTER_STORAGE_KEY='os-board-games-voter-key';
 const $=selector=>document.querySelector(selector);
-const state={catalog:[]};
+const state={client:null,catalog:[],games:[],selectedGameId:null,voterKey:null,votedSubmissionIds:new Set()};
 
 function make(tag,className,text){
   const node=document.createElement(tag);
@@ -9,13 +10,31 @@ function make(tag,className,text){
   if(text!==undefined)node.textContent=text;
   return node;
 }
+
 function link(label,href){
-  const a=make('a','',label);
+  const a=make('a','rank-link',label);
   a.href=href;
   a.target='_blank';
   a.rel='noreferrer';
   return a;
 }
+
+function setMessage(message,type=''){
+  const target=$('#leaderboardMessage');
+  if(!target)return;
+  target.textContent=message||'';
+  target.classList.remove('error','success');
+  if(type)target.classList.add(type);
+}
+
+function getVoterKey(){
+  let key=localStorage.getItem(VOTER_STORAGE_KEY);
+  if(key)return key;
+  key=crypto.randomUUID();
+  localStorage.setItem(VOTER_STORAGE_KEY,key);
+  return key;
+}
+
 async function loadCatalog(){
   try{
     const response=await fetch('/games.json',{cache:'no-store'});
@@ -27,101 +46,250 @@ async function loadCatalog(){
     state.catalog=[];
   }
 }
-function gameTitle(gameId){return state.catalog.find(game=>game.id===gameId)?.title||gameId;}
-function renderBoard(rows){
-  const container=$('#builderBoard');
-  container.replaceChildren();
-  if(!rows?.length){
-    container.appendChild(make('div','empty-state','No approved community builds yet. Submit the first one.'));
-    return;
-  }
-  rows.forEach((row,index)=>{
-    const item=make('div','board-row');
-    const builder=make('div','builder-cell');
-    const initial=(row.builder_display_name||'').trim().charAt(0).toUpperCase()||String(index+1);
-    builder.appendChild(make('div','builder-avatar-fallback',initial));
-    const copy=make('div','builder-copy');
-    copy.appendChild(make('strong','',row.builder_display_name));
-    copy.appendChild(make('small','',`Verified via ${row.identity_provider}`));
-    builder.appendChild(copy);
-    item.appendChild(builder);
-    item.appendChild(make('div','board-number',String(row.games_shipped)));
-    item.appendChild(make('div','board-number',String(row.first_implementations)));
-    item.appendChild(make('div','board-number',String(row.distinct_game_concepts)));
-    container.appendChild(item);
-  });
+
+function gameTitle(gameId){
+  return state.catalog.find(game=>game.id===gameId)?.title||gameId;
 }
-function renderModels(rows){
-  const container=$('#modelUsage');
-  container.replaceChildren();
-  if(!rows?.length){
-    container.appendChild(make('div','empty-state','Model data appears after the first approved build.'));
-    return;
-  }
-  rows.slice(0,10).forEach(row=>{
-    const item=make('div','model-item');
-    item.appendChild(make('span','',row.model));
-    item.appendChild(make('strong','',String(row.implementations)));
-    container.appendChild(item);
+
+function selectDefaultGame(){
+  const requested=new URLSearchParams(location.search).get('game');
+  if(requested&&state.games.some(game=>game.game_id===requested))return requested;
+  const mostCompetitive=[...state.games].sort((a,b)=>{
+    const byCount=Number(b.implementations)-Number(a.implementations);
+    if(byCount)return byCount;
+    return gameTitle(a.game_id).localeCompare(gameTitle(b.game_id));
   });
+  return mostCompetitive[0]?.game_id||null;
 }
-function renderRecent(rows){
-  const container=$('#recentBuilds');
-  const meta=$('#recentBuildMeta');
-  container.replaceChildren();
-  if(meta)meta.textContent=rows?.length?`${rows.length} latest`:'';
-  if(!rows?.length){
-    container.appendChild(make('div','empty-state wide','No approved community builds yet. The first accepted submission will appear here.'));
+
+function renderGamePicker(){
+  const select=$('#gameSelect');
+  if(!select)return;
+  select.replaceChildren();
+  const sorted=[...state.games].sort((a,b)=>gameTitle(a.game_id).localeCompare(gameTitle(b.game_id)));
+  if(!sorted.length){
+    const option=make('option','','No ranked games yet');
+    option.value='';
+    select.appendChild(option);
+    select.disabled=true;
     return;
   }
+  select.disabled=false;
+  sorted.forEach(game=>{
+    const count=Number(game.implementations)||0;
+    const option=make('option','',`${gameTitle(game.game_id)} · ${count} ${count===1?'build':'builds'}`);
+    option.value=game.game_id;
+    select.appendChild(option);
+  });
+  select.value=state.selectedGameId||'';
+}
+
+function renderEmpty(message){
+  const body=$('#gameLeaderboardBody');
+  if(!body)return;
+  body.replaceChildren();
+  const row=make('tr','leaderboard-empty-row');
+  const cell=make('td','leaderboard-empty',message);
+  cell.colSpan=6;
+  row.appendChild(cell);
+  body.appendChild(row);
+}
+
+function formatApprovalDate(value){
+  if(!value)return '';
+  const date=new Date(value);
+  if(Number.isNaN(date.getTime()))return '';
+  return new Intl.DateTimeFormat(undefined,{month:'short',day:'numeric',year:'numeric'}).format(date);
+}
+
+function renderRows(rows){
+  const body=$('#gameLeaderboardBody');
+  if(!body)return;
+  body.replaceChildren();
+  const title=gameTitle(state.selectedGameId);
+  const summary=$('#selectedGameTitle');
+  const meta=$('#gameLeaderboardMeta');
+  if(summary)summary.textContent=title;
+  if(meta)meta.textContent=`${rows.length} approved ${rows.length===1?'submission':'submissions'} · ranked by community score`;
+  if(!rows.length){
+    renderEmpty('No approved submissions for this game yet.');
+    return;
+  }
+
   rows.forEach(row=>{
-    const card=make('article','recent-card');
-    const top=make('div','recent-top');
-    top.appendChild(make('span','recent-game',gameTitle(row.game_id)));
-    top.appendChild(make('span','verified',`via ${row.identity_provider}`));
-    card.appendChild(top);
-    card.appendChild(make('h4','',row.implementation_name));
-    card.appendChild(make('p','',`Built by ${row.builder_display_name}`));
-    const chips=make('div','model-chips');
+    const tr=make('tr','leaderboard-entry');
+
+    const rankCell=make('td','rank-cell');
+    rankCell.appendChild(make('span','rank-number',`#${row.rank}`));
+    tr.appendChild(rankCell);
+
+    const buildCell=make('td','submission-cell');
+    buildCell.appendChild(make('strong','submission-name',row.implementation_name));
+    const approved=formatApprovalDate(row.approved_at);
+    if(approved)buildCell.appendChild(make('small','submission-date',`Approved ${approved}`));
+    tr.appendChild(buildCell);
+
+    const builderCell=make('td','builder-rank-cell');
+    const builderWrap=make('div','rank-builder');
+    if(row.builder_avatar_url){
+      const img=make('img','rank-avatar');
+      img.src=row.builder_avatar_url;
+      img.alt='';
+      img.loading='lazy';
+      builderWrap.appendChild(img);
+    }else{
+      const initial=(row.builder_display_name||'?').trim().charAt(0).toUpperCase()||'?';
+      builderWrap.appendChild(make('span','rank-avatar rank-avatar-fallback',initial));
+    }
+    const builderCopy=make('div','rank-builder-copy');
+    builderCopy.appendChild(make('strong','',row.builder_display_name));
+    builderCopy.appendChild(make('small','',`via ${row.identity_provider}`));
+    builderWrap.appendChild(builderCopy);
+    builderCell.appendChild(builderWrap);
+    tr.appendChild(builderCell);
+
+    const modelsCell=make('td','models-rank-cell');
+    const chips=make('div','rank-models');
     (row.models||[]).forEach(model=>chips.appendChild(make('span','',model)));
-    card.appendChild(chips);
-    const links=make('div','recent-links');
+    modelsCell.appendChild(chips);
+    tr.appendChild(modelsCell);
+
+    const scoreCell=make('td','score-cell');
+    const scoreWrap=make('div','score-wrap');
+    const hasVoted=state.votedSubmissionIds.has(row.id);
+    const voteButton=make('button','rank-vote-button',hasVoted?'▲':'△');
+    voteButton.type='button';
+    voteButton.setAttribute('aria-pressed',hasVoted?'true':'false');
+    voteButton.setAttribute('aria-label',`${hasVoted?'Remove vote from':'Vote for'} ${row.implementation_name}`);
+    voteButton.title=hasVoted?'Remove your vote':'Vote for this build';
+    voteButton.addEventListener('click',()=>toggleVote(row.id,voteButton));
+    scoreWrap.appendChild(voteButton);
+    const scoreCopy=make('div','score-copy');
+    scoreCopy.appendChild(make('strong','',String(Number(row.score)||0)));
+    scoreCopy.appendChild(make('small','',Number(row.score)===1?'point':'points'));
+    scoreWrap.appendChild(scoreCopy);
+    scoreCell.appendChild(scoreWrap);
+    tr.appendChild(scoreCell);
+
+    const linksCell=make('td','rank-links-cell');
+    const links=make('div','rank-links');
     links.appendChild(link('Play ↗',row.live_url));
     links.appendChild(link('Source ↗',row.source_url));
-    card.appendChild(links);
-    container.appendChild(card);
+    linksCell.appendChild(links);
+    tr.appendChild(linksCell);
+
+    body.appendChild(tr);
   });
 }
-async function loadPublicData(client){
-  const [boardResult,modelResult,recentResult,countResult]=await Promise.all([
-    client.from('builder_leaderboard').select('*').order('games_shipped',{ascending:false}).order('first_implementations',{ascending:false}).order('latest_ship_at',{ascending:true}),
-    client.from('model_usage').select('*').order('implementations',{ascending:false}).order('model',{ascending:true}),
-    client.from('builder_submissions').select('game_id,implementation_name,live_url,source_url,models,builder_display_name,identity_provider,approved_at').eq('status','approved').order('approved_at',{ascending:false}).limit(9),
-    client.from('builder_submissions').select('id',{count:'exact',head:true}).eq('status','approved')
-  ]);
-  if(boardResult.error)console.error('Builder Board load failed',boardResult.error);
-  if(modelResult.error)console.error('Model usage load failed',modelResult.error);
-  if(recentResult.error)console.error('Recent builds load failed',recentResult.error);
-  renderBoard(boardResult.data||[]);
-  renderModels(modelResult.data||[]);
-  renderRecent(recentResult.data||[]);
-  if(!countResult.error&&typeof countResult.count==='number')$('#approvedBuildCount').textContent=String(countResult.count);
+
+async function loadLeaderboardGames(){
+  const {data,error}=await state.client
+    .from('game_implementation_counts')
+    .select('game_id,implementations,builders,latest_ship_at')
+    .order('implementations',{ascending:false})
+    .order('game_id',{ascending:true});
+  if(error)throw error;
+  state.games=data||[];
+  state.selectedGameId=selectDefaultGame();
+  renderGamePicker();
+  updateGameInUrl(state.selectedGameId);
+  $('#rankedGameCount').textContent=String(state.games.length);
 }
-async function init(){
-  if(!window.supabase?.createClient){
-    renderBoard([]);
-    renderModels([]);
-    throw new Error('Supabase library failed to load');
+
+async function loadOwnVotes(){
+  const {data,error}=await state.client.rpc('get_build_votes_for_voter',{voter_key:state.voterKey});
+  if(error){
+    console.error('Vote history load failed',error);
+    state.votedSubmissionIds=new Set();
+    return;
   }
-  const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{
+  state.votedSubmissionIds=new Set((data||[]).map(row=>row.submission_id));
+}
+
+async function loadSelectedGame(){
+  if(!state.selectedGameId){
+    $('#selectedGameTitle').textContent='No ranked games yet';
+    $('#gameLeaderboardMeta').textContent='Approved community submissions will appear here.';
+    renderEmpty('No approved community builds are available yet.');
+    return;
+  }
+  const requestedGame=state.selectedGameId;
+  renderEmpty('Loading ranked submissions…');
+  setMessage('');
+  const {data,error}=await state.client
+    .from('game_leaderboard')
+    .select('rank,id,game_id,implementation_name,live_url,source_url,models,builder_display_name,builder_avatar_url,identity_provider,score,approved_at')
+    .eq('game_id',requestedGame)
+    .order('rank',{ascending:true});
+  if(requestedGame!==state.selectedGameId)return;
+  if(error){
+    console.error('Game leaderboard load failed',error);
+    setMessage('This game leaderboard could not load. Refresh and try again.','error');
+    renderEmpty('Leaderboard unavailable.');
+    return;
+  }
+  renderRows(data||[]);
+}
+
+function updateGameInUrl(gameId){
+  const url=new URL(location.href);
+  if(gameId)url.searchParams.set('game',gameId);
+  else url.searchParams.delete('game');
+  history.replaceState(null,'',url);
+}
+
+async function toggleVote(submissionId,button){
+  button.disabled=true;
+  const alreadyVoted=state.votedSubmissionIds.has(submissionId);
+  const {error}=await state.client.rpc('set_build_vote',{
+    target_submission_id:submissionId,
+    voter_key:state.voterKey,
+    should_vote:!alreadyVoted
+  });
+  if(error){
+    console.error('Vote update failed',error);
+    setMessage(error.message||'Vote could not be saved.','error');
+    button.disabled=false;
+    return;
+  }
+  if(alreadyVoted)state.votedSubmissionIds.delete(submissionId);
+  else state.votedSubmissionIds.add(submissionId);
+  setMessage(alreadyVoted?'Vote removed.':'Vote counted.','success');
+  await loadSelectedGame();
+}
+
+async function init(){
+  if(!window.supabase?.createClient)throw new Error('Supabase library failed to load');
+  state.client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{
     auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}
   });
-  window.builderBoardSupabaseClient=client;
-  window.dispatchEvent(new CustomEvent('builder-board-client-ready',{detail:{client}}));
-  await loadCatalog();
-  await loadPublicData(client);
-  await import('/community-voting.js');
+  state.voterKey=getVoterKey();
+  await Promise.all([loadCatalog(),loadOwnVotes()]);
+  await loadLeaderboardGames();
+  const {count,error:countError}=await state.client
+    .from('builder_submissions')
+    .select('id',{count:'exact',head:true})
+    .eq('status','approved');
+  if(!countError&&typeof count==='number')$('#approvedBuildCount').textContent=String(count);
+  await loadSelectedGame();
+
+  $('#gameSelect').addEventListener('change',async event=>{
+    state.selectedGameId=event.target.value||null;
+    updateGameInUrl(state.selectedGameId);
+    await loadSelectedGame();
+  });
+  window.addEventListener('popstate',async()=>{
+    const requested=new URLSearchParams(location.search).get('game');
+    if(requested&&state.games.some(game=>game.game_id===requested)){
+      state.selectedGameId=requested;
+      $('#gameSelect').value=requested;
+      await loadSelectedGame();
+    }
+  });
 }
+
 init().catch(error=>{
   console.error('Leaderboard initialization failed',error);
+  setMessage('Leaderboard could not initialize. Refresh and try again.','error');
+  renderEmpty('Leaderboard unavailable.');
 });

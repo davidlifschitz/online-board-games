@@ -20,3 +20,4 @@ jobs:
         run: |
           node --check app.js
           node --check community-voting.js
+          node --check leaderboard.js
