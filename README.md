@@ -25,7 +25,7 @@ OS Online Board Games is an open-source experiment to build a broad library of p
 | Game | Type | Play |
 |---|---|---|
 | Deal Room | Cards · multiplayer · bot | [Play](https://monopoly-deal-online.vercel.app) |
-| Othello | 1v1 · strategy · bot | [Play](https://othello-vs-computer.vercel.app) |
+| DiscShift | 1v1 · strategy · bot | [Play](https://os-online-board-games.vercel.app/games/discshift/) |
 | Crown Jump | Checkers · 1v1 · strategy · bot | [Play](https://crown-jump-checkers.vercel.app) |
 | Five Dice | Dice · solo · PWA | [Play](https://five-dice.vercel.app) |
 | HueBreak | Cards · shedding · multiplayer | [Play](https://huebreak-card-game.vercel.app) |
@@ -71,7 +71,7 @@ See **[BUILDER_BOARD.md](BUILDER_BOARD.md)** for the auth, data, moderation, and
 See **[GAME_CATALOG.md](GAME_CATALOG.md)** for the complete categorized collection. Categories intentionally overlap: a game can be 1v1, strategy, hidden-information, and card-based at the same time.
 
 ### 1v1 abstract strategy
-Connect Four ([Fourfront](https://fourfront-virid.vercel.app)) · Checkers ([Crown Jump](https://crown-jump-checkers.vercel.app)) · Chess · Mancala · Nine Men's Morris · Reversi / Othello ([Othello](https://othello-vs-computer.vercel.app)) · Go · Hex · Santorini-style · Hive-style · Dots and Boxes
+Connect Four ([Fourfront](https://fourfront-virid.vercel.app)) · Checkers ([Crown Jump](https://crown-jump-checkers.vercel.app)) · Chess · Mancala · Nine Men's Morris · Disk-flipping ([DiscShift](https://os-online-board-games.vercel.app/games/discshift/)) · Go · Hex · Santorini-style · Hive-style · Dots and Boxes
 
 ### Multiplayer strategy / board games
 Risk-style ([Frontiers](https://frontiers-snowy.vercel.app)) · Settlers-style · Ticket-to-Ride-style · Carcassonne-style ([Tilebound](https://os-online-board-games.vercel.app/games/tilebound/)) · Stratego-inspired · Pandemic-style · Qwirkle-style · Sequence-style
