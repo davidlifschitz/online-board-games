@@ -239,58 +239,38 @@
     const moves = legalMoves(b, player);
     if (difficulty === 'easy') return moves[Math.floor(Math.random() * moves.length)];
     const depth = difficulty === 'hard' ? 5 : 3;
-    const cache = new Map();
     let best = moves[0];
     let bestScore = -Infinity;
     for (const move of orderedMoves(moves)) {
       const next = applyMove(b, move, player);
-      const score = minimax(next, -player, player, depth - 1, -Infinity, Infinity, cache);
+      const score = minimax(next, -player, player, depth - 1, -Infinity, Infinity);
       if (score > bestScore) { bestScore = score; best = move; }
     }
     return best;
   }
 
-  function boardKey(b, turn, depth) {
-    let key = `${turn}:${depth}:`;
-    for (const row of b) key += row.map(v => v === BLACK ? '1' : v === WHITE ? '2' : '0').join('');
-    return key;
-  }
-
-  function minimax(b, turn, maximizingPlayer, depth, alpha, beta, cache) {
-    const key = boardKey(b, turn, depth);
-    if (cache.has(key)) return cache.get(key);
-
+  function minimax(b, turn, maximizingPlayer, depth, alpha, beta) {
     const moves = legalMoves(b, turn);
     const otherMoves = legalMoves(b, -turn);
-    if (depth <= 0 || (!moves.length && !otherMoves.length)) {
-      const score = evaluate(b, maximizingPlayer);
-      cache.set(key, score);
-      return score;
-    }
-    if (!moves.length) {
-      const score = minimax(b, -turn, maximizingPlayer, depth - 1, alpha, beta, cache);
-      cache.set(key, score);
-      return score;
-    }
+    if (depth <= 0 || (!moves.length && !otherMoves.length)) return evaluate(b, maximizingPlayer);
+    if (!moves.length) return minimax(b, -turn, maximizingPlayer, depth - 1, alpha, beta);
 
     if (turn === maximizingPlayer) {
       let value = -Infinity;
       for (const move of orderedMoves(moves)) {
-        value = Math.max(value, minimax(applyMove(b, move, turn), -turn, maximizingPlayer, depth - 1, alpha, beta, cache));
+        value = Math.max(value, minimax(applyMove(b, move, turn), -turn, maximizingPlayer, depth - 1, alpha, beta));
         alpha = Math.max(alpha, value);
         if (alpha >= beta) break;
       }
-      cache.set(key, value);
       return value;
     }
 
     let value = Infinity;
     for (const move of orderedMoves(moves)) {
-      value = Math.min(value, minimax(applyMove(b, move, turn), -turn, maximizingPlayer, depth - 1, alpha, beta, cache));
+      value = Math.min(value, minimax(applyMove(b, move, turn), -turn, maximizingPlayer, depth - 1, alpha, beta));
       beta = Math.min(beta, value);
       if (alpha >= beta) break;
     }
-    cache.set(key, value);
     return value;
   }
 
