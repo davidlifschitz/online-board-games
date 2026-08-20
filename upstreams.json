@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-08-19",
+  "updated": "2026-08-20",
   "policy": "Only permissive upstreams are used for code/data adaptation. Copyleft or unlicensed repositories may be studied but are excluded from copied code, data, artwork, and text.",
   "games": [
     {"id":"deal-room","title":"Deal Room","upstream":"Ads97/DealBench","license":"MIT","use":"State-model and rules baseline; original action/suit names, UI, and browser implementation","status":"adapted-v1","liveUrl":"/games/deal-room/"},
@@ -21,6 +21,11 @@
     {"id":"hex","title":"Hexline","upstream":"GTmmiller/hex-game","secondaryUpstream":"ddepasquali/roentgen","license":"MIT","use":"Hex browser-board and hex-grid interaction references; winner detection, shortest-path evaluation, pie rule, bot logic, and presentation implemented independently","status":"audited","liveUrl":"/games/hexline/"},
     {"id":"backgammon","title":"Racehome","upstream":"quasoft/backgammonjs","secondaryUpstream":"binarymax/backgammon.js","license":"MIT","use":"Backgammon move-flow and browser implementation regression references; complete-turn legal generator, scoring, cube flow, bots, and presentation implemented independently","status":"audited","liveUrl":"/games/racehome/"},
     {"id":"battleship-style","title":"Gridwake","upstream":"KelvinQiu802/battleship","secondaryUpstream":"kbennett2000/lan-games","license":"MIT","use":"Naval-grid placement, shot, and multiplayer architecture references; original fleet names, SHA-256 commitments, probability bot, privacy UI, and presentation implemented independently","status":"audited","liveUrl":"/games/gridwake/"},
-    {"id":"blackjack","title":"Twenty-One Lab","upstream":"K9wwh/blackjack-basic-strategy-trainer","secondaryUpstream":"joshknopp/Train21","license":"MIT","use":"Blackjack basic-strategy trainer and decision-feedback references; shoe, payouts, split/double/surrender/insurance rules, hidden-hole-safe counting, and UI implemented independently","status":"audited","liveUrl":"/games/twenty-one-lab/"}
+    {"id":"blackjack","title":"Twenty-One Lab","upstream":"K9wwh/blackjack-basic-strategy-trainer","secondaryUpstream":"joshknopp/Train21","license":"MIT","use":"Blackjack basic-strategy trainer and decision-feedback references; shoe, payouts, split/double/surrender/insurance rules, hidden-hole-safe counting, and UI implemented independently","status":"audited","liveUrl":"/games/twenty-one-lab/"},
+    {"id":"president","title":"High Table","upstream":"Keesayy/President_Card_Game","secondaryUpstream":"skiano/president","license":"MIT","use":"President-family game flow, MCTS and compact rules references; climbing engine, bots, CSS cards, variants and presentation implemented independently","status":"audited","liveUrl":"/games/high-table/"},
+    {"id":"hearts","title":"Hearts","upstream":"cakeslice/Next-Hearts","secondaryUpstream":"zmcx16/OpenAI-Gym-Hearts","license":"MIT","use":"Hearts multiplayer architecture and rules/AI environment references; rules engine, bots, CSS cards and presentation implemented independently","status":"audited","liveUrl":"/games/hearts/"},
+    {"id":"spades","title":"Spades","upstream":"mreishus/spades","secondaryUpstream":"Metamess/Spades","license":"MIT","use":"Spades online architecture and rules framework references; bidding, nil, bags, partnership bots and presentation implemented independently","status":"audited","liveUrl":"/games/spades/"},
+    {"id":"gin-rummy","title":"Gin Rummy","upstream":"vlmlee/Gin-Rummy","secondaryUpstream":"jrheling/pylgrum","license":"MIT","use":"Gin Rummy rules/game-flow and bot references; meld optimization, knock/gin/undercut scoring, bots and presentation implemented independently","status":"audited","liveUrl":"/games/gin-rummy/"},
+    {"id":"rummy-500","title":"Rummy 500","upstream":"matheu-s/Rummy500Game_AI","secondaryUpstream":"Mego/rummy","license":"MIT","use":"Rummy 500 AI/rules and browser implementation references; discard pickup obligations, meld/layoff engine, bots and presentation implemented independently","status":"audited","liveUrl":"/games/rummy-500/"}
   ]
 }
