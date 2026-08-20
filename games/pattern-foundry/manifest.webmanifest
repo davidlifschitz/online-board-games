@@ -1,0 +1,10 @@
+{
+  "name": "Pattern Foundry",
+  "short_name": "Foundry",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f1115",
+  "theme_color": "#15171c",
+  "description": "Offline-capable tile-drafting strategy for 2–4 local players or one player versus a computer opponent."
+}
