@@ -1,4 +1,4 @@
-const CACHE_NAME='traingames-shell-v1';
+const CACHE_NAME='traingames-shell-v2';
 const SHELL=[
   '/',
   '/index.html',
@@ -9,11 +9,13 @@ const SHELL=[
   '/styles.css',
   '/navigation.css',
   '/leaderboard.css',
+  '/build-challenge.css',
   '/games.json',
   '/upstreams.json',
   '/site.js',
   '/play.js',
   '/auth-landing.js',
+  '/build-catalog.js',
   '/build.js',
   '/leaderboard.js',
   '/train-games-icon.svg',
