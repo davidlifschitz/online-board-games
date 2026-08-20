@@ -20,6 +20,7 @@ jobs:
         run: |
           node --check app.js
           node --check auth-landing.js
+          node --check build-catalog.js
           node --check build.js
           node --check community-voting.js
           node --check leaderboard.js
@@ -31,7 +32,31 @@ jobs:
           node --check games/crown-jump/ai-worker.js
           node --check games/crown-jump/persistence.js
           node --check games/crown-jump/app.js
+      - name: Test build challenge catalog helper
+        run: node --test tests/build-catalog.test.cjs
       - name: Validate TrainGames manifest
         run: node -e "const fs=require('fs');const m=JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));if(m.name!=='TrainGames'||m.start_url!=='/play.html')process.exit(1)"
+      - name: Validate catalog summary
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const catalog=JSON.parse(fs.readFileSync('games.json','utf8'));
+          const promptGames=catalog.games.filter(game=>game.prompt);
+          const liveGames=catalog.games.filter(game=>game.status==='live'&&game.liveUrl);
+          const livePromptGames=promptGames.filter(game=>game.status==='live'&&game.liveUrl);
+          const unbuiltPromptGames=promptGames.filter(game=>game.status==='unbuilt');
+          const expected={
+            liveGames:liveGames.length,
+            promptConcepts:promptGames.length,
+            promptConceptsWithLiveImplementations:livePromptGames.length,
+            promptConceptsAwaitingFirstDeployment:unbuiltPromptGames.length
+          };
+          for(const [key,value] of Object.entries(expected)){
+            if(catalog.summary?.[key]!==value){
+              console.error(`games.json summary mismatch for ${key}: expected ${value}, found ${catalog.summary?.[key]}`);
+              process.exit(1);
+            }
+          }
+          NODE
       - name: Test Crown Jump engine and repetition behavior
         run: npm test --prefix games/crown-jump
