@@ -12,6 +12,14 @@ The user-facing brand is TrainGames. The following legacy technical identifiers 
 - Supabase project: `os-online-board-games` (`slnvfdkyvijrhmisurhw`)
 - Supabase Auth callback: `https://slnvfdkyvijrhmisurhw.supabase.co/auth/v1/callback`
 
+## Current verified deployment
+
+- TrainGames rebrand deployed: `2026-08-20`
+- Vercel production deployment: `dpl_A7iQDaiqnff51ajojpYAhkzLCCWW`
+- Deployed Git commit: `5d92e656e057f556dfdedff2d202c464fa9b1038`
+- Production alias: `https://os-online-board-games.vercel.app`
+- Repository deploy policy restored to manual-only immediately after the production build reached `READY`.
+
 ## Rebrand migration rule
 
 Do not remove the existing production origin during a domain migration. Add the TrainGames origin as an alias first, add it to the Supabase Auth Site URL/redirect allowlist as appropriate, update the GitHub and Google OAuth application configuration if needed, verify both sign-in providers on the new origin, and only then make the new hostname canonical.
