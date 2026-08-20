@@ -1,7 +1,7 @@
 const SUPABASE_URL='https://slnvfdkyvijrhmisurhw.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_zUTHu9mHMbPfNKIgM_O0Zg_INCN9yF6';
 const $=selector=>document.querySelector(selector);
-const state={session:null,catalog:[]};
+const state={session:null,catalog:[],summary:null};
 let supabaseClient=null;
 
 function setMessage(target,message,type=''){
@@ -55,24 +55,91 @@ function renderAuth(){
   if(src){avatar.src=src;avatar.classList.remove('hidden');}
   else{avatar.removeAttribute('src');avatar.classList.add('hidden');}
 }
+function promptUrl(game){
+  return `https://github.com/davidlifschitz/online-board-games/blob/main/${game.prompt}`;
+}
+function updateChallengeStats(){
+  const summary=state.summary||{};
+  const promptCount=summary.promptConcepts??state.catalog.length;
+  const openCount=summary.promptConceptsAwaitingFirstDeployment??state.catalog.filter(game=>game.status==='unbuilt').length;
+  const liveCount=summary.promptConceptsWithLiveImplementations??state.catalog.filter(game=>game.status==='live').length;
+  if($('#buildPromptCount'))$('#buildPromptCount').textContent=String(promptCount);
+  if($('#buildOpenCount'))$('#buildOpenCount').textContent=String(openCount);
+  if($('#buildLiveCount'))$('#buildLiveCount').textContent=String(liveCount);
+}
+function renderChallengeCatalog(){
+  const container=$('#challengeCatalog');
+  if(!container)return;
+  const helper=window.TrainGamesBuildCatalog;
+  if(!helper?.groupChallengeGames||!helper?.claimUrlForGame){
+    container.replaceChildren(make('p','challenge-empty','The build challenge helper could not load. Use the full catalog on GitHub to choose a game.'));
+    return;
+  }
+  const grouped=helper.groupChallengeGames(state.catalog);
+  const labels={starter:'Starter',intermediate:'Intermediate',advanced:'Advanced'};
+  const descriptions={
+    starter:'Compact rules or UI; good weekend-sized first builds.',
+    intermediate:'More game state, hidden information, bots, or multiplayer flow.',
+    advanced:'Larger rules engines, stronger AI, graph logic, or complex multiplayer.'
+  };
+  container.replaceChildren();
+  Object.entries(labels).forEach(([difficulty,label])=>{
+    const games=grouped[difficulty]||[];
+    const section=make('section','challenge-tier');
+    const heading=make('div','challenge-tier-heading');
+    const title=make('h3','',label);
+    const count=make('span','',`${games.length} awaiting first build`);
+    heading.append(title,count);
+    section.appendChild(heading);
+    if(!games.length){
+      section.appendChild(make('div','challenge-empty',`No ${label.toLowerCase()} prompts are waiting for a first deployment right now. Alternate implementations are still welcome.`));
+      container.appendChild(section);
+      return;
+    }
+    const grid=make('div','challenge-grid');
+    games.forEach(game=>{
+      const card=make('article','challenge-card');
+      const top=make('div','challenge-card-top');
+      top.append(make('span','challenge-card-kicker',label.toUpperCase()),make('span','challenge-card-status','Needs first build'));
+      card.appendChild(top);
+      card.appendChild(make('strong','',game.title));
+      card.appendChild(make('p','',descriptions[difficulty]));
+      const actions=make('div','challenge-card-actions');
+      const prompt=make('a','','Open prompt ↗');
+      prompt.href=promptUrl(game);
+      prompt.target='_blank';
+      prompt.rel='noreferrer';
+      const claim=make('a','','Claim game ↗');
+      claim.href=helper.claimUrlForGame(game);
+      claim.target='_blank';
+      claim.rel='noreferrer';
+      actions.append(prompt,claim);
+      card.appendChild(actions);
+      grid.appendChild(card);
+    });
+    section.appendChild(grid);
+    container.appendChild(section);
+  });
+}
 async function loadCatalog(){
   const select=$('#gameId');
   try{
     const response=await fetch('/games.json',{cache:'no-store'});
     if(!response.ok)throw new Error(`Catalog returned ${response.status}`);
     const data=await response.json();
+    state.summary=data.summary||null;
     state.catalog=(data.games||[]).filter(game=>game.prompt).sort((a,b)=>a.title.localeCompare(b.title));
   }catch(error){
     console.error('Catalog load failed',error);
+    state.summary=null;
     state.catalog=[
-      {id:'mancala',title:'Mancala',difficulty:'starter'},
-      {id:'dots-and-boxes',title:'Dots and Boxes',difficulty:'starter'},
-      {id:'mastermind',title:'Mastermind-style',difficulty:'starter'},
-      {id:'farkle',title:'Farkle',difficulty:'starter'},
-      {id:'boggle-style',title:'Boggle-style',difficulty:'starter'},
-      {id:'love-letter-style',title:'Love-Letter-style',difficulty:'starter'}
+      {id:'boggle-style',title:'Boggle-style',prompt:'prompts/26-boggle-style.md',difficulty:'starter',status:'unbuilt'},
+      {id:'love-letter-style',title:'Love-Letter-style',prompt:'prompts/15-love-letter-style.md',difficulty:'starter',status:'unbuilt'}
     ];
   }
+  updateChallengeStats();
+  renderChallengeCatalog();
+  if(!select)return;
   select.replaceChildren();
   const placeholder=make('option','','Choose a game / prompt');
   placeholder.value='';
