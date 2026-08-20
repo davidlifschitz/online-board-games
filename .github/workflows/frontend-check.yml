@@ -45,6 +45,8 @@ jobs:
         run: node -e "const fs=require('fs');const m=JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));if(m.name!=='TrainGames'||m.start_url!=='/play.html')process.exit(1)"
       - name: Test catalog publication contract
         run: node --test tests/catalog-publication.test.js
+      - name: Test Batch 3 cache invalidation
+        run: node --test tests/batch3-cache-version.test.js
       - name: Test Batch 3 card engines
         run: |
           node games/high-table/tests/engine.test.js
