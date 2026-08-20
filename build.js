@@ -1,7 +1,7 @@
 const SUPABASE_URL='https://slnvfdkyvijrhmisurhw.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_zUTHu9mHMbPfNKIgM_O0Zg_INCN9yF6';
 const $=selector=>document.querySelector(selector);
-const state={session:null,catalog:[],summary:null};
+const state={session:null,catalog:[],summary:null,catalogError:null};
 let supabaseClient=null;
 
 function setMessage(target,message,type=''){
@@ -59,17 +59,26 @@ function promptUrl(game){
   return `https://github.com/davidlifschitz/online-board-games/blob/main/${game.prompt}`;
 }
 function updateChallengeStats(){
-  const summary=state.summary||{};
-  const promptCount=summary.promptConcepts??state.catalog.length;
-  const openCount=summary.promptConceptsAwaitingFirstDeployment??state.catalog.filter(game=>game.status==='unbuilt').length;
-  const liveCount=summary.promptConceptsWithLiveImplementations??state.catalog.filter(game=>game.status==='live').length;
-  if($('#buildPromptCount'))$('#buildPromptCount').textContent=String(promptCount);
-  if($('#buildOpenCount'))$('#buildOpenCount').textContent=String(openCount);
-  if($('#buildLiveCount'))$('#buildLiveCount').textContent=String(liveCount);
+  if(!state.summary)return;
+  const summary=state.summary;
+  if($('#buildPromptCount'))$('#buildPromptCount').textContent=String(summary.promptConcepts);
+  if($('#buildOpenCount'))$('#buildOpenCount').textContent=String(summary.promptConceptsAwaitingFirstDeployment);
+  if($('#buildLiveCount'))$('#buildLiveCount').textContent=String(summary.promptConceptsWithLiveImplementations);
 }
 function renderChallengeCatalog(){
   const container=$('#challengeCatalog');
   if(!container)return;
+  if(state.catalogError){
+    const notice=make('div','challenge-empty');
+    notice.appendChild(document.createTextNode('The live build catalog could not be loaded. '));
+    const link=make('a','','Open the full catalog on GitHub ↗');
+    link.href='https://github.com/davidlifschitz/online-board-games/blob/main/GAME_CATALOG.md';
+    link.target='_blank';
+    link.rel='noreferrer';
+    notice.appendChild(link);
+    container.replaceChildren(notice);
+    return;
+  }
   const helper=window.TrainGamesBuildCatalog;
   if(!helper?.groupChallengeGames||!helper?.claimUrlForGame){
     container.replaceChildren(make('p','challenge-empty','The build challenge helper could not load. Use the full catalog on GitHub to choose a game.'));
@@ -128,10 +137,12 @@ async function loadCatalog(){
     if(!response.ok)throw new Error(`Catalog returned ${response.status}`);
     const data=await response.json();
     state.summary=data.summary||null;
+    state.catalogError=null;
     state.catalog=(data.games||[]).filter(game=>game.prompt).sort((a,b)=>a.title.localeCompare(b.title));
   }catch(error){
     console.error('Catalog load failed',error);
     state.summary=null;
+    state.catalogError=error;
     state.catalog=[
       {id:'boggle-style',title:'Boggle-style',prompt:'prompts/26-boggle-style.md',difficulty:'starter',status:'unbuilt'},
       {id:'love-letter-style',title:'Love-Letter-style',prompt:'prompts/15-love-letter-style.md',difficulty:'starter',status:'unbuilt'}
