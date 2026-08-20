@@ -6,7 +6,7 @@
 
 OS Online Board Games is an Apache-2.0 experiment to build a broad library of polished browser-based board, card, word, party, dice, and strategy games with transparent open-source provenance.
 
-**19 live games · 51 build prompts · 33 prompt concepts waiting for a first deployment**
+**21 live games · 52 build prompts · 33 prompt concepts waiting for a first deployment**
 
 - [Play the live arcade](https://os-online-board-games.vercel.app/play.html)
 - [Claim a starter game](BUILD_QUEUE.md)
@@ -19,6 +19,7 @@ OS Online Board Games is an Apache-2.0 experiment to build a broad library of po
 | Game | Type | Play |
 |---|---|---|
 | Deal Room | cards · multiplayer · bot | [Play](/games/deal-room/) |
+| Photo Puzzle | puzzle · solo · customizable | [Play](/games/photo-puzzle/) |
 | Uno-style / HueBreak | cards · multiplayer · bot | [Play](https://huebreak-card-game.vercel.app) |
 | Codenames-style / Threadmark | word · party · teams | [Play](https://threadmark-delta.vercel.app) |
 | Connect Four / Fourfront | abstract · bot | [Play](https://fourfront-virid.vercel.app) |
@@ -37,8 +38,9 @@ OS Online Board Games is an Apache-2.0 experiment to build a broad library of po
 | Hexline | Hex connection strategy · bot | [Play](/games/hexline/) |
 | Cipherloom | deduction · solver | [Play](/games/cipherloom/) |
 | Spark Six | dice · probability · bot | [Play](/games/spark-six/) |
+| Azul-style / Pattern Foundry | tile drafting · 2–4 local · bot | [Play](/games/pattern-foundry/) |
 
-**18 of the 51 numbered prompt concepts have a live implementation.** Deal Room is an additional deployed game outside the numbered prompt catalog.
+**19 of the 52 numbered prompt concepts have a live implementation.** Deal Room and Photo Puzzle are additional deployed games outside the numbered prompt catalog.
 
 ## 2026-08-19 conversion Batch 1
 
@@ -63,6 +65,11 @@ Five more previously unbuilt concepts have production-verified routes:
 - **Twenty-One Lab** — play-money Blackjack/basic-strategy trainer with configurable shoe/rules, splits, doubles, surrender, insurance, deterministic simulation support, and hidden-hole-safe counting feedback.
 
 Every Batch 2 game includes offline caching, local-state persistence, rules tests, and `THIRD_PARTY_NOTICES.md`. All selected reference repositories were directly license-checked as MIT and are used only as audited/reference baselines; no upstream code or artwork was copied. Research is documented in [`SOURCE_RESEARCH_BATCH_2.md`](SOURCE_RESEARCH_BATCH_2.md).
+
+## 2026-08-20 additions
+
+- **Photo Puzzle** — custom-image jigsaw play outside the numbered prompt catalog.
+- **Pattern Foundry** — an original tile-drafting game with 2–4 local players, a two-player computer-opponent mode, local resume, and offline caching. The numbered catalog now includes an Azul-style prompt without importing proprietary branding or artwork.
 
 The remaining sequence is tracked in [`CONVERSION_PLAN_43.md`](CONVERSION_PLAN_43.md).
 
