@@ -48,4 +48,31 @@ const missing=E.WALL_PATTERN[0][4];s.players[0].lines[0]={color:missing,count:1}
 E.resolveRound(s);assert.equal(s.over,true);assert.ok(s.players[0].score>=7);assert.ok(s.winners.includes(0));
 
 s=E.createGame({seed:5});assert.ok(E.botMove(s,'medium'));assert.ok(E.botMove(s,'hard'));
+
+// Deterministic full-game invariant coverage for every supported local player count.
+function countTiles(game){
+  let total=game.bag.reduce((a,b)=>a+b,0)+game.discard.reduce((a,b)=>a+b,0)+game.center.reduce((a,b)=>a+b,0)+game.factories.flat().reduce((a,b)=>a+b,0);
+  for(const player of game.players){
+    for(const line of player.lines)total+=line.count;
+    total+=player.wall.flat().filter(v=>v!=null).length;
+    total+=player.floor.filter(v=>v!=='marker').length;
+  }
+  return total;
+}
+for(const players of [2,3,4]){
+  for(let gameIndex=0;gameIndex<20;gameIndex++){
+    let game=E.createGame({players,seed:`invariant-${players}-${gameIndex}`}),guard=0;
+    assert.equal(countTiles(game),100);
+    while(!game.over&&guard++<1000){
+      const moves=E.legalMoves(game);assert.ok(moves.length>0,'non-terminal state must have a legal draft');
+      game=E.draft(game,moves[(gameIndex*17+guard*31)%moves.length]);
+      assert.equal(countTiles(game),100,'tiles must be conserved across drafts and round resolution');
+      for(const player of game.players){
+        assert.ok(player.score>=0,'scores never go below zero');
+        player.lines.forEach((line,row)=>assert.ok(line.count>=0&&line.count<=row+1,'pattern line remains within capacity'));
+      }
+    }
+    assert.ok(game.over,'deterministic games should reach an end state');
+  }
+}
 console.log('pattern foundry engine tests passed');
