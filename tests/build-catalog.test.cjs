@@ -1,5 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
 const { groupChallengeGames, claimUrlForGame } = require('../build-catalog.js');
 
 const games = [
@@ -21,4 +23,20 @@ test('builds a claim issue URL with the game title', () => {
   const url = claimUrlForGame(games[1]);
   assert.match(url, /claim-a-game\.yml/);
   assert.match(url, /Open%20Starter/);
+});
+
+test('renders every real prompt concept awaiting a first deployment', () => {
+  const catalogPath = path.join(__dirname, '..', 'games.json');
+  const catalog = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+  const expectedIds = catalog.games
+    .filter(game => game.prompt && game.status === 'unbuilt')
+    .map(game => game.id)
+    .sort();
+  const groupedIds = Object.values(groupChallengeGames(catalog.games))
+    .flat()
+    .map(game => game.id)
+    .sort();
+
+  assert.equal(expectedIds.length, catalog.summary.promptConceptsAwaitingFirstDeployment);
+  assert.deepEqual(groupedIds, expectedIds);
 });
