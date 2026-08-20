@@ -1,8 +1,8 @@
 # Source Research — Conversion Batch 3
 
-All selected candidates below were verified from the repository's actual `LICENSE` file before selection. All five OS Online Board Games implementations are independent; the permissive projects are used as audited rules, AI, architecture, or regression references only. No upstream code or assets are copied.
+All selected candidates below were verified from the repository's actual `LICENSE` file before selection. All five TrainGames implementations are independent; the permissive projects are used as audited rules, AI, architecture, or regression references only. No upstream code or assets are copied.
 
-| Prompt | OS game | Primary reference | License | Language | Secondary reference | License | Language | Use |
+| Prompt | TrainGames game | Primary reference | License | Language | Secondary reference | License | Language | Use |
 |---|---|---|---|---|---|---|---|---|
 | President-style | High Table | `Keesayy/President_Card_Game` | MIT | C | `skiano/president` | MIT | JavaScript | MCTS/game-flow and compact rules reference |
 | Hearts | Hearts | `cakeslice/Next-Hearts` | MIT | TypeScript | `zmcx16/OpenAI-Gym-Hearts` | MIT | Python | Browser multiplayer architecture plus rules/AI environment reference |
