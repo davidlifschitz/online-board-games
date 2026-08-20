@@ -25,6 +25,7 @@ The live collection follows a permissive-upstream-only rule for copied or materi
 | Racehome | `quasoft/backgammonjs` + `binarymax/backgammon.js` | MIT | `audited` | Move-flow and browser Backgammon regression reference |
 | Gridwake | `KelvinQiu802/battleship` + `kbennett2000/lan-games` | MIT | `audited` | Naval-grid placement/shot and multiplayer architecture reference |
 | Twenty-One Lab | `K9wwh/blackjack-basic-strategy-trainer` + `joshknopp/Train21` | MIT | `audited` | Basic-strategy decision and trainer-flow reference |
+| Pattern Foundry | `cestpasphoto/alpha-zero-general` | MIT | `audited` | Factory/center drafting, pattern-line legality, wall scoring, end bonuses, and two-player AI regression reference |
 
 ## Batch 1
 
@@ -33,6 +34,10 @@ Mergefront, Boxline, Sowstone, Cipherloom, and Spark Six are independently imple
 ## Batch 2
 
 Millstone, Hexline, Racehome, Gridwake, and Twenty-One Lab are also independently implemented. The selected reference repositories were directly checked for MIT license files. Their code, artwork, branding, fonts, audio, and presentation were not copied; the references were used for rule, architecture, interaction, and regression comparison only. Each game includes `THIRD_PARTY_NOTICES.md`.
+
+## Additional audited games
+
+Pattern Foundry is independently implemented in-browser. The selected MIT reference is used for behavioral and AI regression comparison only; its code, trained models, artwork, branding, and presentation are not bundled into the game. Pattern Foundry includes its own `THIRD_PARTY_NOTICES.md`.
 
 ## Migration policy
 
