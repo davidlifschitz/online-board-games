@@ -4,17 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b1020" />
-  <meta name="description" content="Play open-source browser games, build your own implementation, and vote on community builds." />
-  <title>OS Online Board Games</title>
+  <meta name="description" content="TrainGames is a collection of open-source browser games for commutes and dead zones, with many games supporting offline play after the first load." />
+  <meta name="application-name" content="TrainGames" />
+  <title>TrainGames • Browser games for the commute</title>
+  <link rel="icon" href="/train-games-icon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="stylesheet" href="/styles.css" />
   <link rel="stylesheet" href="/navigation.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.3/dist/umd/supabase.js"></script>
   <script defer src="/auth-landing.js"></script>
+  <script defer src="/site.js"></script>
 </head>
 <body data-page="home">
   <div class="page-shell">
     <nav class="site-nav" aria-label="Primary navigation">
-      <a class="site-brand" href="/" aria-label="OS Online Board Games home"><span>OS</span> Board Games</a>
+      <a class="site-brand" href="/" aria-label="TrainGames home"><span>TG</span> TrainGames</a>
       <div class="nav-links">
         <a class="nav-link" data-page="play" href="/play.html">Play</a>
         <a class="nav-link" data-page="build" href="/build.html">Build</a>
@@ -24,19 +28,19 @@
     </nav>
 
     <header class="hero home-hero">
-      <div class="eyebrow">OPEN SOURCE • BROWSER FIRST • COMMUNITY BUILT</div>
-      <h1>Play it.<br><span>Build it. Rank it.</span></h1>
-      <p class="lede">A growing collection of open-source board, card, word, dice, and strategy games. Pick what you want to do instead of hunting through one long page.</p>
+      <div class="eyebrow">GAMES FOR THE TRAIN • OPEN SOURCE • OFFLINE-FRIENDLY</div>
+      <h1>TrainGames.<br><span>Play through the dead zones.</span></h1>
+      <p class="lede">Board, card, word, dice, puzzle, and strategy games built for the browser. Many support offline play after you load them once, so a tunnel or bad signal does not have to end the game. Games for the train—not games about trains.</p>
       <div class="hero-actions">
-        <a class="primary" href="/play.html">Start playing</a>
+        <a class="primary" href="/play.html">Load games for your ride</a>
         <a class="secondary" href="/build.html">Build a game</a>
         <a class="secondary" href="/leaderboard.html">See the leaderboard</a>
       </div>
       <div class="stats" aria-label="Collection stats">
-        <div><strong>9</strong><span>Live games</span></div>
+        <div><strong>20</strong><span>Live games</span></div>
         <div><strong>51</strong><span>Game prompts</span></div>
+        <div><strong>Offline</strong><span>Where supported</span></div>
         <div><strong>Open</strong><span>Source code</span></div>
-        <div><strong>Public</strong><span>Community voting</span></div>
       </div>
     </header>
 
@@ -45,15 +49,15 @@
         <a class="portal-card" href="/play.html">
           <span class="portal-number">01</span>
           <span class="portal-kicker">PLAY</span>
-          <h2>Pick a game and jump in.</h2>
-          <p>Browse the live collection, filter by game type, and launch any game directly.</p>
+          <h2>Pick a game before the signal drops.</h2>
+          <p>Browse the live collection and open the games you want before your commute. Offline availability varies by game.</p>
           <span class="portal-cta">Browse games <b>→</b></span>
         </a>
         <a class="portal-card" href="/build.html">
           <span class="portal-number">02</span>
           <span class="portal-kicker">BUILD</span>
-          <h2>Choose a spec and ship yours.</h2>
-          <p>Claim a prompt, deploy your implementation, sign in with Google or GitHub, and submit it.</p>
+          <h2>Make the next commute game.</h2>
+          <p>Claim a prompt, deploy your implementation, sign in with Google or GitHub, and submit it to TrainGames.</p>
           <span class="portal-cta">Start building <b>→</b></span>
         </a>
         <a class="portal-card" href="/leaderboard.html">
@@ -66,7 +70,7 @@
       </section>
     </main>
 
-    <footer><span>OS Online Board Games</span><span>Play one • Build one • Deploy one</span></footer>
+    <footer><span>TrainGames</span><span>Load before departure • Play through the dead zones</span></footer>
   </div>
 </body>
 </html>

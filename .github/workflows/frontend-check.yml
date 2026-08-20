@@ -19,12 +19,19 @@ jobs:
       - name: Check browser JavaScript syntax
         run: |
           node --check app.js
+          node --check auth-landing.js
+          node --check build.js
           node --check community-voting.js
           node --check leaderboard.js
+          node --check play.js
+          node --check site.js
+          node --check sw.js
           node --check games/crown-jump/engine.js
           node --check games/crown-jump/ai.js
           node --check games/crown-jump/ai-worker.js
           node --check games/crown-jump/persistence.js
           node --check games/crown-jump/app.js
+      - name: Validate TrainGames manifest
+        run: node -e "const fs=require('fs');const m=JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));if(m.name!=='TrainGames'||m.start_url!=='/play.html')process.exit(1)"
       - name: Test Crown Jump engine and repetition behavior
         run: npm test --prefix games/crown-jump

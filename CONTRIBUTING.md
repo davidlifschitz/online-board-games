@@ -1,10 +1,10 @@
-# Contributing to OS Online Board Games
+# Contributing to TrainGames
 
-Thanks for helping grow the collection. The core loop is simple:
+Thanks for helping grow TrainGames: an open-source collection of browser games designed to stay useful on commutes and in connectivity dead zones. The core loop is simple:
 
 **play → pick → build → deploy → contribute**
 
-You do not need to implement an entire platform to contribute. A polished single game, a prompt improvement, a bug fix, an accessibility improvement, or a better bot is useful.
+You do not need to implement an entire platform to contribute. A polished single game, a prompt improvement, a bug fix, an accessibility improvement, a better bot, or stronger offline behavior is useful.
 
 ## Fastest way to start
 
@@ -50,6 +50,8 @@ A submitted game should aim to be:
 - offline-capable for solo, bot, and local modes where practical after the first successful online load.
 
 Online-only mechanics such as matchmaking, remote leaderboards, account synchronization, and internet multiplayer do not need to function offline. They should fail gracefully rather than breaking the whole app.
+
+For TrainGames specifically, do not claim offline support until the mode has been tested after at least one successful online load. A game may still belong in the collection when some modes require a network; its offline behavior should be described accurately.
 
 ## Submission checklist
 
