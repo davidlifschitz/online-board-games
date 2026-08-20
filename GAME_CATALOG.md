@@ -1,6 +1,6 @@
 # Game Catalog
 
-The repository contains **51 numbered prompt concepts**. As of 2026-08-19, **18** have a live implementation, plus **Deal Room** as an additional non-prompt live game. **33 numbered concepts remain unbuilt.**
+The repository contains **52 numbered prompt concepts**. As of 2026-08-20, **19** have a live implementation, plus **Deal Room** and **Photo Puzzle** as additional non-prompt live games. **33 numbered concepts remain unbuilt.**
 
 `games.json` is the machine-readable source of truth for live/unbuilt status. Categories overlap intentionally.
 
@@ -27,6 +27,7 @@ The repository contains **51 numbered prompt concepts**. As of 2026-08-19, **18*
 - [Carcassonne-style / Tilebound](prompts/13-carcassonne-style.md) — **LIVE** — tile placement, bot
 - [Pandemic-style](prompts/34-pandemic-style.md) — unbuilt
 - [Sequence-style](prompts/51-sequence-style.md) — unbuilt
+- [Azul-style / Pattern Foundry](prompts/52-azul-style.md) — **LIVE** — tile drafting, 2–4 local, bot
 
 ## Traditional and modern card games
 
@@ -96,6 +97,7 @@ The repository contains **51 numbered prompt concepts**. As of 2026-08-19, **18*
 - [Hive-style](prompts/43-hive-style.md) — unbuilt
 - [Qwirkle-style](prompts/50-qwirkle-style.md) — unbuilt
 - [Sequence-style](prompts/51-sequence-style.md) — unbuilt
+- [Azul-style / Pattern Foundry](prompts/52-azul-style.md) — **LIVE** — tile drafting, 2–4 local, bot
 
 ## Conversion sequence
 
