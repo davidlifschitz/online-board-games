@@ -1,6 +1,6 @@
-# Builder Board
+# TrainGames Builder Board
 
-The contributor leaderboard and authenticated submission flow are live on the main arcade at `https://os-online-board-games.vercel.app`. The production site is deployed from this repository's `main` branch to the Vercel project `os-online-board-games`, and the Supabase schema and OAuth provider configuration are in place. Initial real-account OAuth and end-to-end production verification are tracked in [issue #13](https://github.com/davidlifschitz/online-board-games/issues/13).
+The contributor leaderboard and authenticated submission flow are live on TrainGames at `https://os-online-board-games.vercel.app`. The URL and the Vercel/Supabase project identifiers intentionally retain the earlier `os-online-board-games` slug during the rebrand so existing links and OAuth continue to work.
 
 ## Submission contract
 
@@ -18,15 +18,9 @@ The authenticated user's provider identity is captured server-side. The browser 
 
 ## Leaderboard behavior
 
-New submissions start as `pending`. Pending rows are visible only to their owner and moderators. Only `approved` rows appear in public Builder Board, recent-build, game-count, and model-usage views.
+New submissions start as `pending`. Pending rows are visible only to their owner and moderators. Only `approved` rows appear in public Builder Board views.
 
-The Builder Board reports objective counts rather than an arbitrary point system:
-
-- approved implementations shipped,
-- first approved Builder Board submission for a game concept,
-- distinct game concepts shipped.
-
-The database field is named `first_implementation` for compatibility, but it means **first approved implementation recorded on the Builder Board**. It does not claim that no implementation existed before this leaderboard. The flag is assigned automatically when a moderator approves the first accepted Board submission for a game concept.
+The database field `first_implementation` means **first approved implementation recorded on the TrainGames Builder Board**; it does not claim that no implementation existed before the leaderboard.
 
 ## Supabase project
 
@@ -38,17 +32,17 @@ The browser uses a Supabase publishable key. Do not put a Supabase secret/servic
 
 ## OAuth configuration
 
-The production app URL is:
+Current production app URL:
 
 `https://os-online-board-games.vercel.app`
 
-The Supabase OAuth callback URL registered with GitHub and Google is:
+Supabase OAuth callback URL registered with GitHub and Google:
 
 `https://slnvfdkyvijrhmisurhw.supabase.co/auth/v1/callback`
 
-The Supabase Auth Site URL and allowed production redirect are set to the production app URL. GitHub and Google are enabled as Auth providers with credentials stored privately outside the repository.
+The Supabase Auth Site URL and allowed production redirect currently use the production app URL. GitHub and Google are enabled as Auth providers with credentials stored privately outside the repository.
 
-Issue #13 tracks the initial real-account GitHub and Google sign-in checks and the first end-to-end production submission test.
+When a TrainGames-branded domain is added, keep the old origin allowed until both providers have been verified end to end from the new origin.
 
 ## Moderation
 
@@ -76,8 +70,5 @@ where id = '<submission-id>'
 - Anonymous users can read approved submissions only.
 - Authenticated users can read their own pending/rejected submissions in addition to approved submissions.
 - Authenticated users can create submissions only for themselves and can edit/delete only their own pending submissions.
-- The accepted provider is taken from server-controlled Auth app metadata, while the public builder name/avatar are derived from the matching provider-issued record in `auth.identities`; user-editable `raw_user_meta_data` is not trusted for Builder Board identity.
+- The accepted provider is taken from server-controlled Auth app metadata.
 - Only GitHub or Google authenticated identities are accepted for website submissions.
-- Public GitHub source URLs are required.
-- Model metadata is required and normalized server-side.
-- Supabase security advisors should remain clean after schema changes.

@@ -1,0 +1,18 @@
+{
+  "name": "TrainGames",
+  "short_name": "TrainGames",
+  "description": "Open-source browser games for commutes and dead zones.",
+  "start_url": "/play.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#0b1020",
+  "icons": [
+    {
+      "src": "/train-games-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
