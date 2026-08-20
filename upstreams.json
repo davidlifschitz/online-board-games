@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-08-19",
+  "updated": "2026-08-20",
   "policy": "Only permissive upstreams are used for code/data adaptation. Copyleft or unlicensed repositories may be studied but are excluded from copied code, data, artwork, and text.",
   "games": [
     {"id":"deal-room","title":"Deal Room","upstream":"Ads97/DealBench","license":"MIT","use":"State-model and rules baseline; original action/suit names, UI, and browser implementation","status":"adapted-v1","liveUrl":"/games/deal-room/"},
@@ -21,6 +21,7 @@
     {"id":"hex","title":"Hexline","upstream":"GTmmiller/hex-game","secondaryUpstream":"ddepasquali/roentgen","license":"MIT","use":"Hex browser-board and hex-grid interaction references; winner detection, shortest-path evaluation, pie rule, bot logic, and presentation implemented independently","status":"audited","liveUrl":"/games/hexline/"},
     {"id":"backgammon","title":"Racehome","upstream":"quasoft/backgammonjs","secondaryUpstream":"binarymax/backgammon.js","license":"MIT","use":"Backgammon move-flow and browser implementation regression references; complete-turn legal generator, scoring, cube flow, bots, and presentation implemented independently","status":"audited","liveUrl":"/games/racehome/"},
     {"id":"battleship-style","title":"Gridwake","upstream":"KelvinQiu802/battleship","secondaryUpstream":"kbennett2000/lan-games","license":"MIT","use":"Naval-grid placement, shot, and multiplayer architecture references; original fleet names, SHA-256 commitments, probability bot, privacy UI, and presentation implemented independently","status":"audited","liveUrl":"/games/gridwake/"},
-    {"id":"blackjack","title":"Twenty-One Lab","upstream":"K9wwh/blackjack-basic-strategy-trainer","secondaryUpstream":"joshknopp/Train21","license":"MIT","use":"Blackjack basic-strategy trainer and decision-feedback references; shoe, payouts, split/double/surrender/insurance rules, hidden-hole-safe counting, and UI implemented independently","status":"audited","liveUrl":"/games/twenty-one-lab/"}
+    {"id":"blackjack","title":"Twenty-One Lab","upstream":"K9wwh/blackjack-basic-strategy-trainer","secondaryUpstream":"joshknopp/Train21","license":"MIT","use":"Blackjack basic-strategy trainer and decision-feedback references; shoe, payouts, split/double/surrender/insurance rules, hidden-hole-safe counting, and UI implemented independently","status":"audited","liveUrl":"/games/twenty-one-lab/"},
+    {"id":"azul-style","title":"Pattern Foundry","upstream":"cestpasphoto/alpha-zero-general","license":"MIT","use":"Factory/center drafting, pattern-line legality, wall scoring, end-bonus, and two-player AI regression reference; browser engine, bot heuristics, UI, offline shell, and presentation implemented independently","status":"audited","liveUrl":"/games/pattern-foundry/"}
   ]
 }
