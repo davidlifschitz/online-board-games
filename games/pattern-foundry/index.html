@@ -3,79 +3,99 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#15171c">
-  <meta name="description" content="Pattern Foundry is an original tile-drafting strategy game inspired by classic factory-to-mosaic play, with local multiplayer and a computer opponent.">
-  <title>Pattern Foundry • OS Online Board Games</title>
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Pattern Foundry is an offline-friendly TrainGames tile-drafting strategy game for local multiplayer or play against the computer.">
+  <meta name="application-name" content="Pattern Foundry • TrainGames">
+  <title>Pattern Foundry • TrainGames</title>
+  <link rel="icon" href="train-games-icon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-<main class="shell">
-  <nav><a href="/play.html">← Arcade</a><span>OS Online Board Games</span></nav>
-  <header>
-    <p class="eyebrow">TILE DRAFTING • 2–4 LOCAL • COMPUTER OPPONENT</p>
-    <h1>Pattern Foundry</h1>
-    <p>Draft matching tiles from workshops, complete pattern lines, and build the highest-scoring wall without flooding your floor.</p>
+<body data-page="play">
+<div class="page-shell">
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a class="site-brand" href="https://os-online-board-games.vercel.app/" aria-label="TrainGames home"><span>TG</span> TrainGames</a>
+    <div class="nav-links">
+      <a class="nav-link active" href="https://os-online-board-games.vercel.app/play.html">Play</a>
+      <a class="nav-link" href="https://os-online-board-games.vercel.app/build.html">Build</a>
+      <a class="nav-link" href="https://os-online-board-games.vercel.app/leaderboard.html">Leaderboard</a>
+    </div>
+    <a class="nav-github" href="https://github.com/davidlifschitz/online-board-games" target="_blank" rel="noreferrer">GitHub ↗</a>
+  </nav>
+
+  <header class="game-hero">
+    <div class="eyebrow">TILE DRAFTING • OFFLINE-FRIENDLY • 2–4 LOCAL</div>
+    <h1>Pattern Foundry.</h1>
+    <p class="lede">Draft matching tiles from workshops, complete pattern lines, and build the highest-scoring wall. Load it before your ride and keep playing through the dead zones.</p>
+    <div class="game-meta" aria-label="Game capabilities">
+      <span>Vs computer</span><span>2–4 local</span><span>Offline after first load</span>
+    </div>
   </header>
 
-  <section class="controls" aria-label="Game controls">
-    <label>Mode
-      <select id="mode">
-        <option value="bot">Vs computer</option>
-        <option value="local">Local multiplayer</option>
-      </select>
-    </label>
-    <label>Players
-      <select id="players">
-        <option value="2">2 players</option>
-        <option value="3">3 players</option>
-        <option value="4">4 players</option>
-      </select>
-    </label>
-    <label>Bot
-      <select id="difficulty">
-        <option value="easy">Easy</option>
-        <option value="medium" selected>Medium</option>
-        <option value="hard">Hard</option>
-      </select>
-    </label>
-    <button id="newGame" type="button">New game</button>
-  </section>
+  <main class="game-main">
+    <section class="controls" aria-label="Game controls">
+      <label>Mode
+        <select id="mode">
+          <option value="bot">Vs computer</option>
+          <option value="local">Local multiplayer</option>
+        </select>
+      </label>
+      <label>Players
+        <select id="players">
+          <option value="2">2 players</option>
+          <option value="3">3 players</option>
+          <option value="4">4 players</option>
+        </select>
+      </label>
+      <label>Bot
+        <select id="difficulty">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </label>
+      <button id="newGame" type="button">New game</button>
+    </section>
 
-  <section class="turnbar">
-    <div><span>Round</span><strong id="round">1</strong></div>
-    <div><span>Turn</span><strong id="turn">Player 1</strong></div>
-    <div><span>Selection</span><strong id="selection">Choose tiles</strong></div>
-  </section>
+    <section class="turnbar" aria-label="Current game status">
+      <div><span>Round</span><strong id="round">1</strong></div>
+      <div><span>Turn</span><strong id="turn">Player 1</strong></div>
+      <div><span>Selection</span><strong id="selection">Choose tiles</strong></div>
+    </section>
 
-  <section class="market" aria-label="Tile market">
-    <div>
-      <div class="section-title"><h2>Workshops</h2><span id="factoryHint">Choose one color from a workshop.</span></div>
-      <div id="factories" class="factories"></div>
-    </div>
-    <div class="center-zone">
-      <div class="section-title"><h2>Center</h2><span>First center drafter takes the lead marker.</span></div>
-      <div id="center" class="center-pool"></div>
-    </div>
-  </section>
+    <section class="market" aria-label="Tile market">
+      <div class="market-panel">
+        <div class="section-title"><h2>Workshops</h2><span id="factoryHint">Choose one color from a workshop.</span></div>
+        <div id="factories" class="factories"></div>
+      </div>
+      <div class="market-panel center-zone">
+        <div class="section-title"><h2>Center</h2><span>First center drafter takes the lead marker.</span></div>
+        <div id="center" class="center-pool"></div>
+      </div>
+    </section>
 
-  <p id="status" class="status" role="status">Choose a color from a workshop or the center.</p>
-  <section id="playersArea" class="players-area" aria-label="Player boards"></section>
+    <p id="status" class="status" role="status">Choose a color from a workshop or the center.</p>
+    <section id="playersArea" class="players-area" aria-label="Player boards"></section>
 
-  <section class="help">
-    <h2>How to play</h2>
-    <div class="rules-grid">
-      <p><strong>1. Draft.</strong> Take every tile of one color from one workshop, moving its other tiles to the center, or take a color directly from the center.</p>
-      <p><strong>2. Build a line.</strong> Put the drafted tiles into one pattern line. A line can contain only one color, and you cannot prepare a color already present in that wall row.</p>
-      <p><strong>3. Score the wall.</strong> At round end, each full line sends one tile to the wall. Connected horizontal and vertical runs score more; overflow tiles cost points on the floor.</p>
-      <p><strong>4. Finish.</strong> The game ends after a round in which any player completes a wall row. Bonuses reward completed rows, columns, and full color sets.</p>
-    </div>
-    <details>
-      <summary>Source provenance</summary>
-      <p>The engine and interface are original to OS Online Board Games. The MIT-licensed Azul model in <code>cestpasphoto/alpha-zero-general</code> was used as a rules and AI regression reference. No upstream artwork, branded assets, or rulebook prose is included.</p>
-    </details>
-  </section>
-</main>
+    <section class="help">
+      <div class="section-heading">
+        <div><div class="section-label">HOW TO PLAY</div><h2>Build the wall without flooding the floor.</h2></div>
+      </div>
+      <div class="rules-grid">
+        <p><strong>1. Draft.</strong> Take every tile of one color from one workshop, moving its other tiles to the center, or take a color directly from the center.</p>
+        <p><strong>2. Build a line.</strong> Put the drafted tiles into one pattern line. A line can contain only one color, and you cannot prepare a color already present in that wall row.</p>
+        <p><strong>3. Score the wall.</strong> At round end, each full line sends one tile to the wall. Connected horizontal and vertical runs score more; overflow tiles cost points on the floor.</p>
+        <p><strong>4. Finish.</strong> The game ends after a round in which any player completes a wall row. Bonuses reward completed rows, columns, and full color sets.</p>
+      </div>
+      <details>
+        <summary>Source provenance</summary>
+        <p>The engine and interface are original to the TrainGames open-source collection. The MIT-licensed Azul model in <code>cestpasphoto/alpha-zero-general</code> was used as a rules and AI regression reference. No upstream artwork, branded assets, or rulebook prose is included.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer><span>TrainGames</span><span>Load before departure • Play through the dead zones</span></footer>
+</div>
 <script src="engine.js"></script>
 <script src="game.js"></script>
 <script>if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});</script>
