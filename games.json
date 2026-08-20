@@ -2,13 +2,14 @@
   "schemaVersion": 1,
   "updated": "2026-08-19",
   "summary": {
-    "liveGames": 19,
+    "liveGames": 20,
     "promptConcepts": 51,
     "promptConceptsWithLiveImplementations": 18,
     "promptConceptsAwaitingFirstDeployment": 33
   },
   "games": [
     {"id":"deal-room","title":"Deal Room","prompt":null,"categories":["cards","multiplayer","bot"],"difficulty":"intermediate","status":"live","liveUrl":"/games/deal-room/"},
+    {"id":"photo-puzzle","title":"Photo Puzzle","prompt":null,"categories":["puzzle","solo","customizable"],"difficulty":"starter","status":"live","liveUrl":"/games/photo-puzzle/"},
     {"id":"uno-style","title":"Uno-style / HueBreak","prompt":"prompts/01-uno-style.md","categories":["cards","multiplayer","bot"],"difficulty":"intermediate","status":"live","liveUrl":"https://huebreak-card-game.vercel.app"},
     {"id":"codenames-style","title":"Codenames-style / Threadmark","prompt":"prompts/02-codenames-style.md","categories":["word","party","teams","multiplayer"],"difficulty":"intermediate","status":"live","liveUrl":"https://threadmark-delta.vercel.app"},
     {"id":"connect-four","title":"Connect Four / Fourfront","prompt":"prompts/03-connect-four.md","categories":["1v1","strategy","abstract","bot"],"difficulty":"starter","status":"live","liveUrl":"https://fourfront-virid.vercel.app"},

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#07111f" />
+  <meta name="description" content="Turn any photo into a private, browser-based jigsaw puzzle with desktop and mobile controls." />
+  <title>Photo Puzzle • OS Online Board Games</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="back-link" href="/play.html" aria-label="Back to game catalog">← Games</a>
+      <div class="brand-lockup"><span class="brand-mark" aria-hidden="true">🧩</span><div><p class="eyebrow">PUZZLE · PRIVATE BY DEFAULT</p><h1>Photo Puzzle</h1><p class="brand-subtitle">Turn your own photo into a puzzle.</p></div></div>
+      <a class="code-link" href="https://github.com/davidlifschitz/online-board-games/tree/main/games/photo-puzzle" target="_blank" rel="noreferrer">Code ↗</a>
+    </header>
+
+    <section class="setup-card" id="setup-card" aria-labelledby="setup-title">
+      <div class="setup-main">
+        <div class="setup-copy"><p class="step-label">CREATE YOUR PUZZLE</p><h2 id="setup-title">Your photo. Your difficulty.</h2><p>Choose a picture, decide how many pieces you want, and tune how much help the board gives you.</p></div>
+        <div class="setup-section"><div class="section-heading"><span class="section-number">1</span><div><strong>Choose your photo</strong><span>Photo library, camera, or image file</span></div></div><label class="upload-zone" id="upload-zone" for="photo-input"><input id="photo-input" type="file" accept="image/*" /><span class="upload-icon" aria-hidden="true">↑</span><strong id="upload-title">Upload photo</strong><span id="upload-help">Tap to choose · up to 25 MB</span><img id="setup-preview" alt="Selected puzzle preview" hidden /></label></div>
+        <div class="setup-section"><div class="section-heading"><span class="section-number">2</span><div><strong>Piece count</strong><span>More pieces means a longer puzzle</span></div></div><div class="piece-presets" role="group" aria-label="Number of puzzle pieces"><button type="button" data-count="12"><strong>12</strong><span>Quick</span></button><button type="button" data-count="24" class="active"><strong>24</strong><span>Classic</span></button><button type="button" data-count="40"><strong>40</strong><span>Focused</span></button><button type="button" data-count="60"><strong>60</strong><span>Hard</span></button><button type="button" data-count="96"><strong>96</strong><span>Expert</span></button></div></div>
+        <div class="setup-section"><div class="section-heading"><span class="section-number">3</span><div><strong>Complexity</strong><span>Control the amount of visual assistance</span></div></div><label class="complexity-select" for="complexity"><span class="complexity-icon" aria-hidden="true">◈</span><span class="complexity-copy"><strong>Assistance level</strong><small>Relaxed, Classic, or Challenge</small></span><select id="complexity"><option value="relaxed">Relaxed · strong photo guide</option><option value="classic" selected>Classic · light photo guide</option><option value="challenge">Challenge · no photo guide</option></select></label></div>
+        <button class="start-button" id="start-button" type="button" disabled><span aria-hidden="true">▶</span> Start puzzle</button>
+        <p class="privacy-note"><span aria-hidden="true">⌾</span> Your photo stays on this device. It is stored locally only so you can resume.</p>
+      </div>
+      <aside class="setup-preview-panel" aria-hidden="true"><div class="preview-orbit preview-orbit-one"></div><div class="preview-orbit preview-orbit-two"></div><div class="preview-card"><div class="preview-piece preview-piece-a">🧩</div><div class="preview-piece preview-piece-b">🧩</div><div class="preview-piece preview-piece-c">🧩</div><span class="preview-kicker">BUILD THE BORDER</span><strong>Start with the edges.</strong><p>Then switch to all pieces when the frame is complete.</p></div></aside>
+    </section>
+
+    <section class="game-shell" id="game-shell" hidden aria-label="Photo puzzle game">
+      <div class="game-toolbar"><div class="progress-block"><div class="progress-icon" aria-hidden="true">🧩</div><div class="progress-copy"><strong id="progress-text">0 / 24 placed</strong><div class="progress-track" aria-hidden="true"><span id="progress-fill"></span></div></div></div><div class="timer-chip"><span aria-hidden="true">◷</span><strong id="timer-text">00:00</strong></div><div class="toolbar-actions"><button type="button" id="reference-button"><span aria-hidden="true">◉</span> Reference</button><button type="button" id="restart-button"><span aria-hidden="true">↺</span> Setup</button></div></div>
+      <div class="mobile-tabs" role="tablist" aria-label="Puzzle views"><button id="board-tab" class="active" type="button" role="tab" aria-selected="true" data-view="board">Board</button><button id="pieces-tab" type="button" role="tab" aria-selected="false" data-view="pieces">Pieces <span id="pieces-left-badge"></span></button></div>
+      <div class="game-layout">
+        <section class="board-panel mobile-view active" id="board-view" data-mobile-view="board">
+          <div class="board-controls"><div class="board-title"><span class="status-dot" aria-hidden="true"></span><div><strong>Puzzle board</strong><small>Tap a piece, then tap its spot</small></div></div><div class="board-control-actions"><div class="zoom-control" aria-label="Board zoom"><button type="button" id="zoom-out" aria-label="Zoom out">−</button><span id="zoom-label">100%</span><button type="button" id="zoom-in" aria-label="Zoom in">＋</button></div><button class="guide-toggle" id="guide-toggle" type="button" aria-pressed="true"><span aria-hidden="true">◉</span> Photo guide on</button></div></div>
+          <div class="board-scroller" id="board-scroller"><div class="board-stage" id="board-stage"><div class="board-guide" id="board-guide" aria-hidden="true"></div><div class="board" id="board" role="grid" aria-label="Puzzle board"></div></div></div>
+          <div class="board-tip"><span aria-hidden="true">✦</span><strong>Edges first</strong><span>Build the frame, then fill the middle.</span></div>
+          <div class="mobile-selection" id="mobile-selection" hidden><div class="selection-thumb" id="selection-thumb"></div><div><strong>Piece selected</strong><span>Tap the spot where it belongs.</span></div><button type="button" id="back-to-pieces">Pieces</button></div>
+        </section>
+        <aside class="pieces-panel mobile-view" id="pieces-view" data-mobile-view="pieces"><div class="pieces-header"><div><p class="step-label">PIECES TRAY</p><h2>Your pieces</h2></div><div class="piece-filter" role="group" aria-label="Piece filter"><button type="button" data-piece-filter="edges" class="active">Edges first</button><button type="button" data-piece-filter="all">All</button></div></div><p class="piece-help" id="piece-help">Drag a piece to the board on desktop, or tap a piece and then tap its destination.</p><div class="piece-tray" id="piece-tray" aria-live="polite"></div><div class="tray-footer"><span aria-hidden="true">☝</span><span>Select a piece to highlight it.</span></div></aside>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="reference-dialog" id="reference-dialog"><form method="dialog"><button class="dialog-close" aria-label="Close reference">×</button><img id="reference-image" alt="Full puzzle reference" /><p>Reference image</p></form></dialog>
+  <dialog class="complete-dialog" id="complete-dialog"><div class="complete-card"><div class="complete-icon" aria-hidden="true">🧩</div><p class="eyebrow">PUZZLE COMPLETE</p><h2>You put it together.</h2><p id="complete-summary"></p><div class="complete-actions"><button class="start-button" id="play-again-button" type="button">Shuffle again</button><button id="new-photo-button" type="button">Choose a new photo</button></div></div></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="game.js"></script>
+  <script>
+    (()=>{const text=document.getElementById('progress-text'),fill=document.getElementById('progress-fill');if(!text||!fill)return;const sync=()=>{const match=text.textContent.match(/(\d+)\s*\/\s*(\d+)/);if(!match)return;const placed=Number(match[1]),total=Number(match[2]);fill.style.width=`${total?Math.min(100,placed/total*100):0}%`};new MutationObserver(sync).observe(text,{childList:true,subtree:true,characterData:true});sync()})();
+  </script>
+</body>
+</html>
