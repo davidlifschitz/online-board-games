@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "updated": "2026-08-20",
   "summary": {
-    "liveGames": 20,
+    "liveGames": 25,
     "promptConcepts": 51,
-    "promptConceptsWithLiveImplementations": 18,
-    "promptConceptsAwaitingFirstDeployment": 33
+    "promptConceptsWithLiveImplementations": 23,
+    "promptConceptsAwaitingFirstDeployment": 28
   },
   "games": [
     {"id":"deal-room","title":"Deal Room","prompt":null,"categories":["cards","multiplayer","bot"],"difficulty":"intermediate","status":"live","liveUrl":"/games/deal-room/"},
@@ -26,11 +26,11 @@
     {"id":"dominion-style","title":"Dominion-style deck builder","prompt":"prompts/14-dominion-style.md","categories":["cards","deck-building","multiplayer","strategy"],"difficulty":"advanced","status":"unbuilt","liveUrl":null},
     {"id":"love-letter-style","title":"Love-Letter-style","prompt":"prompts/15-love-letter-style.md","categories":["cards","hidden-information","multiplayer"],"difficulty":"starter","status":"unbuilt","liveUrl":null},
     {"id":"coup-style","title":"Coup-style","prompt":"prompts/16-coup-style.md","categories":["cards","social-deduction","hidden-information","multiplayer"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
-    {"id":"president","title":"President-style card game","prompt":"prompts/17-president-card-game.md","categories":["cards","multiplayer"],"difficulty":"starter","status":"unbuilt","liveUrl":null},
-    {"id":"hearts","title":"Hearts","prompt":"prompts/18-hearts.md","categories":["cards","trick-taking","multiplayer","bot"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
-    {"id":"spades","title":"Spades","prompt":"prompts/19-spades.md","categories":["cards","trick-taking","teams","bot"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
-    {"id":"gin-rummy","title":"Gin Rummy","prompt":"prompts/20-gin-rummy.md","categories":["cards","1v1","bot"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
-    {"id":"rummy-500","title":"Rummy 500","prompt":"prompts/21-rummy-500.md","categories":["cards","multiplayer"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
+    {"id":"president","title":"High Table","prompt":"prompts/17-president-card-game.md","categories":["cards","multiplayer","bot"],"difficulty":"starter","status":"live","liveUrl":"/games/high-table/"},
+    {"id":"hearts","title":"Hearts","prompt":"prompts/18-hearts.md","categories":["cards","trick-taking","multiplayer","bot"],"difficulty":"intermediate","status":"live","liveUrl":"/games/hearts/"},
+    {"id":"spades","title":"Spades","prompt":"prompts/19-spades.md","categories":["cards","trick-taking","teams","bot"],"difficulty":"intermediate","status":"live","liveUrl":"/games/spades/"},
+    {"id":"gin-rummy","title":"Gin Rummy","prompt":"prompts/20-gin-rummy.md","categories":["cards","1v1","bot"],"difficulty":"intermediate","status":"live","liveUrl":"/games/gin-rummy/"},
+    {"id":"rummy-500","title":"Rummy 500","prompt":"prompts/21-rummy-500.md","categories":["cards","multiplayer","bot"],"difficulty":"intermediate","status":"live","liveUrl":"/games/rummy-500/"},
     {"id":"poker","title":"Play-money Poker","prompt":"prompts/22-poker.md","categories":["cards","multiplayer","hidden-information"],"difficulty":"advanced","status":"unbuilt","liveUrl":null},
     {"id":"blackjack","title":"Twenty-One Lab","prompt":"prompts/23-blackjack.md","categories":["cards","probability","solo"],"difficulty":"starter","status":"live","liveUrl":"/games/twenty-one-lab/"},
     {"id":"mahjong","title":"Mahjong","prompt":"prompts/24-mahjong.md","categories":["tiles","multiplayer","strategy"],"difficulty":"advanced","status":"unbuilt","liveUrl":null},
