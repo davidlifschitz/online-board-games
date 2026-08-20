@@ -1,6 +1,6 @@
 # Game Catalog
 
-The repository contains **51 numbered prompt concepts**. As of 2026-08-19, **18** have a live implementation, plus **Deal Room** as an additional non-prompt live game. **33 numbered concepts remain unbuilt.**
+The repository contains **51 numbered prompt concepts**. As of 2026-08-20, **23** have a live implementation. **28 numbered concepts remain unbuilt.** Deal Room and Photo Puzzle are additional non-prompt live games, bringing the full live collection to **25 games**.
 
 `games.json` is the machine-readable source of truth for live/unbuilt status. Categories overlap intentionally.
 
@@ -35,11 +35,11 @@ The repository contains **51 numbered prompt concepts**. As of 2026-08-19, **18*
 - [Dominion-style deck builder](prompts/14-dominion-style.md) — unbuilt
 - [Love-Letter-style](prompts/15-love-letter-style.md) — unbuilt
 - [Coup-style](prompts/16-coup-style.md) — unbuilt
-- [President-style](prompts/17-president-card-game.md) — unbuilt
-- [Hearts](prompts/18-hearts.md) — unbuilt
-- [Spades](prompts/19-spades.md) — unbuilt
-- [Gin Rummy](prompts/20-gin-rummy.md) — unbuilt
-- [Rummy 500](prompts/21-rummy-500.md) — unbuilt
+- [President-style / High Table](prompts/17-president-card-game.md) — **LIVE** — climbing cards, 3–8 players, bots
+- [Hearts](prompts/18-hearts.md) — **LIVE** — trick taking, bots
+- [Spades](prompts/19-spades.md) — **LIVE** — partnership trick taking, nil, bags, bots
+- [Gin Rummy](prompts/20-gin-rummy.md) — **LIVE** — 1v1, bot
+- [Rummy 500](prompts/21-rummy-500.md) — **LIVE** — 2–6 players, bots
 - [Play-money Poker](prompts/22-poker.md) — unbuilt
 - [Blackjack strategy trainer / Twenty-One Lab](prompts/23-blackjack.md) — **LIVE** — play-money strategy trainer
 - [Hanabi-style](prompts/33-hanabi-style.md) — unbuilt
@@ -71,6 +71,10 @@ The repository contains **51 numbered prompt concepts**. As of 2026-08-19, **18*
 - [Stratego-inspired](prompts/08-stratego-inspired.md) — unbuilt
 - [Love-Letter-style](prompts/15-love-letter-style.md) — unbuilt
 - [Coup-style](prompts/16-coup-style.md) — unbuilt
+- [Hearts](prompts/18-hearts.md) — **LIVE** — private hands
+- [Spades](prompts/19-spades.md) — **LIVE** — private hands
+- [Gin Rummy](prompts/20-gin-rummy.md) — **LIVE** — private hand, public discard
+- [Rummy 500](prompts/21-rummy-500.md) — **LIVE** — private hands, public melds/discard stack
 - [Play-money Poker](prompts/22-poker.md) — unbuilt
 - [Werewolf / Mafia](prompts/30-werewolf-mafia.md) — unbuilt
 - [Secret-government-style](prompts/31-secret-government-style.md) — unbuilt
@@ -84,12 +88,14 @@ The repository contains **51 numbered prompt concepts**. As of 2026-08-19, **18*
 
 ## Cooperative and digital-first
 
+- Photo Puzzle — **LIVE** — custom-photo puzzle outside the numbered prompt catalog
 - [Hanabi-style](prompts/33-hanabi-style.md) — unbuilt
 - [Pandemic-style](prompts/34-pandemic-style.md) — unbuilt
 - [2048 multiplayer / Mergefront](prompts/35-2048-multiplayer.md) — **LIVE** — seeded race, battle, co-op
 
 ## Tile and spatial games
 
+- Photo Puzzle — **LIVE** — custom photo, solo
 - [Mahjong](prompts/24-mahjong.md) — unbuilt
 - [Carcassonne-style / Tilebound](prompts/13-carcassonne-style.md) — **LIVE**
 - [Santorini-style](prompts/42-santorini-style.md) — unbuilt

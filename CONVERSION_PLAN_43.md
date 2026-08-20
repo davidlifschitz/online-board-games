@@ -2,7 +2,7 @@
 
 Inventory source: `games.json` on 2026-08-19. These 43 concepts were marked `unbuilt` at the start of the conversion pass.
 
-**Progress:** 10 of the original 43 have now received production-verified first implementations. **33 remain.**
+**Progress:** 15 of the original 43 have now received production-verified first implementations. **28 remain.**
 
 ## Batch 1 — deterministic / compact engines — COMPLETE
 2048 multiplayer variants · Dots and Boxes · Mancala · Mastermind-style · Farkle
@@ -14,10 +14,12 @@ Nine Men's Morris · Hex · Backgammon · Battleship-style · Blackjack strategy
 
 Live implementations: Millstone · Hexline · Racehome · Gridwake · Twenty-One Lab
 
-## Batch 3 — classic cards I — NEXT
+## Batch 3 — classic cards I — COMPLETE
 President · Gin Rummy · Rummy 500 · Hearts · Spades
 
-## Batch 4 — bluffing / hidden information
+Live implementations: High Table · Gin Rummy · Rummy 500 · Hearts · Spades
+
+## Batch 4 — bluffing / hidden information — NEXT
 Liar's Dice · Perudo-style · Love-Letter-style · Coup-style · Guess-Who-style
 
 ## Batch 5 — word / party

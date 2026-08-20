@@ -25,6 +25,11 @@ The live collection follows a permissive-upstream-only rule for copied or materi
 | Racehome | `quasoft/backgammonjs` + `binarymax/backgammon.js` | MIT | `audited` | Move-flow and browser Backgammon regression reference |
 | Gridwake | `KelvinQiu802/battleship` + `kbennett2000/lan-games` | MIT | `audited` | Naval-grid placement/shot and multiplayer architecture reference |
 | Twenty-One Lab | `K9wwh/blackjack-basic-strategy-trainer` + `joshknopp/Train21` | MIT | `audited` | Basic-strategy decision and trainer-flow reference |
+| High Table | `Keesayy/President_Card_Game` + `skiano/president` | MIT | `audited` | President-family game flow, MCTS and compact rules reference |
+| Hearts | `cakeslice/Next-Hearts` + `zmcx16/OpenAI-Gym-Hearts` | MIT | `audited` | Multiplayer architecture and rules/AI environment reference |
+| Spades | `mreishus/spades` + `Metamess/Spades` | MIT | `audited` | Online architecture and rules framework reference |
+| Gin Rummy | `vlmlee/Gin-Rummy` + `jrheling/pylgrum` | MIT | `audited` | Rules/game-flow and bot reference |
+| Rummy 500 | `matheu-s/Rummy500Game_AI` + `Mego/rummy` | MIT | `audited` | AI/rules and browser implementation reference |
 
 ## Batch 1
 
@@ -33,6 +38,10 @@ Mergefront, Boxline, Sowstone, Cipherloom, and Spark Six are independently imple
 ## Batch 2
 
 Millstone, Hexline, Racehome, Gridwake, and Twenty-One Lab are also independently implemented. The selected reference repositories were directly checked for MIT license files. Their code, artwork, branding, fonts, audio, and presentation were not copied; the references were used for rule, architecture, interaction, and regression comparison only. Each game includes `THIRD_PARTY_NOTICES.md`.
+
+## Batch 3
+
+High Table, Hearts, Spades, Gin Rummy, and Rummy 500 are independently implemented. Two permissive references per game were checked directly for MIT license files. `SOURCE_RESEARCH_BATCH_3.md` also records President candidates rejected because one was GPL-3.0 and others lacked a usable root license. Every Batch 3 game has `THIRD_PARTY_NOTICES.md`; no upstream source code, artwork, fonts, audio, branding, or presentation assets were copied.
 
 ## Migration policy
 
