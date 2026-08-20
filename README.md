@@ -8,7 +8,7 @@ TrainGames is an Apache-2.0 collection of polished browser-based board, card, wo
 
 The current production hostname remains `os-online-board-games.vercel.app` for compatibility with existing links and OAuth configuration while the product brand is TrainGames.
 
-**20 live games · 51 build prompts · 33 prompt concepts waiting for a first deployment**
+**25 live games · 51 build prompts · 28 prompt concepts waiting for a first deployment**
 
 - [Play the live collection](https://os-online-board-games.vercel.app/play.html)
 - [Claim a starter game](BUILD_QUEUE.md)
@@ -37,6 +37,11 @@ Subway and rail commutes regularly cross dead zones. TrainGames keeps the collec
 | Risk-style / Frontiers | territory · bot | [Play](https://frontiers-snowy.vercel.app) |
 | Five Dice | dice · solo · multiplayer | [Play](https://five-dice.vercel.app) |
 | Carcassonne-style / Tilebound | tile placement · bot | [Play](/games/tilebound/) |
+| High Table | climbing cards · 3–8 players · bots | [Play](/games/high-table/) |
+| Hearts | trick taking · bots | [Play](/games/hearts/) |
+| Spades | partnership trick taking · bots | [Play](/games/spades/) |
+| Gin Rummy | 1v1 cards · bot | [Play](/games/gin-rummy/) |
+| Rummy 500 | 2–6 players · bots | [Play](/games/rummy-500/) |
 | Twenty-One Lab | play-money Blackjack trainer | [Play](/games/twenty-one-lab/) |
 | Mergefront | seeded puzzle · multiplayer | [Play](/games/mergefront/) |
 | Boxline | Dots and Boxes · bot | [Play](/games/boxline/) |
@@ -47,7 +52,19 @@ Subway and rail commutes regularly cross dead zones. TrainGames keeps the collec
 | Cipherloom | deduction · solver | [Play](/games/cipherloom/) |
 | Spark Six | dice · probability · bot | [Play](/games/spark-six/) |
 
-**18 of the 51 numbered prompt concepts have a live implementation.** Deal Room and Photo Puzzle are additional deployed games outside the numbered prompt catalog.
+**23 of the 51 numbered prompt concepts have a live implementation.** Deal Room and Photo Puzzle are additional deployed games outside the numbered prompt catalog.
+
+## 2026-08-20 conversion Batch 3
+
+Five classic card-game concepts that were already implemented and production-reachable are now published in the TrainGames catalog:
+
+- **High Table** — original President-family climbing game with 3–8 seats, bots, pass/reset flow, optional four-card revolution, and local privacy screens.
+- **Hearts** — rotating pass directions, two-of-clubs opening lead, follow-suit/first-trick restrictions, shoot-the-moon variants, match scoring, and bots.
+- **Spades** — partnership bidding from 0–13, nil, trump-breaking, bags/10-bag penalties, team scoring, and bots.
+- **Gin Rummy** — optimal meld partitioning, draw/discard restrictions, knock/gin/layoff/undercut scoring, stock-to-two cancelled hands, and bot play.
+- **Rummy 500** — 2–6 seats, visible discard-stack pickups, buried-card meld obligation, top-card re-discard restriction, meld/layoff scoring, and bots.
+
+The selected Batch 3 references were directly license-checked as MIT and are used only as audited/reference baselines; no upstream code or artwork was copied. [`SOURCE_RESEARCH_BATCH_3.md`](SOURCE_RESEARCH_BATCH_3.md) records the accepted references and excluded GPL/unlicensed President candidates.
 
 ## Collection architecture
 
