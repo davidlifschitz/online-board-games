@@ -19,6 +19,7 @@ The user-facing brand is TrainGames. The following legacy technical identifiers 
 - Deployed Git commit: `5d92e656e057f556dfdedff2d202c464fa9b1038`
 - Production alias: `https://os-online-board-games.vercel.app`
 - Repository deploy policy restored to manual-only immediately after the production build reached `READY`.
+- Production smoke re-check requested: `2026-08-20`.
 
 ## Rebrand migration rule
 
