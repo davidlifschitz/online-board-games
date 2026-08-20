@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "updated": "2026-08-20",
   "summary": {
-    "liveGames": 20,
-    "promptConcepts": 51,
-    "promptConceptsWithLiveImplementations": 18,
+    "liveGames": 21,
+    "promptConcepts": 52,
+    "promptConceptsWithLiveImplementations": 19,
     "promptConceptsAwaitingFirstDeployment": 33
   },
   "games": [
@@ -60,6 +60,7 @@
     {"id":"liars-dice","title":"Liar's Dice","prompt":"prompts/48-liars-dice.md","categories":["dice","bluffing","hidden-information","multiplayer"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
     {"id":"perudo-style","title":"Perudo-style","prompt":"prompts/49-perudo.md","categories":["dice","bluffing","hidden-information","multiplayer"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
     {"id":"qwirkle-style","title":"Qwirkle-style","prompt":"prompts/50-qwirkle-style.md","categories":["tile-placement","abstract","multiplayer"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
-    {"id":"sequence-style","title":"Sequence-style","prompt":"prompts/51-sequence-style.md","categories":["cards","spatial","teams","strategy"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null}
+    {"id":"sequence-style","title":"Sequence-style","prompt":"prompts/51-sequence-style.md","categories":["cards","spatial","teams","strategy"],"difficulty":"intermediate","status":"unbuilt","liveUrl":null},
+    {"id":"azul-style","title":"Azul-style / Pattern Foundry","prompt":"prompts/52-azul-style.md","categories":["tile-drafting","tile-placement","strategy","multiplayer","bot"],"difficulty":"intermediate","status":"live","liveUrl":"/games/pattern-foundry/"}
   ]
 }
