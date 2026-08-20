@@ -32,6 +32,15 @@ test('publishes all five Batch 3 games in the catalog with correct collection to
     promptConceptsAwaitingFirstDeployment: 28,
   });
 
+  const liveGames = catalog.games.filter((game) => game.status === 'live' && game.liveUrl);
+  const promptGames = catalog.games.filter((game) => game.prompt);
+  const livePromptGames = promptGames.filter((game) => game.status === 'live' && game.liveUrl);
+  const unbuiltPromptGames = promptGames.filter((game) => game.status === 'unbuilt' && !game.liveUrl);
+  assert.equal(liveGames.length, catalog.summary.liveGames, 'summary liveGames must match catalog rows');
+  assert.equal(promptGames.length, catalog.summary.promptConcepts, 'summary promptConcepts must match catalog rows');
+  assert.equal(livePromptGames.length, catalog.summary.promptConceptsWithLiveImplementations, 'summary live prompt count must match catalog rows');
+  assert.equal(unbuiltPromptGames.length, catalog.summary.promptConceptsAwaitingFirstDeployment, 'summary unbuilt prompt count must match catalog rows');
+
   for (const expected of batch3) {
     const game = catalog.games.find((item) => item.id === expected.id);
     assert.ok(game, `missing ${expected.id} from games.json`);
@@ -59,6 +68,7 @@ test('keeps the TrainGames hub and docs synchronized with the published catalog'
   const catalogDoc = read('GAME_CATALOG.md');
   const conversion = read('CONVERSION_PLAN_43.md');
   const lineage = read('OPEN_SOURCE_LINEAGE.md');
+  const sourceResearch = read('SOURCE_RESEARCH_BATCH_3.md');
 
   assert.match(home, /<strong>25<\/strong><span>Live games<\/span>/);
   assert.match(readme, /\*\*25 live games · 51 build prompts · 28 prompt concepts waiting for a first deployment\*\*/);
@@ -70,6 +80,8 @@ test('keeps the TrainGames hub and docs synchronized with the published catalog'
   assert.match(conversion, /Batch 3 — classic cards I — COMPLETE/);
   assert.match(lineage, /\| High Table \|/);
   assert.match(lineage, /## Batch 3/);
+  assert.match(sourceResearch, /TrainGames implementations/);
+  assert.doesNotMatch(sourceResearch, /OS Online Board Games/);
 });
 
 test('gives every newly published game a specific play-page description', () => {
