@@ -8,7 +8,7 @@ const read = (relative) => fs.readFileSync(path.join(root, relative), 'utf8');
 const readJson = (relative) => JSON.parse(read(relative));
 
 const batch3 = [
-  { id: 'president', title: 'President-style / High Table', liveUrl: '/games/high-table/', dir: 'high-table' },
+  { id: 'president', title: 'High Table', liveUrl: '/games/high-table/', dir: 'high-table' },
   { id: 'hearts', title: 'Hearts', liveUrl: '/games/hearts/', dir: 'hearts' },
   { id: 'spades', title: 'Spades', liveUrl: '/games/spades/', dir: 'spades' },
   { id: 'gin-rummy', title: 'Gin Rummy', liveUrl: '/games/gin-rummy/', dir: 'gin-rummy' },
@@ -37,7 +37,7 @@ test('publishes all five Batch 3 games in the catalog with correct collection to
     assert.ok(game, `missing ${expected.id} from games.json`);
     assert.equal(game.status, 'live', `${expected.id} should be live`);
     assert.equal(game.liveUrl, expected.liveUrl, `${expected.id} should use its TrainGames route`);
-    assert.equal(game.title, expected.title, `${expected.id} title should match the public catalog`);
+    assert.equal(game.title, expected.title, `${expected.id} title should match the verified Batch 3 publication`);
   }
 });
 
