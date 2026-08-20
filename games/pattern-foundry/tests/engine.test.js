@@ -3,7 +3,9 @@ const E=require('../engine.js');
 
 let s=E.createGame({seed:'test'});
 assert.equal(s.factories.length,5);
+let s3=E.createGame({seed:'three',players:3});assert.equal(s3.factories.length,7);assert.equal(s3.players.length,3);
 let s4=E.createGame({seed:'four',players:4});assert.equal(s4.factories.length,9);assert.equal(s4.players.length,4);assert.equal(s4.factories.flat().reduce((a,b)=>a+b,0),36);
+assert.equal(E.createGame({players:3.9}).numPlayers,3);assert.equal(E.createGame({players:99}).numPlayers,4);assert.equal(E.createGame({players:1}).numPlayers,2);
 assert.equal(s.factories.flat().reduce((a,b)=>a+b,0),20);
 assert.equal(s.bag.reduce((a,b)=>a+b,0),80);
 assert.ok(E.legalMoves(s).length>0);
