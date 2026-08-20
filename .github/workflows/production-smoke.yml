@@ -22,82 +22,87 @@ jobs:
           SUPABASE_PUBLISHABLE_KEY: sb_publishable_zUTHu9mHMbPfNKIgM_O0Zg_INCN9yF6
         run: |
           node <<'NODE'
-          const site = process.env.SITE_URL;
-          const supabase = process.env.SUPABASE_URL;
-          const key = process.env.SUPABASE_PUBLISHABLE_KEY;
+          (async () => {
+            const site = process.env.SITE_URL;
+            const supabase = process.env.SUPABASE_URL;
+            const key = process.env.SUPABASE_PUBLISHABLE_KEY;
 
-          const requireOk = async (url) => {
-            const response = await fetch(url, { redirect: 'follow' });
-            if (!response.ok) throw new Error(`${url} returned ${response.status}`);
-            return response;
-          };
+            const requireOk = async (url) => {
+              const response = await fetch(url, { redirect: 'follow' });
+              if (!response.ok) throw new Error(`${url} returned ${response.status}`);
+              return response;
+            };
 
-          const home = await (await requireOk(site)).text();
-          for (const marker of ['TrainGames', 'Load games for your ride', 'See the leaderboard']) {
-            if (!home.includes(marker)) throw new Error(`Production home missing: ${marker}`);
-          }
-
-          const playHtml = await (await requireOk(`${site}/play.html`)).text();
-          if (!playHtml.includes('TrainGames')) throw new Error('Production play page missing TrainGames brand');
-
-          const buildHtml = await (await requireOk(`${site}/build.html`)).text();
-          for (const marker of ['TrainGames', 'SUBMIT AN IMPLEMENTATION', 'Continue with GitHub', 'Continue with Google']) {
-            if (!buildHtml.includes(marker)) throw new Error(`Production build page missing: ${marker}`);
-          }
-
-          const leaderboardHtml = await (await requireOk(`${site}/leaderboard.html`)).text();
-          for (const marker of ['TrainGames', 'BUILDER BOARD']) {
-            if (!leaderboardHtml.includes(marker)) throw new Error(`Production leaderboard missing: ${marker}`);
-          }
-
-          for (const path of [
-            '/games.json', '/styles.css', '/navigation.css', '/leaderboard.css', '/app.js',
-            '/auth-landing.js', '/build.js', '/leaderboard.js', '/community-voting.js', '/play.js',
-            '/site.js', '/sw.js', '/manifest.webmanifest', '/train-games-icon.svg'
-          ]) {
-            await requireOk(`${site}${path}`);
-          }
-
-          const manifest = await (await requireOk(`${site}/manifest.webmanifest`)).json();
-          if (manifest.name !== 'TrainGames') throw new Error('Manifest name is not TrainGames');
-
-          const votingModule = await (await requireOk(`${site}/community-voting.js`)).text();
-          for (const marker of ['COMMUNITY FAVORITES', 'build_votes', 'vote_count']) {
-            if (!votingModule.includes(marker)) throw new Error(`Voting module missing: ${marker}`);
-          }
-
-          const approvedResponse = await fetch(`${supabase}/rest/v1/builder_submissions?select=id,vote_count&status=eq.approved&order=vote_count.desc&limit=100`, { headers: { apikey: key } });
-          if (!approvedResponse.ok) throw new Error(`Public voting aggregate returned ${approvedResponse.status}`);
-          const approvedBuilds = await approvedResponse.json();
-          if (!Array.isArray(approvedBuilds) || approvedBuilds.length < 1) throw new Error('Public voting aggregate returned no approved builds');
-          for (const build of approvedBuilds) if (!Number.isInteger(build.vote_count) || build.vote_count < 0) throw new Error(`Invalid public vote_count for ${build.id}`);
-
-          const privateVotesResponse = await fetch(`${supabase}/rest/v1/build_votes?select=submission_id&limit=1`, { headers: { apikey: key } });
-          if (privateVotesResponse.ok) throw new Error('Anonymous client unexpectedly received direct build_votes access');
-
-          const settingsResponse = await fetch(`${supabase}/auth/v1/settings`, { headers: { apikey: key } });
-          if (!settingsResponse.ok) throw new Error(`Auth settings returned ${settingsResponse.status}`);
-          const settings = await settingsResponse.json();
-          if (!settings.external?.github) throw new Error('GitHub Auth is not enabled in Supabase');
-          if (!settings.external?.google) throw new Error('Google Auth is not enabled in Supabase');
-
-          const expectedHosts = { github: new Set(['github.com']), google: new Set(['accounts.google.com']) };
-          for (const provider of ['github', 'google']) {
-            const authorize = new URL(`${supabase}/auth/v1/authorize`);
-            authorize.searchParams.set('provider', provider);
-            authorize.searchParams.set('redirect_to', site);
-            const response = await fetch(authorize, { headers: { apikey: key }, redirect: 'manual' });
-            if (![301, 302, 303, 307, 308].includes(response.status)) {
-              const body = await response.text();
-              throw new Error(`${provider} authorize returned ${response.status}: ${body.slice(0, 300)}`);
+            const home = await (await requireOk(site)).text();
+            for (const marker of ['TrainGames', 'Load games for your ride', 'See the leaderboard']) {
+              if (!home.includes(marker)) throw new Error(`Production home missing: ${marker}`);
             }
-            const location = response.headers.get('location');
-            if (!location) throw new Error(`${provider} authorize did not return a Location header`);
-            const host = new URL(location).hostname;
-            if (!expectedHosts[provider].has(host)) throw new Error(`${provider} authorize redirected to unexpected host ${host}`);
-          }
 
-          console.log('TrainGames production UI/assets, voting privacy, GitHub/Google Auth, and OAuth handoffs OK.');
+            const playHtml = await (await requireOk(`${site}/play.html`)).text();
+            if (!playHtml.includes('TrainGames')) throw new Error('Production play page missing TrainGames brand');
+
+            const buildHtml = await (await requireOk(`${site}/build.html`)).text();
+            for (const marker of ['TrainGames', 'SUBMIT AN IMPLEMENTATION', 'Continue with GitHub', 'Continue with Google']) {
+              if (!buildHtml.includes(marker)) throw new Error(`Production build page missing: ${marker}`);
+            }
+
+            const leaderboardHtml = await (await requireOk(`${site}/leaderboard.html`)).text();
+            for (const marker of ['TrainGames', 'BUILDER BOARD']) {
+              if (!leaderboardHtml.includes(marker)) throw new Error(`Production leaderboard missing: ${marker}`);
+            }
+
+            for (const path of [
+              '/games.json', '/styles.css', '/navigation.css', '/leaderboard.css', '/app.js',
+              '/auth-landing.js', '/build.js', '/leaderboard.js', '/community-voting.js', '/play.js',
+              '/site.js', '/sw.js', '/manifest.webmanifest', '/train-games-icon.svg'
+            ]) {
+              await requireOk(`${site}${path}`);
+            }
+
+            const manifest = await (await requireOk(`${site}/manifest.webmanifest`)).json();
+            if (manifest.name !== 'TrainGames') throw new Error('Manifest name is not TrainGames');
+
+            const votingModule = await (await requireOk(`${site}/community-voting.js`)).text();
+            for (const marker of ['COMMUNITY FAVORITES', 'build_votes', 'vote_count']) {
+              if (!votingModule.includes(marker)) throw new Error(`Voting module missing: ${marker}`);
+            }
+
+            const approvedResponse = await fetch(`${supabase}/rest/v1/builder_submissions?select=id,vote_count&status=eq.approved&order=vote_count.desc&limit=100`, { headers: { apikey: key } });
+            if (!approvedResponse.ok) throw new Error(`Public voting aggregate returned ${approvedResponse.status}`);
+            const approvedBuilds = await approvedResponse.json();
+            if (!Array.isArray(approvedBuilds) || approvedBuilds.length < 1) throw new Error('Public voting aggregate returned no approved builds');
+            for (const build of approvedBuilds) if (!Number.isInteger(build.vote_count) || build.vote_count < 0) throw new Error(`Invalid public vote_count for ${build.id}`);
+
+            const privateVotesResponse = await fetch(`${supabase}/rest/v1/build_votes?select=submission_id&limit=1`, { headers: { apikey: key } });
+            if (privateVotesResponse.ok) throw new Error('Anonymous client unexpectedly received direct build_votes access');
+
+            const settingsResponse = await fetch(`${supabase}/auth/v1/settings`, { headers: { apikey: key } });
+            if (!settingsResponse.ok) throw new Error(`Auth settings returned ${settingsResponse.status}`);
+            const settings = await settingsResponse.json();
+            if (!settings.external?.github) throw new Error('GitHub Auth is not enabled in Supabase');
+            if (!settings.external?.google) throw new Error('Google Auth is not enabled in Supabase');
+
+            const expectedHosts = { github: new Set(['github.com']), google: new Set(['accounts.google.com']) };
+            for (const provider of ['github', 'google']) {
+              const authorize = new URL(`${supabase}/auth/v1/authorize`);
+              authorize.searchParams.set('provider', provider);
+              authorize.searchParams.set('redirect_to', site);
+              const response = await fetch(authorize, { headers: { apikey: key }, redirect: 'manual' });
+              if (![301, 302, 303, 307, 308].includes(response.status)) {
+                const body = await response.text();
+                throw new Error(`${provider} authorize returned ${response.status}: ${body.slice(0, 300)}`);
+              }
+              const location = response.headers.get('location');
+              if (!location) throw new Error(`${provider} authorize did not return a Location header`);
+              const host = new URL(location).hostname;
+              if (!expectedHosts[provider].has(host)) throw new Error(`${provider} authorize redirected to unexpected host ${host}`);
+            }
+
+            console.log('TrainGames production UI/assets, voting privacy, GitHub/Google Auth, and OAuth handoffs OK.');
+          })().catch(error => {
+            console.error(error);
+            process.exit(1);
+          });
           NODE
 
       - name: Report requested verification to issue 13
