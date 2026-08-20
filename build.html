@@ -11,7 +11,9 @@
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="stylesheet" href="/styles.css" />
   <link rel="stylesheet" href="/navigation.css" />
+  <link rel="stylesheet" href="/build-challenge.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.3/dist/umd/supabase.js"></script>
+  <script defer src="/build-catalog.js"></script>
   <script defer src="/build.js"></script>
   <script defer src="/site.js"></script>
 </head>
@@ -30,36 +32,32 @@
     <header class="page-hero">
       <div class="eyebrow">OPEN SOURCE GAME BUILD CHALLENGE</div>
       <h1>Build.</h1>
-      <p class="lede">Pick a detailed game spec, implement it your way, deploy it, and submit the finished build. TrainGames especially values browser-first experiences that remain useful when connectivity disappears.</p>
+      <p class="lede"><strong>Play one. Build one. Deploy one.</strong> Pick a detailed game spec, implement it your way, deploy it, and submit the finished build. TrainGames especially values browser-first experiences that remain useful when connectivity disappears.</p>
       <div class="hero-actions">
-        <a class="primary" href="#submit">Submit a build</a>
-        <a class="secondary" href="https://github.com/davidlifschitz/online-board-games/blob/main/BUILD_QUEUE.md" target="_blank" rel="noreferrer">Full build queue ↗</a>
+        <a class="primary" href="#challenge">Pick a game to build</a>
+        <a class="secondary" href="#submit">Submit a build</a>
+        <a class="secondary" href="https://github.com/davidlifschitz/online-board-games/blob/main/GAME_CATALOG.md" target="_blank" rel="noreferrer">All 51 concepts ↗</a>
       </div>
       <div class="stats" aria-label="Build challenge stats">
-        <div><strong>51</strong><span>Game prompts</span></div>
-        <div><strong>33</strong><span>Awaiting first build</span></div>
-        <div><strong>2</strong><span>Sign-in options</span></div>
+        <div><strong id="buildPromptCount">51</strong><span>Game prompts</span></div>
+        <div><strong id="buildOpenCount">33</strong><span>Awaiting first build</span></div>
+        <div><strong id="buildLiveCount">18</strong><span>Prompt concepts live</span></div>
         <div><strong>Open</strong><span>To multiple versions</span></div>
       </div>
     </header>
 
     <main class="page-main">
-      <section class="challenge standalone-section" id="build">
+      <section class="challenge standalone-section" id="challenge">
         <div class="section-heading">
-          <div><p class="section-label">STARTER BUILDS</p><h2>Pick a spec. Ship your version.</h2></div>
-          <a class="text-link" href="https://github.com/davidlifschitz/online-board-games/blob/main/GAME_CATALOG.md" target="_blank" rel="noreferrer">Explore all 51 concepts ↗</a>
+          <div><p class="section-label">PICK YOUR DIFFICULTY</p><h2>Choose a spec. Ship your version.</h2></div>
+          <a class="text-link" href="https://github.com/davidlifschitz/online-board-games/blob/main/BUILD_CHALLENGE.md" target="_blank" rel="noreferrer">Challenge guide ↗</a>
         </div>
-        <p class="section-copy">You do not need to be the first person to build a prompt. Multiple implementations of the same concept are welcome.</p>
-        <div class="starter-grid">
-          <a href="https://github.com/davidlifschitz/online-board-games/issues/3" target="_blank" rel="noreferrer"><span>STARTER</span><strong>Mancala</strong><small>Claim issue #3 ↗</small></a>
-          <a href="https://github.com/davidlifschitz/online-board-games/issues/4" target="_blank" rel="noreferrer"><span>STARTER</span><strong>Dots and Boxes</strong><small>Claim issue #4 ↗</small></a>
-          <a href="https://github.com/davidlifschitz/online-board-games/issues/5" target="_blank" rel="noreferrer"><span>STARTER</span><strong>Mastermind-style</strong><small>Claim issue #5 ↗</small></a>
-          <a href="https://github.com/davidlifschitz/online-board-games/issues/6" target="_blank" rel="noreferrer"><span>STARTER</span><strong>Farkle</strong><small>Claim issue #6 ↗</small></a>
-          <a href="https://github.com/davidlifschitz/online-board-games/issues/7" target="_blank" rel="noreferrer"><span>STARTER</span><strong>Boggle-style</strong><small>Claim issue #7 ↗</small></a>
-          <a href="https://github.com/davidlifschitz/online-board-games/issues/8" target="_blank" rel="noreferrer"><span>STARTER</span><strong>Love-Letter-style</strong><small>Claim issue #8 ↗</small></a>
+        <p class="section-copy">The list below comes directly from <code>games.json</code> and only shows prompt concepts still waiting for a first deployment. Already-built concepts are still open to alternate implementations.</p>
+        <div id="challengeCatalog" class="challenge-catalog" aria-live="polite">
+          <p class="empty-state">Loading open build challenges…</p>
         </div>
         <div class="flow-grid" aria-label="Build workflow">
-          <div><span>01</span><strong>Choose</strong><p>Pick a prompt or take an existing concept in a different direction.</p></div>
+          <div><span>01</span><strong>Choose</strong><p>Pick an open prompt or take an existing concept in a different direction.</p></div>
           <div><span>02</span><strong>Ship</strong><p>Deploy a playable production URL and publish the source on GitHub.</p></div>
           <div><span>03</span><strong>Submit</strong><p>Verify with Google or GitHub, list the models you used, and enter review.</p></div>
         </div>
