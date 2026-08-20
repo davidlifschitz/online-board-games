@@ -62,6 +62,19 @@ test('publishes verified permissive provenance for every Batch 3 game', () => {
   }
 });
 
+test('keeps every provenance route synchronized with the live catalog', () => {
+  const catalog = readJson('games.json');
+  const manifest = readJson('upstreams.json');
+  const byId = new Map(catalog.games.map((game) => [game.id, game]));
+
+  for (const entry of manifest.games) {
+    const game = byId.get(entry.id);
+    assert.ok(game, `provenance entry ${entry.id} must exist in games.json`);
+    assert.equal(game.status, 'live', `provenance entry ${entry.id} must describe a live game`);
+    assert.equal(entry.liveUrl, game.liveUrl, `provenance route for ${entry.id} must match games.json`);
+  }
+});
+
 test('keeps the TrainGames hub and docs synchronized with the published catalog', () => {
   const home = read('index.html');
   const readme = read('README.md');
