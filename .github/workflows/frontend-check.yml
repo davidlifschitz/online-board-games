@@ -31,7 +31,26 @@ jobs:
           node --check games/crown-jump/ai-worker.js
           node --check games/crown-jump/persistence.js
           node --check games/crown-jump/app.js
+          node --check games/high-table/engine.js
+          node --check games/high-table/game.js
+          node --check games/hearts/engine.js
+          node --check games/hearts/game.js
+          node --check games/spades/engine.js
+          node --check games/spades/game.js
+          node --check games/gin-rummy/engine.js
+          node --check games/gin-rummy/game.js
+          node --check games/rummy-500/engine.js
+          node --check games/rummy-500/game.js
       - name: Validate TrainGames manifest
         run: node -e "const fs=require('fs');const m=JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));if(m.name!=='TrainGames'||m.start_url!=='/play.html')process.exit(1)"
+      - name: Test catalog publication contract
+        run: node --test tests/catalog-publication.test.js
+      - name: Test Batch 3 card engines
+        run: |
+          node games/high-table/tests/engine.test.js
+          node games/hearts/tests/engine.test.js
+          node games/spades/tests/engine.test.js
+          node games/gin-rummy/tests/engine.test.js
+          node games/rummy-500/tests/engine.test.js
       - name: Test Crown Jump engine and repetition behavior
         run: npm test --prefix games/crown-jump
