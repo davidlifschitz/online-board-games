@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="TrainGames">
+  <rect width="512" height="512" rx="112" fill="#0b1020"/>
+  <circle cx="256" cy="230" r="154" fill="#101728" stroke="#8dffb3" stroke-width="20"/>
+  <path d="M146 350h220M182 390h148" stroke="#8dffb3" stroke-width="20" stroke-linecap="round"/>
+  <text x="256" y="270" text-anchor="middle" font-family="system-ui, sans-serif" font-size="122" font-weight="850" fill="#f7f9ff">TG</text>
+</svg>
