@@ -14,6 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: Verify TrainGames production UI, assets, OAuth handoffs, and voting privacy
         id: smoke
         env:
@@ -104,6 +110,12 @@ jobs:
             process.exit(1);
           });
           NODE
+
+      - name: Verify Batch 3 catalog, provenance, routes, and offline caches
+        if: ${{ github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[verify-production-smoke]') }}
+        env:
+          TRAINGAMES_BASE_URL: https://os-online-board-games.vercel.app
+        run: node tests/production-smoke.mjs
 
       - name: Report requested verification to issue 13
         if: ${{ always() && github.event_name == 'push' && contains(github.event.head_commit.message, '[verify-production-smoke]') }}
