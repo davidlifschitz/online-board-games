@@ -14,6 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       - name: Verify TrainGames production UI, assets, OAuth handoffs, and voting privacy
         id: smoke
         env:
@@ -105,16 +111,24 @@ jobs:
           });
           NODE
 
+      - name: Verify Batch 3 catalog, provenance, routes, and offline caches
+        id: batch3_smoke
+        if: ${{ github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[verify-production-smoke]') }}
+        env:
+          TRAINGAMES_BASE_URL: https://os-online-board-games.vercel.app
+        run: node tests/production-smoke.mjs
+
       - name: Report requested verification to issue 13
         if: ${{ always() && github.event_name == 'push' && contains(github.event.head_commit.message, '[verify-production-smoke]') }}
         uses: actions/github-script@v7
         env:
           SMOKE_OUTCOME: ${{ steps.smoke.outcome }}
+          BATCH3_SMOKE_OUTCOME: ${{ steps.batch3_smoke.outcome }}
         with:
           script: |
-            const passed = process.env.SMOKE_OUTCOME === 'success';
+            const passed = process.env.SMOKE_OUTCOME === 'success' && process.env.BATCH3_SMOKE_OUTCOME === 'success';
             const icon = passed ? '✅' : '❌';
             const summary = passed
-              ? 'TrainGames production smoke passed: rebranded UI and current assets returned successfully, voting aggregates were public while individual vote rows stayed private, Supabase reports GitHub and Google enabled, and both OAuth initiation endpoints redirected to the expected provider hosts.'
-              : 'TrainGames production smoke failed. Inspect the workflow run for the failing UI/assets, voting privacy, Supabase settings, or OAuth handoff check.';
+              ? 'TrainGames production smoke passed: rebranded UI and current assets returned successfully, voting aggregates were public while individual vote rows stayed private, Supabase reports GitHub and Google enabled, both OAuth initiation endpoints redirected to the expected provider hosts, and Batch 3 catalog/provenance/routes/offline caches matched the published release.'
+              : `TrainGames production smoke failed. Platform smoke: ${process.env.SMOKE_OUTCOME}; Batch 3 smoke: ${process.env.BATCH3_SMOKE_OUTCOME}. Inspect the workflow run for details.`;
             await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number: 13, body: `${icon} ${summary}\n\nCommit: \`${context.sha}\`` });
