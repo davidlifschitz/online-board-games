@@ -4,7 +4,7 @@ const IMAGE_STORE='images';
 const STATE_KEY='photo-puzzle:state:v1';
 const PIECE_COUNTS=[12,24,40,60,96];
 const COMPLEXITY={
-  relaxed:{guide:.34,hint:true},
+  relaxed:{guide:.34,hint:false},
   classic:{guide:.12,hint:false},
   challenge:{guide:0,hint:false}
 };
@@ -131,7 +131,7 @@ function attemptPlace(slotId){
   if(state.filter==='edges'&&!remainingEdges().length&&state.placed.size<state.pieceCount){setPieceFilter('all',true);showToast('All edge pieces are on the board. Now use all pieces.')}
 }
 function remainingEdges(){return state.order.filter(id=>{const {row,col}=parseId(id);return isEdge(row,col)&&!state.placed.has(id)})}
-function setPieceFilter(filter,quiet=false){state.filter=filter;document.querySelectorAll('[data-piece-filter]').forEach(button=>button.classList.toggle('active',button.dataset.pieceFilter===filter));renderTray();if(!quiet&&matchMedia('(max-width:900px)').matches)switchMobileView('pieces')}
+function setPieceFilter(filter,quiet=false){state.filter=filter;document.querySelectorAll('[data-piece-filter]').forEach(button=>button.addEventListener?null:null);document.querySelectorAll('[data-piece-filter]').forEach(button=>button.classList.toggle('active',button.dataset.pieceFilter===filter));renderTray();if(!quiet&&matchMedia('(max-width:900px)').matches)switchMobileView('pieces')}
 
 function guideOpacity(){return COMPLEXITY[state.complexity]?.guide??.12}
 function applyGuide(){const available=guideOpacity()>0;const on=available&&els.guideToggle.getAttribute('aria-pressed')!=='false';els.boardGuide.style.opacity=on?String(guideOpacity()):'0';els.guideToggle.disabled=!available;els.guideToggle.textContent=available?(on?'Photo guide on':'Photo guide off'):'No photo guide';highlightRelaxedTarget()}
