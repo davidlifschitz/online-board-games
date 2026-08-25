@@ -1,0 +1,88 @@
+@media (max-width: 900px) {
+  .mobile-tabs { display: none !important; }
+  .mobile-selection { display: none !important; }
+  .board-panel.mobile-view,
+  .pieces-panel.mobile-view { display: flex !important; }
+
+  .game-layout { display: block; min-height: auto; }
+  .board-panel { min-height: 0; overflow: visible; }
+  .board-controls { position: static; }
+  .board-title { display: flex; }
+  .board-title small { font-size: .72rem; }
+  .board-control-actions { margin-left: auto; }
+  .zoom-control { display: none; }
+
+  .board-scroller {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    padding: 10px;
+    overflow: hidden;
+    touch-action: manipulation;
+  }
+
+  .board-stage {
+    width: min(100%, calc(100vw - 40px));
+    min-width: 0;
+    max-width: 100%;
+    margin: 0 auto;
+    transform: none !important;
+  }
+
+  .pieces-panel {
+    position: sticky;
+    bottom: calc(6px + env(safe-area-inset-bottom));
+    z-index: 9;
+    min-height: 0;
+    max-height: 164px;
+    margin: 8px;
+    overflow: hidden;
+    border-color: rgba(45, 212, 191, .26);
+    background: rgba(8, 18, 31, .97);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 18px 46px rgba(0, 0, 0, .36);
+  }
+
+  .pieces-header {
+    position: static;
+    align-items: center;
+    padding: 8px 10px 2px;
+    background: transparent;
+  }
+
+  .pieces-header .step-label,
+  .pieces-header h2,
+  .piece-help,
+  .tray-footer { display: none; }
+
+  .piece-filter { flex-direction: row; margin-left: auto; }
+  .piece-filter button { padding: 6px 9px; }
+
+  .piece-tray {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    padding: 7px 10px 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .piece-button {
+    flex: 0 0 86px;
+    width: 86px;
+    min-width: 86px;
+    min-height: 86px;
+    scroll-snap-align: center;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 480px) {
+  .board-stage { width: min(100%, calc(100vw - 28px)); min-width: 0; }
+  .board-scroller { padding: 6px; }
+  .pieces-panel { margin: 6px; max-height: 150px; }
+  .piece-button { flex-basis: 76px; width: 76px; min-width: 76px; min-height: 76px; }
+}
