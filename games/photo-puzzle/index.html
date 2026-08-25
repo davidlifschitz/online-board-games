@@ -7,6 +7,7 @@
   <meta name="description" content="Turn any photo into a private, browser-based jigsaw puzzle with desktop and mobile controls." />
   <title>Photo Puzzle • OS Online Board Games</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="mobile.css" />
 </head>
 <body>
   <main class="app-shell">
@@ -47,6 +48,7 @@
   <dialog class="complete-dialog" id="complete-dialog"><div class="complete-card"><div class="complete-icon" aria-hidden="true">🧩</div><p class="eyebrow">PUZZLE COMPLETE</p><h2>You put it together.</h2><p id="complete-summary"></p><div class="complete-actions"><button class="start-button" id="play-again-button" type="button">Shuffle again</button><button id="new-photo-button" type="button">Choose a new photo</button></div></div></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="game.js"></script>
+  <script src="mobile.js"></script>
   <script>
     (()=>{const text=document.getElementById('progress-text'),fill=document.getElementById('progress-fill');if(!text||!fill)return;const sync=()=>{const match=text.textContent.match(/(\d+)\s*\/\s*(\d+)/);if(!match)return;const placed=Number(match[1]),total=Number(match[2]);fill.style.width=`${total?Math.min(100,placed/total*100):0}%`};new MutationObserver(sync).observe(text,{childList:true,subtree:true,characterData:true});sync()})();
   </script>
