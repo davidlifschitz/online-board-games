@@ -45,11 +45,27 @@ test('placements are silent and correctness is checked only on submission', () =
   assert.match(game, /function checkPuzzle\(\)/, 'the player should explicitly submit a full board for checking');
   assert.doesNotMatch(game, /Not quite — try another spot/, 'the game must not announce wrong placements during play');
   assert.doesNotMatch(game, /classList\.add\('wrong'\)/, 'the game must not visually mark an incorrect slot during play');
-  assert.match(game, /state\.placements\.set\(slotId,/, 'any selected piece should be placeable into the chosen open slot');
+
+  const attempt = game.match(/function attemptPlace\(slotId\)\{([\s\S]*?)\n\}\nfunction remainingEdges/)?.[1];
+  assert.ok(attempt, 'attemptPlace should be inspectable as an isolated interaction path');
+  assert.match(attempt, /state\.placements\.set\(slotId,id\)/, 'any selected piece should be placeable into the chosen slot');
+  assert.match(attempt, /state\.placements\.delete\(slotId\)/, 'a placed piece should be liftable so a failed board can be rearranged');
+  assert.doesNotMatch(attempt, /state\.selected!==slotId/, 'placement must not compare the selected piece to the slot during play');
+  assert.doesNotMatch(attempt, /finishPuzzle\(/, 'filling the board must not silently auto-pass or auto-fail');
+
+  const check = game.match(/function checkPuzzle\(\)\{([\s\S]*?)\n\}\nfunction finishPuzzle/)?.[1];
+  assert.ok(check, 'checkPuzzle should be inspectable as a separate submission path');
+  assert.match(check, /slotId===piece/, 'correctness should be evaluated only inside the submission path');
+  assert.match(check, /els\.failed\?\.showModal\(\)/, 'an incorrect full-board submission should produce a generic failure state');
+  assert.doesNotMatch(check, /classList|querySelector|showToast/, 'a failed submission must not identify or mark incorrect slots');
+
+  assert.match(game, /placements:\[\.\.\.state\.placements\]/, 'slot-to-piece placements should persist for resume');
+  assert.match(game, /new Map\(saved\.placements\)/, 'resume should restore the exact slot-to-piece arrangement');
 
   const html = read('games/photo-puzzle/index.html');
   assert.match(html, /id="check-puzzle-button"/, 'a full-board check action should exist');
   assert.match(html, /id="failed-dialog"/, 'a generic failure dialog should exist');
+  assert.match(html, /No pieces are marked\./, 'failure copy should explicitly avoid revealing which placements are wrong');
   assert.doesNotMatch(html, /Wrong spot\?/, 'instructions must not imply immediate correctness feedback');
 
   const mobile = read('games/photo-puzzle/mobile.js');
