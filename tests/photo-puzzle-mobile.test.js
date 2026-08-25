@@ -39,18 +39,38 @@ test('mobile interaction keeps board and pieces together and auto-selects the ne
   assert.match(js, /tray\.scrollTo/);
 });
 
-test('wrong placement is a retry, not an auto-correction', () => {
+test('placements are silent and correctness is checked only on submission', () => {
   const game = read('games/photo-puzzle/game.js');
-  const wrongBranch = game.match(/if\(state\.selected!==slotId\)\{([\s\S]*?)return\}/)?.[1];
-  assert.ok(wrongBranch, 'attemptPlace should have an explicit wrong-answer branch');
-  assert.doesNotMatch(wrongBranch, /state\.selected\s*=\s*null/, 'a wrong answer should keep the same piece selected');
-  assert.match(wrongBranch, /try another spot/, 'wrong-answer feedback should ask the player to retry without revealing the answer');
+  assert.match(game, /placements:\s*new Map\(\)/, 'state should track which piece occupies each slot');
+  assert.match(game, /function checkPuzzle\(\)/, 'the player should explicitly submit a full board for checking');
+  assert.doesNotMatch(game, /Not quite — try another spot/, 'the game must not announce wrong placements during play');
+  assert.doesNotMatch(game, /classList\.add\('wrong'\)/, 'the game must not visually mark an incorrect slot during play');
+  assert.doesNotMatch(game, /hint:true/, 'no assistance mode should reveal the exact correct slot');
+
+  const attempt = game.match(/function attemptPlace\(slotId\)\{([\s\S]*?)\n\}\nfunction remainingEdges/)?.[1];
+  assert.ok(attempt, 'attemptPlace should be inspectable as an isolated interaction path');
+  assert.match(attempt, /state\.placements\.set\(slotId,id\)/, 'any selected piece should be placeable into the chosen slot');
+  assert.match(attempt, /state\.placements\.delete\(slotId\)/, 'a placed piece should be liftable so a failed board can be rearranged');
+  assert.doesNotMatch(attempt, /state\.selected!==slotId/, 'placement must not compare the selected piece to the slot during play');
+  assert.doesNotMatch(attempt, /finishPuzzle\(/, 'filling the board must not silently auto-pass or auto-fail');
+
+  const check = game.match(/function checkPuzzle\(\)\{([\s\S]*?)\n\}\nfunction finishPuzzle/)?.[1];
+  assert.ok(check, 'checkPuzzle should be inspectable as a separate submission path');
+  assert.match(check, /slotId===piece/, 'correctness should be evaluated only inside the submission path');
+  assert.match(check, /els\.failed\?\.showModal\(\)/, 'an incorrect full-board submission should produce a generic failure state');
+  assert.doesNotMatch(check, /classList|querySelector|showToast/, 'a failed submission must not identify or mark incorrect slots');
+
+  assert.match(game, /placements:\[\.\.\.state\.placements\]/, 'slot-to-piece placements should persist for resume');
+  assert.match(game, /new Map\(saved\.placements\)/, 'resume should restore the exact slot-to-piece arrangement');
 
   const html = read('games/photo-puzzle/index.html');
-  assert.match(html, /Wrong spot\? Keep trying — the piece stays selected\./, 'desktop/help copy should explain retry behavior');
+  assert.match(html, /id="check-puzzle-button"/, 'a full-board check action should exist');
+  assert.match(html, /id="failed-dialog"/, 'a generic failure dialog should exist');
+  assert.match(html, /No pieces are marked\./, 'failure copy should explicitly avoid revealing which placements are wrong');
+  assert.doesNotMatch(html, /Wrong spot\?/, 'instructions must not imply immediate correctness feedback');
 
   const mobile = read('games/photo-puzzle/mobile.js');
-  assert.match(mobile, /Wrong spot\? Keep trying\./, 'mobile board hint should explain retry behavior');
+  assert.doesNotMatch(mobile, /Wrong spot\?/, 'mobile instructions must not imply immediate correctness feedback');
 });
 
 test('photo puzzle page loads the mobile layer after the base game assets', () => {

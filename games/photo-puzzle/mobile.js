@@ -15,12 +15,12 @@
   function syncMobileLayout() {
     if (media.matches) {
       if (piecesPanel.parentElement !== boardPanel) boardPanel.appendChild(piecesPanel);
-      if (boardHint) boardHint.textContent = 'Pick a piece below, then tap a spot. Wrong spot? Keep trying.';
+      if (boardHint) boardHint.textContent = 'Pick a piece below, then place it wherever you think it belongs.';
       return;
     }
 
     if (piecesPanel.parentElement !== gameLayout) gameLayout.appendChild(piecesPanel);
-    if (boardHint) boardHint.textContent = 'Tap a piece, then tap a spot. Wrong spot? Keep trying.';
+    if (boardHint) boardHint.textContent = 'Place pieces wherever you think they belong. Tap a placed piece to move it.';
   }
 
   function scrollSelectedPieceIntoView(button) {

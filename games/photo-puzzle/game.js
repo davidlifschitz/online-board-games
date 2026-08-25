@@ -4,7 +4,7 @@ const IMAGE_STORE='images';
 const STATE_KEY='photo-puzzle:state:v1';
 const PIECE_COUNTS=[12,24,40,60,96];
 const COMPLEXITY={
-  relaxed:{guide:.34,hint:true},
+  relaxed:{guide:.34,hint:false},
   classic:{guide:.12,hint:false},
   challenge:{guide:0,hint:false}
 };
@@ -13,12 +13,12 @@ const $=selector=>document.querySelector(selector);
 const els={
   setup:$('#setup-card'),game:$('#game-shell'),input:$('#photo-input'),upload:$('#upload-zone'),preview:$('#setup-preview'),start:$('#start-button'),complexity:$('#complexity'),
   board:$('#board'),boardStage:$('#board-stage'),boardGuide:$('#board-guide'),boardScroller:$('#board-scroller'),tray:$('#piece-tray'),progress:$('#progress-text'),timer:$('#timer-text'),
-  reference:$('#reference-dialog'),referenceImage:$('#reference-image'),complete:$('#complete-dialog'),completeSummary:$('#complete-summary'),guideToggle:$('#guide-toggle'),zoomLabel:$('#zoom-label'),
+  reference:$('#reference-dialog'),referenceImage:$('#reference-image'),complete:$('#complete-dialog'),completeSummary:$('#complete-summary'),failed:$('#failed-dialog'),check:$('#check-puzzle-button'),guideToggle:$('#guide-toggle'),zoomLabel:$('#zoom-label'),
   mobileSelection:$('#mobile-selection'),selectionThumb:$('#selection-thumb'),piecesBadge:$('#pieces-left-badge'),toast:$('#toast')
 };
 
 const state={
-  file:null,imageUrl:'',imageId:'current',imageWidth:0,imageHeight:0,pieceCount:24,complexity:'classic',rows:4,cols:6,seed:0,placed:new Set(),selected:null,filter:'edges',zoom:1,startedAt:null,elapsedBefore:0,timerId:null,edges:null,order:[]
+  file:null,imageUrl:'',imageId:'current',imageWidth:0,imageHeight:0,pieceCount:24,complexity:'classic',rows:4,cols:6,seed:0,placed:new Set(),placements:new Map(),selected:null,filter:'edges',zoom:1,startedAt:null,elapsedBefore:0,timerId:null,edges:null,order:[],failedChecks:0
 };
 
 function openDb(){
@@ -87,7 +87,7 @@ async function handlePhoto(file){
 function startPuzzle({resume=false}={}){
   if(!state.imageUrl)return;
   if(!resume){
-    const aspect=state.imageWidth/state.imageHeight||1;const grid=chooseGrid(state.pieceCount,aspect);state.rows=grid.rows;state.cols=grid.cols;state.seed=(Date.now()^hashString(`${state.imageWidth}x${state.imageHeight}`))>>>0;state.placed=new Set();state.selected=null;state.filter='edges';state.elapsedBefore=0;state.startedAt=Date.now();
+    const aspect=state.imageWidth/state.imageHeight||1;const grid=chooseGrid(state.pieceCount,aspect);state.rows=grid.rows;state.cols=grid.cols;state.seed=(Date.now()^hashString(`${state.imageWidth}x${state.imageHeight}`))>>>0;state.placed=new Set();state.placements=new Map();state.selected=null;state.filter='edges';state.elapsedBefore=0;state.startedAt=Date.now();state.failedChecks=0;
   }else state.startedAt=Date.now();
   state.edges=generateEdges(state.rows,state.cols,state.seed);
   const ids=[];for(let r=0;r<state.rows;r++)for(let c=0;c<state.cols;c++)ids.push(pieceId(r,c));
@@ -101,15 +101,15 @@ function renderBoard(){
   for(let r=0;r<state.rows;r++)for(let c=0;c<state.cols;c++){
     const id=pieceId(r,c);const slot=document.createElement('button');slot.type='button';slot.className='slot';slot.dataset.pieceId=id;slot.dataset.row=r;slot.dataset.col=c;slot.setAttribute('role','gridcell');slot.setAttribute('aria-label',`Puzzle position row ${r+1}, column ${c+1}`);
     slot.addEventListener('click',()=>attemptPlace(id));slot.addEventListener('dragover',event=>{event.preventDefault();slot.classList.add('target-hint')});slot.addEventListener('dragleave',()=>slot.classList.remove('target-hint'));slot.addEventListener('drop',event=>{event.preventDefault();slot.classList.remove('target-hint');const dragged=event.dataTransfer.getData('text/plain');if(dragged)selectPiece(dragged,false);attemptPlace(id)});
-    if(state.placed.has(id))lockSlot(slot,id,r,c);els.board.appendChild(slot);
+    const occupant=state.placements.get(id);if(occupant)fillSlot(slot,occupant);els.board.appendChild(slot);
   }
 }
-function lockSlot(slot,id,row,col){slot.classList.add('locked');slot.disabled=true;const holder=document.createElement('div');holder.className='placed-piece';holder.innerHTML=svgForPiece(row,col);slot.appendChild(holder)}
+function fillSlot(slot,piece){const {row,col}=parseId(piece);slot.classList.add('locked');slot.dataset.occupant=piece;slot.setAttribute('aria-label',`${slot.getAttribute('aria-label')}. Occupied; tap to move this piece.`);const holder=document.createElement('div');holder.className='placed-piece';holder.innerHTML=svgForPiece(row,col);slot.appendChild(holder)}
 
 function visiblePieceIds(){return state.order.filter(id=>{if(state.placed.has(id))return false;const {row,col}=parseId(id);return state.filter==='all'||isEdge(row,col)})}
 function renderTray(){
   els.tray.replaceChildren();const ids=visiblePieceIds();
-  if(!ids.length){const empty=document.createElement('p');empty.className='tray-empty';empty.textContent=state.filter==='edges'?'Border done. Switching to all pieces…':'No pieces left.';els.tray.appendChild(empty);if(state.filter==='edges'&&!remainingEdges().length)setTimeout(()=>setPieceFilter('all',true),350);return}
+  if(!ids.length){const empty=document.createElement('p');empty.className='tray-empty';empty.textContent=state.filter==='edges'?'Edge pieces placed. Switching to all pieces…':'No loose pieces.';els.tray.appendChild(empty);if(state.filter==='edges'&&!remainingEdges().length)setTimeout(()=>setPieceFilter('all',true),350);return}
   ids.forEach(id=>{const {row,col}=parseId(id);const button=document.createElement('button');button.type='button';button.className='piece-button';button.dataset.pieceId=id;button.draggable=true;button.setAttribute('aria-label',isEdge(row,col)?'Edge puzzle piece':'Puzzle piece');button.innerHTML=svgForPiece(row,col);if(isEdge(row,col)){const badge=document.createElement('span');badge.className='edge-badge';badge.textContent='EDGE';button.appendChild(badge)}if(state.selected===id)button.classList.add('selected');button.addEventListener('click',()=>selectPiece(id,true));button.addEventListener('dragstart',event=>{selectPiece(id,false);event.dataTransfer.setData('text/plain',id);event.dataTransfer.effectAllowed='move'});els.tray.appendChild(button)});
   updateSelectedPreview();
 }
@@ -120,11 +120,15 @@ function updateSelectedPreview(){
 }
 function highlightRelaxedTarget(){document.querySelectorAll('.slot').forEach(slot=>slot.classList.remove('target-hint'));if(!state.selected||!COMPLEXITY[state.complexity].hint)return;els.board.querySelector(`[data-piece-id="${CSS.escape(state.selected)}"]`)?.classList.add('target-hint')}
 function attemptPlace(slotId){
-  if(!state.selected||state.placed.has(slotId))return;
-  if(state.selected!==slotId){const slot=els.board.querySelector(`[data-piece-id="${CSS.escape(slotId)}"]`);slot?.classList.remove('wrong');requestAnimationFrame(()=>slot?.classList.add('wrong'));showToast('Not quite — try another spot.');return}
-  const id=state.selected;state.placed.add(id);state.selected=null;const {row,col}=parseId(id);const slot=els.board.querySelector(`[data-piece-id="${CSS.escape(id)}"]`);if(slot)lockSlot(slot,id,row,col);renderTray();updateProgress();saveState(true);
-  if(state.filter==='edges'&&!remainingEdges().length&&state.placed.size<state.pieceCount){setPieceFilter('all',true);showToast('Border complete. Now fill the middle.')}
-  if(state.placed.size===state.pieceCount)finishPuzzle();
+  const occupant=state.placements.get(slotId)||null;
+  if(!state.selected){
+    if(!occupant)return;
+    state.placements.delete(slotId);state.placed.delete(occupant);state.selected=occupant;renderBoard();renderTray();updateProgress();highlightRelaxedTarget();saveState(true);return;
+  }
+  const id=state.selected;state.placements.set(slotId,id);state.placed.add(id);state.selected=null;
+  if(occupant&&occupant!==id){state.placed.delete(occupant);state.selected=occupant}
+  renderBoard();renderTray();updateProgress();highlightRelaxedTarget();saveState(true);
+  if(state.filter==='edges'&&!remainingEdges().length&&state.placed.size<state.pieceCount){setPieceFilter('all',true);showToast('All edge pieces are on the board. Now use all pieces.')}
 }
 function remainingEdges(){return state.order.filter(id=>{const {row,col}=parseId(id);return isEdge(row,col)&&!state.placed.has(id)})}
 function setPieceFilter(filter,quiet=false){state.filter=filter;document.querySelectorAll('[data-piece-filter]').forEach(button=>button.classList.toggle('active',button.dataset.pieceFilter===filter));renderTray();if(!quiet&&matchMedia('(max-width:900px)').matches)switchMobileView('pieces')}
@@ -135,30 +139,36 @@ function applyZoom(){els.boardStage.style.transform=`scale(${state.zoom})`;els.z
 function changeZoom(delta){state.zoom=Math.min(1.75,Math.max(.75,Math.round((state.zoom+delta)*4)/4));applyZoom()}
 function escapeCssUrl(value){return String(value).replaceAll('"','\\"').replaceAll('\\','\\\\')}
 
-function updateProgress(){const remaining=state.pieceCount-state.placed.size;els.progress.textContent=`${state.placed.size} / ${state.pieceCount} placed`;els.piecesBadge.textContent=remaining?`· ${remaining}`:''}
+function updateProgress(){const remaining=state.pieceCount-state.placed.size;els.progress.textContent=`${state.placed.size} / ${state.pieceCount} placed`;els.piecesBadge.textContent=remaining?`· ${remaining}`:'';if(els.check){els.check.disabled=state.placements.size!==state.pieceCount;els.check.title=els.check.disabled?'Fill every spot before checking the puzzle.':'Check this arrangement.'}}
 function elapsedMs(){return state.elapsedBefore+(state.startedAt?Date.now()-state.startedAt:0)}
 function formatTime(ms){const total=Math.floor(ms/1000),minutes=Math.floor(total/60),seconds=total%60;return`${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`}
 function startTimer(){clearInterval(state.timerId);els.timer.textContent=formatTime(elapsedMs());state.timerId=setInterval(()=>{els.timer.textContent=formatTime(elapsedMs())},1000)}
-function finishPuzzle(){state.elapsedBefore=elapsedMs();state.startedAt=null;clearInterval(state.timerId);saveState(true,true);els.completeSummary.textContent=`${state.pieceCount} pieces in ${formatTime(state.elapsedBefore)}.`;setTimeout(()=>els.complete.showModal(),250)}
+function checkPuzzle(){
+  if(state.placements.size!==state.pieceCount)return;
+  const solved=[...state.placements].every(([slotId,piece])=>slotId===piece);
+  if(solved){finishPuzzle();return}
+  state.failedChecks+=1;saveState(true);els.failed?.showModal();
+}
+function finishPuzzle(){state.elapsedBefore=elapsedMs();state.startedAt=null;clearInterval(state.timerId);saveState(true,true);const checks=state.failedChecks?` after ${state.failedChecks} failed ${state.failedChecks===1?'check':'checks'}`:'';els.completeSummary.textContent=`${state.pieceCount} pieces in ${formatTime(state.elapsedBefore)}${checks}.`;setTimeout(()=>els.complete.showModal(),250)}
 
 function switchMobileView(view){document.querySelectorAll('[data-mobile-view]').forEach(panel=>panel.classList.toggle('active',panel.dataset.mobileView===view));document.querySelectorAll('[data-view]').forEach(button=>{const active=button.dataset.view===view;button.classList.toggle('active',active);button.setAttribute('aria-selected',String(active))})}
 function showToast(message){els.toast.textContent=message;els.toast.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>els.toast.classList.remove('show'),1600)}
 
 function saveState(active,complete=false){
-  try{localStorage.setItem(STATE_KEY,JSON.stringify({active,complete,pieceCount:state.pieceCount,complexity:state.complexity,rows:state.rows,cols:state.cols,seed:state.seed,placed:[...state.placed],filter:state.filter,elapsed:complete?state.elapsedBefore:elapsedMs(),imageWidth:state.imageWidth,imageHeight:state.imageHeight}))}catch{}
+  try{localStorage.setItem(STATE_KEY,JSON.stringify({active,complete,pieceCount:state.pieceCount,complexity:state.complexity,rows:state.rows,cols:state.cols,seed:state.seed,placed:[...state.placed],placements:[...state.placements],failedChecks:state.failedChecks,filter:state.filter,elapsed:complete?state.elapsedBefore:elapsedMs(),imageWidth:state.imageWidth,imageHeight:state.imageHeight}))}catch{}
 }
 async function restore(){
   let saved=null;try{saved=JSON.parse(localStorage.getItem(STATE_KEY)||'null')}catch{}
   if(!saved)return;
   const blob=await loadImage().catch(()=>null);if(!blob)return;
   await setUploadedBlob(blob);
-  state.pieceCount=PIECE_COUNTS.includes(saved.pieceCount)?saved.pieceCount:24;state.complexity=COMPLEXITY[saved.complexity]?saved.complexity:'classic';state.rows=saved.rows||4;state.cols=saved.cols||6;state.seed=saved.seed||hashString('restored');state.placed=new Set(saved.placed||[]);state.filter=saved.filter==='all'?'all':'edges';state.elapsedBefore=Number(saved.elapsed)||0;
+  state.pieceCount=PIECE_COUNTS.includes(saved.pieceCount)?saved.pieceCount:24;state.complexity=COMPLEXITY[saved.complexity]?saved.complexity:'classic';state.rows=saved.rows||4;state.cols=saved.cols||6;state.seed=saved.seed||hashString('restored');state.placements=Array.isArray(saved.placements)?new Map(saved.placements):new Map((saved.placed||[]).map(id=>[id,id]));state.placed=new Set([...state.placements.values()]);state.failedChecks=Number(saved.failedChecks)||0;state.filter=saved.filter==='all'?'all':'edges';state.elapsedBefore=Number(saved.elapsed)||0;
   document.querySelectorAll('[data-count]').forEach(button=>button.classList.toggle('active',Number(button.dataset.count)===state.pieceCount));els.complexity.value=state.complexity;
   if(saved.active&&!saved.complete)startPuzzle({resume:true});
 }
-async function resetToSetup(){clearInterval(state.timerId);state.startedAt=null;state.elapsedBefore=0;state.placed=new Set();state.selected=null;els.complete.open&&els.complete.close();els.game.hidden=true;els.setup.hidden=false;window.scrollTo({top:0,behavior:'smooth'});saveState(false)}
+async function resetToSetup(){clearInterval(state.timerId);state.startedAt=null;state.elapsedBefore=0;state.placed=new Set();state.placements=new Map();state.selected=null;state.failedChecks=0;els.complete.open&&els.complete.close();els.failed?.open&&els.failed.close();els.game.hidden=true;els.setup.hidden=false;window.scrollTo({top:0,behavior:'smooth'});saveState(false)}
 async function newPhoto(){await resetToSetup();await clearImage().catch(()=>{});if(state.imageUrl)URL.revokeObjectURL(state.imageUrl);state.imageUrl='';state.file=null;state.imageWidth=0;state.imageHeight=0;els.preview.hidden=true;els.preview.removeAttribute('src');els.upload.classList.remove('has-photo');els.input.value='';els.start.disabled=true;localStorage.removeItem(STATE_KEY)}
-function reshuffle(){els.complete.open&&els.complete.close();state.seed=(state.seed+0x9e3779b9)>>>0;state.placed=new Set();state.selected=null;state.filter='edges';state.elapsedBefore=0;state.startedAt=Date.now();startPuzzle({resume:true})}
+function reshuffle(){els.complete.open&&els.complete.close();els.failed?.open&&els.failed.close();state.seed=(state.seed+0x9e3779b9)>>>0;state.placed=new Set();state.placements=new Map();state.selected=null;state.filter='edges';state.elapsedBefore=0;state.startedAt=Date.now();state.failedChecks=0;startPuzzle({resume:true})}
 
 els.input.addEventListener('change',event=>handlePhoto(event.target.files?.[0]).catch(()=>showToast('That photo could not be opened.')));
 document.querySelectorAll('[data-count]').forEach(button=>button.addEventListener('click',()=>{state.pieceCount=Number(button.dataset.count);document.querySelectorAll('[data-count]').forEach(item=>item.classList.toggle('active',item===button));saveState(false)}));
@@ -168,7 +178,7 @@ document.querySelectorAll('[data-piece-filter]').forEach(button=>button.addEvent
 document.querySelectorAll('[data-view]').forEach(button=>button.addEventListener('click',()=>switchMobileView(button.dataset.view)));
 $('#zoom-in').addEventListener('click',()=>changeZoom(.25));$('#zoom-out').addEventListener('click',()=>changeZoom(-.25));
 els.guideToggle.addEventListener('click',()=>{els.guideToggle.setAttribute('aria-pressed',String(els.guideToggle.getAttribute('aria-pressed')==='false'));applyGuide()});
-$('#reference-button').addEventListener('click',()=>els.reference.showModal());$('#restart-button').addEventListener('click',resetToSetup);$('#back-to-pieces').addEventListener('click',()=>switchMobileView('pieces'));$('#play-again-button').addEventListener('click',reshuffle);$('#new-photo-button').addEventListener('click',newPhoto);
+$('#reference-button').addEventListener('click',()=>els.reference.showModal());$('#restart-button').addEventListener('click',resetToSetup);els.check?.addEventListener('click',checkPuzzle);$('#back-to-pieces').addEventListener('click',()=>switchMobileView('pieces'));$('#play-again-button').addEventListener('click',reshuffle);$('#new-photo-button').addEventListener('click',newPhoto);
 window.addEventListener('beforeunload',()=>{if(!els.game.hidden&&state.startedAt)saveState(true)});
 window.addEventListener('resize',()=>{if(!matchMedia('(max-width:900px)').matches)document.querySelectorAll('.mobile-view').forEach(panel=>panel.classList.add('active'))});
 restore().catch(()=>{});
