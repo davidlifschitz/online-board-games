@@ -5,7 +5,8 @@
   .pieces-panel.mobile-view { display: flex !important; }
 
   .game-layout { display: block; min-height: auto; }
-  .board-panel { min-height: 0; overflow: visible; }
+  .board-panel { min-height: 0; overflow: visible; padding-bottom: 170px; }
+  .toolbar-actions { display: flex; grid-column: 1 / -1; justify-content: flex-end; }
   .board-controls { position: static; }
   .board-title { display: flex; }
   .board-title small { font-size: .72rem; }
@@ -30,12 +31,15 @@
   }
 
   .pieces-panel {
-    position: sticky;
+    position: fixed;
+    left: 0;
+    right: 0;
     bottom: calc(6px + env(safe-area-inset-bottom));
     z-index: 9;
+    width: min(calc(100vw - 20px), 700px);
     min-height: 0;
     max-height: 164px;
-    margin: 8px;
+    margin: 0 auto;
     overflow: hidden;
     border-color: rgba(45, 212, 191, .26);
     background: rgba(8, 18, 31, .97);
@@ -83,6 +87,7 @@
 @media (max-width: 480px) {
   .board-stage { width: min(100%, calc(100vw - 28px)); min-width: 0; }
   .board-scroller { padding: 6px; }
-  .pieces-panel { margin: 6px; max-height: 150px; }
+  .board-panel { padding-bottom: 156px; }
+  .pieces-panel { width: calc(100vw - 12px); max-height: 150px; }
   .piece-button { flex-basis: 76px; width: 76px; min-width: 76px; min-height: 76px; }
 }
