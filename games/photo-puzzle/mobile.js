@@ -24,7 +24,9 @@
   }
 
   function scrollSelectedPieceIntoView(button) {
-    button?.scrollIntoView?.({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    if (!button) return;
+    const left = Math.max(0, button.offsetLeft - (tray.clientWidth - button.clientWidth) / 2);
+    tray.scrollTo({ left, behavior: 'smooth' });
   }
 
   function autoSelectNext() {
