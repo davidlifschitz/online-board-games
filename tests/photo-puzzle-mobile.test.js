@@ -45,6 +45,7 @@ test('placements are silent and correctness is checked only on submission', () =
   assert.match(game, /function checkPuzzle\(\)/, 'the player should explicitly submit a full board for checking');
   assert.doesNotMatch(game, /Not quite — try another spot/, 'the game must not announce wrong placements during play');
   assert.doesNotMatch(game, /classList\.add\('wrong'\)/, 'the game must not visually mark an incorrect slot during play');
+  assert.doesNotMatch(game, /hint:true/, 'no assistance mode should reveal the exact correct slot');
 
   const attempt = game.match(/function attemptPlace\(slotId\)\{([\s\S]*?)\n\}\nfunction remainingEdges/)?.[1];
   assert.ok(attempt, 'attemptPlace should be inspectable as an isolated interaction path');
