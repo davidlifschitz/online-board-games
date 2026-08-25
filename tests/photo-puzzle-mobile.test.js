@@ -44,7 +44,7 @@ test('wrong placement is a retry, not an auto-correction', () => {
   const wrongBranch = game.match(/if\(state\.selected!==slotId\)\{([\s\S]*?)return\}/)?.[1];
   assert.ok(wrongBranch, 'attemptPlace should have an explicit wrong-answer branch');
   assert.doesNotMatch(wrongBranch, /state\.selected\s*=\s*null/, 'a wrong answer should keep the same piece selected');
-  assert.match(game, /Wrong spot — keep trying with this piece\./, 'wrong-answer feedback should make retry behavior explicit');
+  assert.match(wrongBranch, /try another spot/, 'wrong-answer feedback should ask the player to retry without revealing the answer');
 
   const html = read('games/photo-puzzle/index.html');
   assert.match(html, /Wrong spot\? Keep trying — the piece stays selected\./, 'desktop/help copy should explain retry behavior');
