@@ -131,7 +131,7 @@ function attemptPlace(slotId){
   if(state.filter==='edges'&&!remainingEdges().length&&state.placed.size<state.pieceCount){setPieceFilter('all',true);showToast('All edge pieces are on the board. Now use all pieces.')}
 }
 function remainingEdges(){return state.order.filter(id=>{const {row,col}=parseId(id);return isEdge(row,col)&&!state.placed.has(id)})}
-function setPieceFilter(filter,quiet=false){state.filter=filter;document.querySelectorAll('[data-piece-filter]').forEach(button=>button.addEventListener?null:null);document.querySelectorAll('[data-piece-filter]').forEach(button=>button.classList.toggle('active',button.dataset.pieceFilter===filter));renderTray();if(!quiet&&matchMedia('(max-width:900px)').matches)switchMobileView('pieces')}
+function setPieceFilter(filter,quiet=false){state.filter=filter;document.querySelectorAll('[data-piece-filter]').forEach(button=>button.classList.toggle('active',button.dataset.pieceFilter===filter));renderTray();if(!quiet&&matchMedia('(max-width:900px)').matches)switchMobileView('pieces')}
 
 function guideOpacity(){return COMPLEXITY[state.complexity]?.guide??.12}
 function applyGuide(){const available=guideOpacity()>0;const on=available&&els.guideToggle.getAttribute('aria-pressed')!=='false';els.boardGuide.style.opacity=on?String(guideOpacity()):'0';els.guideToggle.disabled=!available;els.guideToggle.textContent=available?(on?'Photo guide on':'Photo guide off'):'No photo guide';highlightRelaxedTarget()}
@@ -151,7 +151,7 @@ function checkPuzzle(){
 }
 function finishPuzzle(){state.elapsedBefore=elapsedMs();state.startedAt=null;clearInterval(state.timerId);saveState(true,true);const checks=state.failedChecks?` after ${state.failedChecks} failed ${state.failedChecks===1?'check':'checks'}`:'';els.completeSummary.textContent=`${state.pieceCount} pieces in ${formatTime(state.elapsedBefore)}${checks}.`;setTimeout(()=>els.complete.showModal(),250)}
 
-function switchMobileView(view){document.querySelectorAll('[data-mobile-view]').forEach(panel=>panel.classList.toggle('active',panel.dataset.mobileView===view));document.querySelectorAll('[data-view]').forEach(button=>{const active=button.dataset.view===view;button.classList.toggle('active',active);button.setAttribute('aria-selected',String(active))})}
+function switchMobileView(view){document.querySelectorAll('[data-mobile-view]').forEach(panel=>panel.classList.toggle('active',panel.datasetMobileView===view));document.querySelectorAll('[data-view]').forEach(button=>{const active=button.dataset.view===view;button.classList.toggle('active',active);button.setAttribute('aria-selected',String(active))})}
 function showToast(message){els.toast.textContent=message;els.toast.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>els.toast.classList.remove('show'),1600)}
 
 function saveState(active,complete=false){
