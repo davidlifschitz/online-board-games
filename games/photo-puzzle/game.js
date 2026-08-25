@@ -151,7 +151,7 @@ function checkPuzzle(){
 }
 function finishPuzzle(){state.elapsedBefore=elapsedMs();state.startedAt=null;clearInterval(state.timerId);saveState(true,true);const checks=state.failedChecks?` after ${state.failedChecks} failed ${state.failedChecks===1?'check':'checks'}`:'';els.completeSummary.textContent=`${state.pieceCount} pieces in ${formatTime(state.elapsedBefore)}${checks}.`;setTimeout(()=>els.complete.showModal(),250)}
 
-function switchMobileView(view){document.querySelectorAll('[data-mobile-view]').forEach(panel=>panel.classList.toggle('active',panel.datasetMobileView===view));document.querySelectorAll('[data-view]').forEach(button=>{const active=button.dataset.view===view;button.classList.toggle('active',active);button.setAttribute('aria-selected',String(active))})}
+function switchMobileView(view){document.querySelectorAll('[data-mobile-view]').forEach(panel=>panel.classList.toggle('active',panel.dataset.mobileView===view));document.querySelectorAll('[data-view]').forEach(button=>{const active=button.dataset.view===view;button.classList.toggle('active',active);button.setAttribute('aria-selected',String(active))})}
 function showToast(message){els.toast.textContent=message;els.toast.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>els.toast.classList.remove('show'),1600)}
 
 function saveState(active,complete=false){
