@@ -42,6 +42,7 @@ jobs:
           node --check games/gin-rummy/game.js
           node --check games/rummy-500/engine.js
           node --check games/rummy-500/game.js
+          node --check games/photo-puzzle/game.js
           node --check games/photo-puzzle/mobile.js
       - name: Validate TrainGames manifest
         run: node -e "const fs=require('fs');const m=JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));if(m.name!=='TrainGames'||m.start_url!=='/play.html')process.exit(1)"
