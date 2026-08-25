@@ -39,6 +39,20 @@ test('mobile interaction keeps board and pieces together and auto-selects the ne
   assert.match(js, /tray\.scrollTo/);
 });
 
+test('wrong placement is a retry, not an auto-correction', () => {
+  const game = read('games/photo-puzzle/game.js');
+  const wrongBranch = game.match(/if\(state\.selected!==slotId\)\{([\s\S]*?)return\}/)?.[1];
+  assert.ok(wrongBranch, 'attemptPlace should have an explicit wrong-answer branch');
+  assert.doesNotMatch(wrongBranch, /state\.selected\s*=\s*null/, 'a wrong answer should keep the same piece selected');
+  assert.match(game, /Wrong spot — keep trying with this piece\./, 'wrong-answer feedback should make retry behavior explicit');
+
+  const html = read('games/photo-puzzle/index.html');
+  assert.match(html, /Wrong spot\? Keep trying — the piece stays selected\./, 'desktop/help copy should explain retry behavior');
+
+  const mobile = read('games/photo-puzzle/mobile.js');
+  assert.match(mobile, /Wrong spot\? Keep trying\./, 'mobile board hint should explain retry behavior');
+});
+
 test('photo puzzle page loads the mobile layer after the base game assets', () => {
   const html = read('games/photo-puzzle/index.html');
   const baseCss = html.indexOf('href="styles.css"');
