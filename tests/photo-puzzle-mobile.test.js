@@ -25,6 +25,8 @@ test('mobile board fits the viewport and the tray is a horizontal dock', () => {
   assert.match(css, /\.piece-tray\s*\{[^}]*overflow-x:\s*auto/);
   assert.match(css, /\.mobile-tabs\s*\{[^}]*display:\s*none\s*!important/);
   assert.match(css, /\.mobile-selection\s*\{[^}]*display:\s*none\s*!important/);
+  assert.match(css, /\.toolbar-actions\s*\{[^}]*display:\s*flex/);
+  assert.match(css, /\.pieces-panel\s*\{[^}]*position:\s*fixed/);
 });
 
 test('mobile interaction keeps board and pieces together and auto-selects the next piece', () => {
@@ -34,6 +36,7 @@ test('mobile interaction keeps board and pieces together and auto-selects the ne
   assert.match(js, /MutationObserver/);
   assert.match(js, /boardPanel\.appendChild\(piecesPanel\)/);
   assert.match(js, /autoSelectNext/);
+  assert.match(js, /tray\.scrollTo/);
 });
 
 test('photo puzzle page loads the mobile layer after the base game assets', () => {
