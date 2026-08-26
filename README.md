@@ -12,6 +12,7 @@ The current production hostname remains `os-online-board-games.vercel.app` for c
 
 - [Play the live collection](https://os-online-board-games.vercel.app/play.html)
 - [Claim a starter game](BUILD_QUEUE.md)
+- [How to contribute](CONTRIBUTING.md)
 - [See the catalog](GAME_CATALOG.md)
 - [Inspect source lineage](OPEN_SOURCE_LINEAGE.md)
 - [Browse live provenance](https://os-online-board-games.vercel.app/open-source.html)
@@ -26,31 +27,31 @@ Subway and rail commutes regularly cross dead zones. TrainGames keeps the collec
 
 | Game | Type | Play |
 |---|---|---|
-| Deal Room | cards · multiplayer · bot | [Play](/games/deal-room/) |
-| Photo Puzzle | puzzle · solo · customizable | [Play](/games/photo-puzzle/) |
+| Deal Room | cards · multiplayer · bot | [Play](https://os-online-board-games.vercel.app/games/deal-room/) |
+| Photo Puzzle | puzzle · solo · customizable | [Play](https://os-online-board-games.vercel.app/games/photo-puzzle/) |
 | Uno-style / HueBreak | cards · multiplayer · bot | [Play](https://huebreak-card-game.vercel.app) |
 | Codenames-style / Threadmark | word · party · teams | [Play](https://threadmark-delta.vercel.app) |
 | Connect Four / Fourfront | abstract · bot | [Play](https://fourfront-virid.vercel.app) |
-| Checkers / Crown Jump | abstract · bot | [Play](/games/crown-jump/) |
-| Racehome | Backgammon · dice · bot | [Play](/games/racehome/) |
-| Gridwake | hidden-fleet strategy · bot | [Play](/games/gridwake/) |
+| Checkers / Crown Jump | abstract · bot | [Play](https://os-online-board-games.vercel.app/games/crown-jump/) |
+| Racehome | Backgammon · dice · bot | [Play](https://os-online-board-games.vercel.app/games/racehome/) |
+| Gridwake | hidden-fleet strategy · bot | [Play](https://os-online-board-games.vercel.app/games/gridwake/) |
 | Risk-style / Frontiers | territory · bot | [Play](https://frontiers-snowy.vercel.app) |
 | Five Dice | dice · solo · multiplayer | [Play](https://five-dice.vercel.app) |
-| Carcassonne-style / Tilebound | tile placement · bot | [Play](/games/tilebound/) |
-| High Table | climbing cards · 3–8 players · bots | [Play](/games/high-table/) |
-| Hearts | trick taking · bots | [Play](/games/hearts/) |
-| Spades | partnership trick taking · bots | [Play](/games/spades/) |
-| Gin Rummy | 1v1 cards · bot | [Play](/games/gin-rummy/) |
-| Rummy 500 | 2–6 players · bots | [Play](/games/rummy-500/) |
-| Twenty-One Lab | play-money Blackjack trainer | [Play](/games/twenty-one-lab/) |
-| Mergefront | seeded puzzle · multiplayer | [Play](/games/mergefront/) |
-| Boxline | Dots and Boxes · bot | [Play](/games/boxline/) |
-| Sowstone | Kalah · bot | [Play](/games/sowstone/) |
-| Millstone | Nine Men's Morris · bot | [Play](/games/millstone/) |
-| DiscShift | disk-flipping strategy · bot | [Play](/games/discshift/) |
-| Hexline | Hex connection strategy · bot | [Play](/games/hexline/) |
-| Cipherloom | deduction · solver | [Play](/games/cipherloom/) |
-| Spark Six | dice · probability · bot | [Play](/games/spark-six/) |
+| Carcassonne-style / Tilebound | tile placement · bot | [Play](https://os-online-board-games.vercel.app/games/tilebound/) |
+| High Table | climbing cards · 3–8 players · bots | [Play](https://os-online-board-games.vercel.app/games/high-table/) |
+| Hearts | trick taking · bots | [Play](https://os-online-board-games.vercel.app/games/hearts/) |
+| Spades | partnership trick taking · bots | [Play](https://os-online-board-games.vercel.app/games/spades/) |
+| Gin Rummy | 1v1 cards · bot | [Play](https://os-online-board-games.vercel.app/games/gin-rummy/) |
+| Rummy 500 | 2–6 players · bots | [Play](https://os-online-board-games.vercel.app/games/rummy-500/) |
+| Twenty-One Lab | play-money Blackjack trainer | [Play](https://os-online-board-games.vercel.app/games/twenty-one-lab/) |
+| Mergefront | seeded puzzle · multiplayer | [Play](https://os-online-board-games.vercel.app/games/mergefront/) |
+| Boxline | Dots and Boxes · bot | [Play](https://os-online-board-games.vercel.app/games/boxline/) |
+| Sowstone | Kalah · bot | [Play](https://os-online-board-games.vercel.app/games/sowstone/) |
+| Millstone | Nine Men's Morris · bot | [Play](https://os-online-board-games.vercel.app/games/millstone/) |
+| DiscShift | disk-flipping strategy · bot | [Play](https://os-online-board-games.vercel.app/games/discshift/) |
+| Hexline | Hex connection strategy · bot | [Play](https://os-online-board-games.vercel.app/games/hexline/) |
+| Cipherloom | deduction · solver | [Play](https://os-online-board-games.vercel.app/games/cipherloom/) |
+| Spark Six | dice · probability · bot | [Play](https://os-online-board-games.vercel.app/games/spark-six/) |
 
 **23 of the 51 numbered prompt concepts have a live implementation.** Deal Room and Photo Puzzle are additional deployed games outside the numbered prompt catalog.
 
