@@ -1,0 +1,131 @@
+/* TrainGames shared gameplay layer. Loaded after each game's bespoke CSS. */
+:root{--tg-radius:18px;--tg-radius-sm:12px;--tg-border:color-mix(in srgb,currentColor 14%,transparent);--tg-glass:rgba(10,16,28,.76);--tg-shadow:0 18px 48px rgba(0,0,0,.24);--tg-fast:150ms;--tg-med:260ms;--tg-ease:cubic-bezier(.2,.8,.2,1)}
+.tg-game{min-height:100dvh;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+.tg-game .shell{padding-top:14px}
+.tg-game nav{min-height:44px;align-items:center;position:relative;z-index:3}
+.tg-game nav a,.tg-game nav span{display:inline-flex;align-items:center;min-height:36px}
+.tg-game nav a{padding:0 10px;margin-left:-10px;border-radius:10px}
+.tg-game:not([data-tg-game="deal-room"]) .shell>header{padding-top:22px;padding-bottom:12px;margin-bottom:0}
+.tg-game:not([data-tg-game="deal-room"]) .shell>header h1{margin-bottom:10px}
+.tg-game:not([data-tg-game="deal-room"]) .shell>header p:last-child{max-width:720px}
+.tg-game button,.tg-game select,.tg-game input,.tg-game textarea,.tg-game summary{touch-action:manipulation}
+.tg-game :where(.controls,.toolbar,.actions,.controls-panel,.game-toolbar,.toolbar-actions,.complete-actions,.row) button,
+.tg-game :where(.controls,.toolbar,.controls-panel,.game-toolbar) select,
+.tg-game :where(.controls,.toolbar,.controls-panel,.game-toolbar) input:not([type="checkbox"]):not([type="radio"]){min-height:44px}
+.tg-game :where(button,a,select,input,textarea,summary,[tabindex]):focus-visible{outline:3px solid color-mix(in srgb,var(--accent,#7dd3fc) 78%,white);outline-offset:3px}
+.tg-game button,.tg-game .card,.tg-game .square,.tg-game .tile,.tg-game .cell,.tg-game .edge{transition:transform var(--tg-fast) var(--tg-ease),border-color var(--tg-fast) ease,box-shadow var(--tg-fast) ease,opacity var(--tg-fast) ease,filter var(--tg-fast) ease}
+.tg-game button:not(:disabled):active{transform:translateY(1px) scale(.985)}
+.tg-game button:disabled{cursor:not-allowed;filter:saturate(.65);opacity:.46}
+
+/* Settings: settings stay available without owning the top of the game. */
+.tg-settings{margin:8px 0 12px;border:1px solid var(--tg-border);border-radius:var(--tg-radius-sm);background:color-mix(in srgb,var(--panel,#111827) 76%,transparent);box-shadow:0 8px 28px rgba(0,0,0,.10);overflow:clip}
+.tg-settings>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:50px;padding:0 14px;color:inherit;user-select:none}
+.tg-settings>summary::-webkit-details-marker{display:none}
+.tg-settings-label{display:inline-flex;align-items:center;gap:9px;white-space:nowrap}
+.tg-settings-icon{width:26px;height:26px;border-radius:9px;display:grid;place-items:center;background:color-mix(in srgb,var(--accent,#7dd3fc) 13%,transparent);font-size:13px;transition:transform var(--tg-med) var(--tg-ease)}
+.tg-settings[open] .tg-settings-icon{transform:rotate(35deg)}
+.tg-settings-value{font-size:12px;color:var(--muted,#9aa7bd);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.tg-settings :where(.controls,.toolbar){margin:0!important;border:0!important;border-top:1px solid var(--tg-border)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding:12px 14px!important}
+
+/* Status becomes a compact HUD instead of another large panel. */
+.tg-state{border-radius:14px!important;overflow:clip;box-shadow:none!important}
+.tg-game .statusbar.tg-state{margin:8px 0 12px}
+.tg-game .statusbar.tg-state>div{min-width:0;padding:9px 12px}
+.tg-game .statusbar.tg-state span{font-size:10px;letter-spacing:.07em}
+.tg-game .statusbar.tg-state strong{font-variant-numeric:tabular-nums;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tg-board .turnbar.tg-state{margin:8px 0 12px;box-shadow:none}
+.tg-board .turnbar.tg-state strong{font-variant-numeric:tabular-nums}
+.tg-state-changed{animation:tgStatePop 360ms var(--tg-ease)}
+@keyframes tgStatePop{0%{transform:translateY(2px);opacity:.58}55%{transform:translateY(-1px);opacity:1}100%{transform:none;opacity:1}}
+
+/* Play surface hierarchy. */
+.tg-play-surface{position:relative;isolation:isolate;box-shadow:var(--tg-shadow)}
+.tg-game .tg-secondary{opacity:.82}
+.tg-game .tg-secondary:hover,.tg-game .tg-secondary:focus-within{opacity:1}
+.tg-game .help details{margin-top:8px}
+.tg-game .help summary{cursor:pointer;min-height:38px;display:flex;align-items:center}
+.tg-game .history{scrollbar-width:thin}
+.tg-game .status,.tg-game [role="status"]{transition:opacity var(--tg-fast) ease,transform var(--tg-fast) var(--tg-ease)}
+
+/* Card tables: selection belongs to cards, not arbitrary selected UI. */
+.tg-cards .table{box-shadow:inset 0 1px 0 rgba(255,255,255,.045)}
+.tg-cards .hand{scrollbar-width:thin;scroll-behavior:smooth}
+.tg-cards .pile{border-radius:16px;background:rgba(0,0,0,.10);padding:10px;min-height:118px}
+.tg-cards .players .player.active{box-shadow:0 0 0 1px color-mix(in srgb,var(--warn,#fbbf24) 55%,transparent),0 8px 18px rgba(0,0,0,.15)}
+.tg-cards .score-table{font-variant-numeric:tabular-nums}
+.tg-cards .card.selected{transform:translateY(-9px) rotate(-.4deg);filter:brightness(1.05);box-shadow:0 12px 24px rgba(0,0,0,.28)}
+.tg-cards .card.legal:not(.selected){outline-width:1px!important;box-shadow:0 0 0 2px color-mix(in srgb,var(--good,#86efac) 48%,transparent),0 5px 13px rgba(0,0,0,.18)}
+
+/* Board/spatial games: let the board own the page without changing cell sizing. */
+.tg-board .board,.tg-board .bg-board,.tg-board .sea-grid{contain:layout paint}
+.tg-board .board-wrap,.tg-board .game-panel,.tg-board .panel{scroll-margin-top:12px}
+.tg-board[data-tg-game="crown-jump"] .board{width:min(100%,760px)}
+.tg-board[data-tg-game="racehome"] .bg-panel>aside{align-self:start}
+.tg-board[data-tg-game="gridwake"] .sea-card{transition:transform var(--tg-med) var(--tg-ease),box-shadow var(--tg-med) ease}
+.tg-board[data-tg-game="discshift"] .board-panel{box-shadow:var(--tg-shadow)}
+.tg-board[data-tg-game="discshift"] .controls-panel{opacity:.88;transition:opacity var(--tg-fast) ease}
+.tg-board[data-tg-game="discshift"] .controls-panel:hover,.tg-board[data-tg-game="discshift"] .controls-panel:focus-within{opacity:1}
+
+/* Action/trainer games. */
+.tg-action .dice,.tg-action .cards{filter:drop-shadow(0 10px 18px rgba(0,0,0,.16))}
+.tg-action .turn-score,.tg-action .metric{font-variant-numeric:tabular-nums}
+.tg-action[data-tg-game="spark-six"] .game-panel>div:first-child,
+.tg-action[data-tg-game="twenty-one-lab"] .table{min-width:0}
+.tg-action[data-tg-game="deal-room"] .gamehead{position:sticky;top:0;z-index:4;padding:10px 0;background:linear-gradient(to bottom,color-mix(in srgb,#07110f 94%,transparent) 72%,transparent)}
+.tg-action[data-tg-game="deal-room"] .your{border-radius:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.tg-action[data-tg-game="deal-room"] .hand{scrollbar-width:thin}
+.tg-action[data-tg-game="deal-room"] .card button{min-height:36px}
+
+/* Puzzle/deduction games. Photo Puzzle intentionally keeps its bespoke shell. */
+.tg-puzzle:not([data-tg-game="photo-puzzle"]) .boards,
+.tg-puzzle:not([data-tg-game="photo-puzzle"]) .game-panel{scroll-margin-top:12px}
+.tg-puzzle[data-tg-game="mergefront"] .boards{margin-top:10px}
+.tg-puzzle[data-tg-game="cipherloom"] .composer{position:relative;z-index:2}
+.tg-puzzle[data-tg-game="cipherloom"] .palette{padding-block:8px}
+
+@media(min-width:861px){
+  .tg-board[data-tg-game="racehome"] .bg-panel>aside{position:sticky;top:70px}
+  .tg-cards .game-grid>aside{position:sticky;top:70px;align-self:start;max-height:calc(100dvh - 90px);overflow:auto}
+}
+
+@media(max-width:860px){
+  .tg-game .shell{width:min(100% - 20px,1120px);padding-top:8px;padding-bottom:82px}
+  .tg-game:not([data-tg-game="deal-room"]) .shell>header{padding-top:14px}
+  .tg-game:not([data-tg-game="deal-room"]) .shell>header h1{font-size:clamp(38px,12vw,60px)}
+  .tg-settings>summary{padding-inline:12px}
+  .tg-settings-value{max-width:58vw}
+  .tg-game .statusbar.tg-state{display:flex!important;overflow-x:auto;scroll-snap-type:x proximity;border-right:0}
+  .tg-game .statusbar.tg-state>div{flex:1 0 118px;scroll-snap-align:start;border-right:1px solid var(--tg-border)!important}
+  .tg-game .statusbar.tg-state>div:last-child{border-right:0!important}
+  .tg-game .game-grid,.tg-game .game-panel,.tg-game .bg-panel,.tg-game .fleet-panel{gap:12px}
+  .tg-cards .hand{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto;padding:10px 5px 16px;margin-inline:-5px;scroll-snap-type:x proximity;overscroll-behavior-inline:contain}
+  .tg-cards .hand .card{flex:0 0 auto;scroll-snap-align:center}
+  .tg-cards .pile{min-height:106px}
+  .tg-cards .game-grid>aside{order:2}
+  .tg-cards .table>.tg-action-dock,.tg-action .tg-action-dock,.tg-board .tg-action-dock,.tg-puzzle:not([data-tg-game="photo-puzzle"]) .tg-action-dock,.tg-action[data-tg-game="deal-room"] .your>.row{position:sticky;bottom:0;z-index:12;margin:12px -8px -8px!important;padding:9px 8px max(9px,env(safe-area-inset-bottom));background:linear-gradient(to top,color-mix(in srgb,var(--bg,#070b14) 96%,transparent) 76%,color-mix(in srgb,var(--panel,#111827) 90%,transparent));border-top:1px solid var(--tg-border);backdrop-filter:blur(16px);box-shadow:0 -12px 30px rgba(0,0,0,.18)}
+  .tg-cards .table>.tg-action-dock button,.tg-action .tg-action-dock button,.tg-board .tg-action-dock button,.tg-puzzle:not([data-tg-game="photo-puzzle"]) .tg-action-dock button,.tg-action[data-tg-game="deal-room"] .your>.row button{min-height:48px}
+  .tg-board[data-tg-game="gridwake"] .fleet-panel{display:flex!important;flex-direction:column}
+  .tg-board[data-tg-game="gridwake"] .fleet-panel .sea-card:not(.own){order:-1}
+  .tg-board[data-tg-game="racehome"] .bg-panel>aside{position:relative}
+  .tg-board[data-tg-game="discshift"] .game-layout{gap:12px}
+  .tg-board[data-tg-game="discshift"] .controls-panel{order:2;opacity:1}
+  .tg-action[data-tg-game="deal-room"] .board{grid-template-columns:1fr!important}
+  .tg-action[data-tg-game="deal-room"] .side{order:2}
+  .tg-action[data-tg-game="deal-room"] .hand{display:flex;overflow-x:auto;gap:8px;overscroll-behavior-inline:contain;padding-bottom:10px}
+  .tg-action[data-tg-game="deal-room"] .hand>.card{flex:0 0 min(72vw,220px)}
+  .tg-puzzle[data-tg-game="mergefront"] .boards{gap:12px}
+}
+
+@media(max-width:560px){
+  .tg-game .shell{width:min(100% - 14px,1120px)}
+  .tg-settings-value{font-size:11px;max-width:52vw}
+  .tg-settings :where(.controls,.toolbar){padding:10px!important}
+  .tg-settings :where(.controls,.toolbar) label{min-width:calc(50% - 8px)}
+  .tg-game .statusbar.tg-state>div{flex-basis:104px;padding:8px 10px}
+  .tg-cards .card.selected{transform:translateY(-7px)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .tg-game *, .tg-game *::before, .tg-game *::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .tg-cards .card.selected{transform:none!important}
+}

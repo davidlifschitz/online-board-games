@@ -27,6 +27,7 @@ jobs:
           node --check site.js
           node --check sw.js
           node --check tests/production-smoke.mjs
+          node --check games/gameplay-ui.js
           node --check games/crown-jump/engine.js
           node --check games/crown-jump/ai.js
           node --check games/crown-jump/ai-worker.js
@@ -52,6 +53,8 @@ jobs:
         run: node --test tests/batch3-cache-version.test.js
       - name: Test photo puzzle mobile UX
         run: node --test tests/photo-puzzle-mobile.test.js
+      - name: Test gameplay UI coverage and offline contract
+        run: node --test tests/gameplay-ui-contract.test.js
       - name: Test Batch 3 card engines
         run: |
           node games/high-table/tests/engine.test.js

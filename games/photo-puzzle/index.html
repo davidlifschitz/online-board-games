@@ -8,6 +8,7 @@
   <title>Photo Puzzle • OS Online Board Games</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="mobile.css" />
+  <link rel="stylesheet" href="../gameplay-ui.css" />
 </head>
 <body>
   <main class="app-shell">
@@ -53,5 +54,6 @@
   <script>
     (()=>{const text=document.getElementById('progress-text'),fill=document.getElementById('progress-fill');if(!text||!fill)return;const sync=()=>{const match=text.textContent.match(/(\d+)\s*\/\s*(\d+)/);if(!match)return;const placed=Number(match[1]),total=Number(match[2]);fill.style.width=`${total?Math.min(100,placed/total*100):0}%`};new MutationObserver(sync).observe(text,{childList:true,subtree:true,characterData:true});sync()})();
   </script>
+  <script src="../gameplay-ui.js"></script>
 </body>
 </html>
