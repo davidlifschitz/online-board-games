@@ -107,6 +107,22 @@ test('keeps the TrainGames hub and docs synchronized with the published catalog'
   const contributing = read('CONTRIBUTING.md');
   assert.match(contributing, /Boggle-style and Love-Letter-style/);
   assert.doesNotMatch(contributing, /including Mastermind-style, Mancala, Dots and Boxes, Farkle/);
+
+  assert.match(readme, /\[How to contribute\]\(CONTRIBUTING\.md\)/);
+  assert.match(readme, /\[Claim a starter game\]\(BUILD_QUEUE\.md\)/);
+  assert.equal(
+    (readme.match(/\[Play\]\(https:\/\/os-online-board-games\.vercel\.app\/games\//g) || []).length,
+    20,
+    'README first-party Play links should be absolute hub URLs'
+  );
+  assert.doesNotMatch(readme, /\[Play\]\(\/games\//);
+
+  const buildChallenge = read('BUILD_CHALLENGE.md');
+  assert.match(buildChallenge, /Two starter games currently have open build issues/);
+  assert.match(buildChallenge, /issues\/7/);
+  assert.match(buildChallenge, /issues\/8/);
+  assert.doesNotMatch(buildChallenge, /issues\/[3456]\)/);
+  assert.doesNotMatch(buildChallenge, /Six starter games/);
   assert.match(conversion, /\*\*Progress:\*\* 15 of the original 43/);
   assert.match(conversion, /\*\*28 remain\.\*\*/);
   assert.match(conversion, /Batch 3 — classic cards I — COMPLETE/);
