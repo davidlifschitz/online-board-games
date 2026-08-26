@@ -52,6 +52,8 @@ jobs:
         run: node --test tests/batch3-cache-version.test.js
       - name: Test photo puzzle mobile UX
         run: node --test tests/photo-puzzle-mobile.test.js
+      - name: Test gameplay UI coverage and offline contract
+        run: node --test tests/gameplay-ui-contract.test.js
       - name: Test Batch 3 card engines
         run: |
           node games/high-table/tests/engine.test.js
