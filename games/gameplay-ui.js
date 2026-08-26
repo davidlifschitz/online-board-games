@@ -37,12 +37,14 @@ function annotate(){
   document.body.dataset.tgGame=slug;
   document.documentElement.classList.add('tg-enhanced');
   document.querySelectorAll('nav span').forEach(el=>{text(el,['OS Online Board Games','TrainGames']);text(el,['OS Board Games','TrainGames'])});
-  document.querySelectorAll('.statusbar,.scorebar,.scoreboard').forEach(el=>el.classList.add('tg-state'));
-  const surface=document.querySelector('.game-panel,.game-grid,.board-wrap,.fleet-panel,.bg-panel,.trainer,.game-shell');
-  surface?.classList.add('tg-play-surface');
+  document.querySelectorAll('.statusbar,.scorebar,.scoreboard,.turnbar').forEach(el=>el.classList.add('tg-state'));
+  if(slug!=='photo-puzzle'){
+    const surface=document.querySelector('.game-panel,.game-grid,.board-wrap,.fleet-panel,.bg-panel,.trainer,.hex-panel');
+    surface?.classList.add('tg-play-surface');
+  }
   document.querySelectorAll('.actions').forEach(el=>el.classList.add('tg-action-dock'));
   document.querySelectorAll('.help,.history-panel').forEach(el=>el.classList.add('tg-secondary'));
-  const stateNodes=document.querySelectorAll('.status,[role="status"],.statusbar strong,.scorebar strong,#turnTitle,#message,#feedback');
+  const stateNodes=document.querySelectorAll('.status,[role="status"],.statusbar strong,.scorebar strong,.turnbar strong,#turnTitle,#message,#feedback');
   stateNodes.forEach(node=>{
     let timer;
     new MutationObserver(()=>{
