@@ -54,3 +54,15 @@ test('game-scoped service workers precache shared gameplay UI assets', () => {
   }
   assert.equal(scopedWorkerCount, 17, 'expected 17 local games with game-scoped service workers');
 });
+
+test('game-scoped service workers only delete stale caches for their own game', () => {
+  for (const game of localLive) {
+    const slug = slugFor(game);
+    const swPath = path.join(root, 'games', slug, 'sw.js');
+    if (!fs.existsSync(swPath)) continue;
+    const sw = fs.readFileSync(swPath, 'utf8');
+    const singleQuoted = `startsWith('${slug}-')`;
+    const doubleQuoted = `startsWith(\"${slug}-\")`;
+    assert.ok(sw.includes(singleQuoted) || sw.includes(doubleQuoted), `${slug} service worker must scope stale-cache deletion to ${slug}- caches`);
+  }
+});
