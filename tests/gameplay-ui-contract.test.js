@@ -17,10 +17,15 @@ test('catalog exposes exactly 20 repository-hosted live games', () => {
 
 test('every repository-hosted live game belongs to exactly one gameplay UI profile', () => {
   const source = fs.readFileSync(path.join(root, 'games', 'gameplay-ui.js'), 'utf8');
+  const start = source.indexOf('const PROFILES=Object.freeze({');
+  const end = source.indexOf('});', start);
+  assert.notEqual(start, -1, 'gameplay UI profile map is missing');
+  assert.notEqual(end, -1, 'gameplay UI profile map is malformed');
+  const profileSource = source.slice(start, end);
   for (const game of localLive) {
     const slug = slugFor(game);
     const escaped = slug.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const matches = source.match(new RegExp(`['\"]${escaped}['\"]`, 'g')) || [];
+    const matches = profileSource.match(new RegExp(`['\"]${escaped}['\"]`, 'g')) || [];
     assert.equal(matches.length, 1, `${slug} must appear in exactly one gameplay UI profile`);
   }
 });
