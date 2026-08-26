@@ -102,8 +102,8 @@
   .tg-cards .hand .card{flex:0 0 auto;scroll-snap-align:center}
   .tg-cards .pile{min-height:106px}
   .tg-cards .game-grid>aside{order:2}
-  .tg-cards .table>.tg-action-dock,.tg-action .tg-action-dock,.tg-board .tg-action-dock,.tg-puzzle:not([data-tg-game="photo-puzzle"]) .tg-action-dock{position:sticky;bottom:0;z-index:12;margin:12px -8px -8px!important;padding:9px 8px max(9px,env(safe-area-inset-bottom));background:linear-gradient(to top,color-mix(in srgb,var(--bg,#070b14) 96%,transparent) 76%,color-mix(in srgb,var(--panel,#111827) 90%,transparent));border-top:1px solid var(--tg-border);backdrop-filter:blur(16px);box-shadow:0 -12px 30px rgba(0,0,0,.18)}
-  .tg-cards .table>.tg-action-dock button,.tg-action .tg-action-dock button,.tg-board .tg-action-dock button,.tg-puzzle:not([data-tg-game="photo-puzzle"]) .tg-action-dock button{min-height:48px}
+  .tg-cards .table>.tg-action-dock,.tg-action .tg-action-dock,.tg-board .tg-action-dock,.tg-puzzle:not([data-tg-game="photo-puzzle"]) .tg-action-dock,.tg-action[data-tg-game="deal-room"] .your>.row{position:sticky;bottom:0;z-index:12;margin:12px -8px -8px!important;padding:9px 8px max(9px,env(safe-area-inset-bottom));background:linear-gradient(to top,color-mix(in srgb,var(--bg,#070b14) 96%,transparent) 76%,color-mix(in srgb,var(--panel,#111827) 90%,transparent));border-top:1px solid var(--tg-border);backdrop-filter:blur(16px);box-shadow:0 -12px 30px rgba(0,0,0,.18)}
+  .tg-cards .table>.tg-action-dock button,.tg-action .tg-action-dock button,.tg-board .tg-action-dock button,.tg-puzzle:not([data-tg-game="photo-puzzle"]) .tg-action-dock button,.tg-action[data-tg-game="deal-room"] .your>.row button{min-height:48px}
   .tg-board[data-tg-game="gridwake"] .fleet-panel{display:flex!important;flex-direction:column}
   .tg-board[data-tg-game="gridwake"] .fleet-panel .sea-card:not(.own){order:-1}
   .tg-board[data-tg-game="racehome"] .bg-panel>aside{position:relative}
