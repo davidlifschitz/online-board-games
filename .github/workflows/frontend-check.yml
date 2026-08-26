@@ -27,6 +27,7 @@ jobs:
           node --check site.js
           node --check sw.js
           node --check tests/production-smoke.mjs
+          node --check games/gameplay-ui.js
           node --check games/crown-jump/engine.js
           node --check games/crown-jump/ai.js
           node --check games/crown-jump/ai-worker.js
