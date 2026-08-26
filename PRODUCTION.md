@@ -14,12 +14,14 @@ The user-facing brand is TrainGames. The following legacy technical identifiers 
 
 ## Current verified deployment
 
-- TrainGames rebrand deployed: `2026-08-20`
-- Vercel production deployment: `dpl_A7iQDaiqnff51ajojpYAhkzLCCWW`
-- Deployed Git commit: `5d92e656e057f556dfdedff2d202c464fa9b1038`
+- Gameplay UI refresh deployed: `2026-08-26`
+- Merged feature commit: `ef81a65e065c55f2e86f43db52ab8a355c80c5cd`
+- Vercel production deployment: `dpl_7V6He2egtMuHTrnJFCBZRhcTbRhw`
+- Deployed Git commit: `a2c6686a12dafa391f3f81cf9c498de64988ba60`
 - Production alias: `https://os-online-board-games.vercel.app`
-- Repository deploy policy restored to manual-only immediately after the production build reached `READY`.
-- Production smoke re-check requested: `2026-08-20`.
+- Repository deploy policy restored to manual-only immediately after the production build reached `READY` in commit `3f13b3139be47de052f5b0560b87f09f1230a957`.
+- Production verification confirmed HTTP 200 for `/play.html`, `/games/gameplay-ui.js`, `/games/gameplay-ui.css`, and representative board/card/action/puzzle routes: Boxline, Hearts, Spark Six, and Photo Puzzle.
+- Representative Boxline service-worker verification confirmed the shared UI assets are precached and stale-cache cleanup is scoped to `boxline-` caches.
 
 ## Rebrand migration rule
 
