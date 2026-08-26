@@ -88,6 +88,25 @@ test('keeps the TrainGames hub and docs synchronized with the published catalog'
   assert.match(readme, /\*\*23 of the 51 numbered prompt concepts have a live implementation\.\*\*/);
   assert.match(catalogDoc, /\*\*23\*\* have a live implementation/);
   assert.match(catalogDoc, /\*\*28 numbered concepts remain unbuilt\.\*\*/);
+
+  const buildPage = read('build.html');
+  assert.match(buildPage, /<strong>28<\/strong><span>Awaiting first build<\/span>/);
+  assert.match(buildPage, /Claim issue #7/);
+  assert.match(buildPage, /Claim issue #8/);
+  assert.doesNotMatch(buildPage, /Claim issue #(3|4|5|6)/);
+  assert.doesNotMatch(buildPage, /issues\/[3456]"/);
+  assert.match(buildPage, /Boggle-style/);
+  assert.match(buildPage, /Love-Letter-style/);
+
+  const launchKit = read('LAUNCH_KIT.md');
+  assert.match(launchKit, /- 25 live browser games/);
+  assert.match(launchKit, /- 23 numbered prompt concepts with live implementations/);
+  assert.match(launchKit, /- 28 numbered prompt concepts waiting for a first deployment/);
+  assert.match(launchKit, /\*\*25 live games · 51 open-source specs\*\*/);
+
+  const contributing = read('CONTRIBUTING.md');
+  assert.match(contributing, /Boggle-style and Love-Letter-style/);
+  assert.doesNotMatch(contributing, /including Mastermind-style, Mancala, Dots and Boxes, Farkle/);
   assert.match(conversion, /\*\*Progress:\*\* 15 of the original 43/);
   assert.match(conversion, /\*\*28 remain\.\*\*/);
   assert.match(conversion, /Batch 3 — classic cards I — COMPLETE/);

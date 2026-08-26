@@ -87,4 +87,4 @@ Contributors who submit implementations may be credited in the dashboard/catalog
 
 ## Good first projects
 
-For a smaller weekend-sized contribution, start with the live issues in [BUILD_QUEUE.md](BUILD_QUEUE.md), including Mastermind-style, Mancala, Dots and Boxes, Farkle, Boggle-style, and Love-Letter-style. See [BUILD_CHALLENGE.md](BUILD_CHALLENGE.md) for more.
+For a smaller weekend-sized contribution, start with the open starter issues in [BUILD_QUEUE.md](BUILD_QUEUE.md): Boggle-style and Love-Letter-style. Mancala, Dots and Boxes, Mastermind-style, and Farkle already have first-party live implementations; alternate versions are still welcome. See [BUILD_CHALLENGE.md](BUILD_CHALLENGE.md) for more.

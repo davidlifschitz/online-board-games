@@ -14,10 +14,10 @@ TrainGames is a growing collection of open-source browser board, card, word, dic
 
 ## Current project snapshot
 
-- 20 live browser games
+- 25 live browser games
 - 51 build prompts
-- 18 numbered prompt concepts with live implementations
-- 33 numbered prompt concepts waiting for a first deployment
+- 23 numbered prompt concepts with live implementations
+- 28 numbered prompt concepts waiting for a first deployment
 - 2 additional live games outside the numbered prompt catalog: Deal Room and Photo Puzzle
 - Public per-game community leaderboards
 - GitHub/Google-verified build submissions
@@ -51,7 +51,7 @@ I kept running into the same small problem on the subway: the moment I actually 
 
 That became the framing for TrainGames: a growing collection of open-source browser board, card, word, dice, puzzle, and strategy games that are useful on a commute. Many of the games support offline play after you load them once, and the hub itself caches its core pages after a successful visit.
 
-There are currently 20 live games and 51 implementation prompts. Eighteen numbered prompt concepts have a live implementation; 33 are still waiting for a first deployment. Deal Room and Photo Puzzle are two additional live games outside the numbered prompt catalog.
+There are currently 25 live games and 51 implementation prompts. Twenty-three numbered prompt concepts have a live implementation; 28 are still waiting for a first deployment. Deal Room and Photo Puzzle are two additional live games outside the numbered prompt catalog.
 
 The project is also a build challenge. You can play a finished game, inspect the prompt/spec and source lineage, build another implementation, deploy it, and submit it to a per-game community leaderboard.
 
@@ -73,7 +73,7 @@ I built a collection of browser games, then realized the best use case was hidin
 
 So the project is becoming **TrainGames** — games for the train, not games about trains.
 
-The collection currently has 20 live games and 51 build prompts. Many of the games support offline play after the first load, and the open-source specs explicitly encourage offline support for modes that do not require networking.
+The collection currently has 25 live games and 51 build prompts. Many of the games support offline play after the first load, and the open-source specs explicitly encourage offline support for modes that do not require networking.
 
 The loop is still open-source and participatory:
 
@@ -107,7 +107,7 @@ On-screen text: **Load once. Keep playing where supported.**
 
 Show the GitHub prompt catalog and build flow.
 
-On-screen text: **20 live games · 51 open-source specs**
+On-screen text: **25 live games · 51 open-source specs**
 
 ### 35–45 seconds
 
