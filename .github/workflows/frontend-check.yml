@@ -55,6 +55,8 @@ jobs:
         run: node --test tests/photo-puzzle-mobile.test.js
       - name: Test gameplay UI coverage and offline contract
         run: node --test tests/gameplay-ui-contract.test.js
+      - name: Test V2 external engines
+        run: node --test tests/v2-external-engines.test.js
       - name: Test TrainGames V2 redesign contract
         run: node --test tests/gameplay-v2-contract.test.js
       - name: Test Batch 3 card engines
