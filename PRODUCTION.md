@@ -14,7 +14,21 @@ The user-facing brand is TrainGames. The following legacy technical identifiers 
 
 ## Current verified deployment
 
-- Gameplay UI refresh deployed: `2026-08-26`
+### TrainGames V2 — 2026-08-27
+
+- PR #34, **TrainGames V2 redesign across current games**, was squash-merged as `59af1f39d437f47762a7a451bbe0943e3535ff7c`.
+- The release adds separate V2 gameplay routes for 24 live games while preserving every V1 route; DiscShift/Othello remains V1-only by design.
+- Vercel production deployment: `dpl_GwjJZeHbqF2NVeTyZibrYa8e5q6W`.
+- Deployed Git commit: `a1bcbccdfe930dfab1d14a47df6553d55032c44a`.
+- Production alias: `https://os-online-board-games.vercel.app`.
+- Repository deploy policy was restored to manual-only immediately after the production build reached `READY` in `086d54216fbf6d1cd89c87edff3d78efff1448ee`.
+- The final main-branch Frontend checks and Production smoke workflows both passed on the restored deployment-policy commit.
+- Production verification confirmed HTTP 200 for the updated arcade, shared V2 UI asset, V2 catalog metadata, a bridged native V2 route (Deal Room), and a first-party V2 route (HueBreak).
+- Supabase contains 24 approved V2 Builder Board submissions, one for each V2 game, all marked as redesigns rather than first implementations. The builder leaderboard reports 32 shipped implementations across 25 distinct game concepts.
+- The Supabase security advisor still reports the pre-existing anonymous voting RPC warnings and the intentionally locked-down `build_votes` table; this release did not add or alter those database security surfaces.
+
+### Gameplay UI refresh — 2026-08-26
+
 - Merged feature commit: `ef81a65e065c55f2e86f43db52ab8a355c80c5cd`
 - Vercel production deployment: `dpl_7V6He2egtMuHTrnJFCBZRhcTbRhw`
 - Deployed Git commit: `a2c6686a12dafa391f3f81cf9c498de64988ba60`
@@ -42,6 +56,6 @@ After a production deployment, verify:
 5. GitHub and Google OAuth both return to the production hub successfully.
 6. A signed-in builder can create a pending submission with a live URL, public GitHub source URL, and model/model list.
 7. Pending submissions are owner-only; approved submissions appear publicly on the Builder Board.
-8. Supabase security advisor remains clear after schema changes.
+8. Supabase security advisor remains clear after schema changes, or any intentional pre-existing warnings are documented and understood.
 
 Production activation and initial end-to-end verification are tracked in issue #13.
