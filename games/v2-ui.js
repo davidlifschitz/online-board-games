@@ -1,9 +1,9 @@
 (()=>{'use strict';
 const FAMILIES=Object.freeze({
-  board:['crown-jump','racehome','gridwake','tilebound','boxline','sowstone','millstone','hexline','fourfront','frontiers'],
-  cards:['huebreak','high-table','hearts','spades','gin-rummy','rummy-500','twenty-one-lab','five-dice'],
-  action:['deal-room','threadmark','spark-six'],
-  puzzle:['photo-puzzle','mergefront','cipherloom']
+  'board':['crown-jump','racehome','gridwake','tilebound','boxline','sowstone','millstone','hexline','fourfront','frontiers'],
+  'cards':['huebreak','high-table','hearts','spades','gin-rummy','rummy-500','twenty-one-lab','five-dice'],
+  'action':['deal-room','threadmark','spark-six'],
+  'puzzle':['photo-puzzle','mergefront','cipherloom']
 });
 const TITLES={
   'deal-room':'Deal Room','photo-puzzle':'Photo Puzzle',huebreak:'HueBreak',threadmark:'Threadmark',fourfront:'Fourfront','crown-jump':'Crown Jump',racehome:'Racehome',gridwake:'Gridwake',frontiers:'Frontiers','five-dice':'Five Dice',tilebound:'Tilebound','high-table':'High Table',hearts:'Hearts',spades:'Spades','gin-rummy':'Gin Rummy','rummy-500':'Rummy 500','twenty-one-lab':'Twenty-One Lab',mergefront:'Mergefront',boxline:'Boxline',sowstone:'Sowstone',millstone:'Millstone',hexline:'Hexline',cipherloom:'Cipherloom','spark-six':'Spark Six'
