@@ -11,7 +11,7 @@
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="stylesheet" href="/styles.css" />
   <link rel="stylesheet" href="/navigation.css" />
-  <style>.catalog-note{margin:0 0 22px;color:var(--muted,#a9b0c3)}.game-card .status.independent{border-color:#6ee7b7}.game-card .status.audited{border-color:#93c5fd}.game-card .status.adapted-v1{border-color:#fbbf24}.empty-state{grid-column:1/-1;padding:36px;border:1px dashed rgba(255,255,255,.2);border-radius:16px;text-align:center;color:#aab2c8}.game-card .icon{font-size:1.8rem}</style>
+  <style>.catalog-note{margin:0 0 22px;color:var(--muted,#a9b0c3)}.game-card .status.independent{border-color:#6ee7b7}.game-card .status.audited{border-color:#93c5fd}.game-card .status.adapted-v1{border-color:#fbbf24}.empty-state{grid-column:1/-1;padding:36px;border:1px dashed rgba(255,255,255,.2);border-radius:16px;text-align:center;color:#aab2c8}.game-card .icon{font-size:1.8rem}.game-version-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-top:auto;padding-top:8px}.game-version-actions>a{display:flex!important;align-items:center;justify-content:space-between;min-height:44px;border-radius:12px;text-decoration:none;font-weight:750}.game-play-primary{padding:0 13px!important;background:linear-gradient(135deg,#86efc1,#5fd2a0)!important;color:#081811!important;border:0!important;box-shadow:0 10px 24px rgba(95,210,160,.18)}.game-play-v1{padding:0 12px!important;border:1px solid rgba(255,255,255,.15)!important;color:var(--muted,#a9b0c3)!important;background:rgba(255,255,255,.035)!important}.game-card.featured .game-play-primary{background:linear-gradient(135deg,#d4f9e7,#7be5b4)!important}@media(max-width:560px){.game-version-actions{grid-template-columns:1fr 70px}}</style>
   <script defer src="/site.js"></script>
   <script defer src="/play.js"></script>
 </head>
@@ -28,7 +28,7 @@
     </nav>
 
     <header class="page-hero">
-      <div class="eyebrow">LIVE COLLECTION • COMMUTE-READY WHERE SUPPORTED</div>
+      <div class="eyebrow">V1 + V2 • COMMUTE-READY WHERE SUPPORTED</div>
       <h1>Play.</h1>
       <p class="lede" id="collection-summary">Loading the live collection…</p>
     </header>
@@ -41,7 +41,7 @@
             <button class="filter active" data-filter="all">All</button><button class="filter" data-filter="strategy">Strategy</button><button class="filter" data-filter="cards">Cards</button><button class="filter" data-filter="puzzle">Puzzles</button><button class="filter" data-filter="word">Word</button><button class="filter" data-filter="dice">Dice</button><button class="filter" data-filter="abstract">Abstract</button><button class="filter" data-filter="deduction">Deduction</button>
           </div>
         </div>
-        <p class="catalog-note"><strong>Going underground?</strong> Open a game once while you still have service. Offline behavior varies by game; supported games can then use their own offline cache. The TrainGames hub also caches its core pages after a successful visit.</p>
+        <p class="catalog-note"><strong>V2 is now the primary play surface where available.</strong> V1 remains beside it for comparison and compatibility. Open the version you want before going underground; offline behavior remains game-specific.</p>
         <section class="grid" id="game-grid" aria-live="polite"><p class="empty-state">Loading games…</p></section>
         <p style="margin-top:20px"><a href="/open-source.html">See the complete upstream/license map →</a></p>
       </section>
