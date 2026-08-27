@@ -1,0 +1,16 @@
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else{root.FourfrontV2=api;api.mount()}})(typeof globalThis!=='undefined'?globalThis:this,function(){
+const ROWS=6,COLS=7;
+function createBoard(){return Array.from({length:ROWS},()=>Array(COLS).fill(0))}
+function legalColumns(board){return Array.from({length:COLS},(_,c)=>c).filter(c=>board[0][c]===0)}
+function drop(board,col,player){if(col<0||col>=COLS||board[0][col])return null;const next=board.map(r=>r.slice());let row=ROWS-1;while(row>=0&&next[row][col])row--;next[row][col]=player;return{board:next,row,col}}
+function winningCells(board){const dirs=[[0,1],[1,0],[1,1],[1,-1]];for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){const p=board[r][c];if(!p)continue;for(const[dr,dc]of dirs){const cells=[];for(let i=0;i<4;i++){const rr=r+dr*i,cc=c+dc*i;if(rr<0||rr>=ROWS||cc<0||cc>=COLS||board[rr][cc]!==p)break;cells.push([rr,cc])}if(cells.length===4)return{player:p,cells}}}return null}
+function winner(board){return winningCells(board)?.player||0}
+function chooseBot(board,player=2){const other=player===1?2:1,legal=legalColumns(board);for(const c of legal){const n=drop(board,c,player);if(winner(n.board)===player)return c}for(const c of legal){const n=drop(board,c,other);if(winner(n.board)===other)return c}return legal.slice().sort((a,b)=>Math.abs(a-3)-Math.abs(b-3))[0]??-1}
+function mount(){if(typeof document==='undefined')return;const el={board:document.getElementById('board'),turn:document.getElementById('turn'),status:document.getElementById('status'),score:document.getElementById('score'),mode:document.getElementById('mode'),halo:document.getElementById('halo')};if(!el.board)return;let board=createBoard(),player=1,over=false,scores=[0,0,0];
+function render(){el.board.innerHTML='';const win=winningCells(board),keys=new Set((win?.cells||[]).map(([r,c])=>`${r},${c}`));for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){const b=document.createElement('button');b.className=`ff-cell p${board[r][c]||0}${keys.has(`${r},${c}`)?' win':''}`;b.setAttribute('aria-label',`Column ${c+1}${board[r][c]?`, ${board[r][c]===1?'Amber':'Blue'} piece`:''}`);b.disabled=over||!!board[0][c];b.onclick=()=>play(c);el.board.append(b)}el.turn.textContent=player===1?'Amber':'Blue';el.halo.classList.toggle('blue',player===2);el.score.textContent=`${scores[1]} – ${scores[2]}`}
+function finish(){const w=winner(board);if(w){over=true;scores[w]++;el.status.textContent=`${w===1?'Amber':'Blue'} connects four`;render();return true}if(!legalColumns(board).length){over=true;el.status.textContent='Board full — draw';render();return true}return false}
+function play(col){if(over)return;const n=drop(board,col,player);if(!n)return;board=n.board;if(finish())return;player=player===1?2:1;el.status.textContent='Choose a column';render();if(player===2&&el.mode.value==='bot')setTimeout(()=>{const c=chooseBot(board,2);if(c>=0)play(c)},260)}
+function reset(){board=createBoard();player=1;over=false;el.status.textContent='Choose a column';render()}
+document.getElementById('newGame')?.addEventListener('click',reset);document.getElementById('rematch')?.addEventListener('click',reset);el.mode?.addEventListener('change',reset);reset()}
+return{ROWS,COLS,createBoard,legalColumns,drop,winner,winningCells,chooseBot,mount};
+});
