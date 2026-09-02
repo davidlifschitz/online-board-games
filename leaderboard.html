@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b1020" />
-  <meta name="description" content="Choose a game and rank approved TrainGames submissions with one-click community voting." />
+  <meta name="theme-color" content="#f3efe6" />
+  <meta name="description" content="Compare approved TrainGames services game by game and vote in the community rankings." />
   <meta name="application-name" content="TrainGames" />
-  <title>Leaderboard • TrainGames</title>
+  <title>Service Rankings • TrainGames</title>
   <link rel="icon" href="/train-games-icon.svg" type="image/svg+xml" />
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="stylesheet" href="/styles.css" />
@@ -18,28 +18,32 @@
 </head>
 <body data-page="leaderboard">
   <div class="page-shell">
-    <nav class="site-nav" aria-label="Primary navigation">
-      <a class="site-brand" href="/" aria-label="TrainGames home"><span>TG</span> TrainGames</a>
-      <div class="nav-links"><a class="nav-link" data-page="play" href="/play.html">Play</a><a class="nav-link" data-page="build" href="/build.html">Build</a><a class="nav-link" data-page="leaderboard" href="/leaderboard.html" aria-current="page">Leaderboard</a></div>
-      <a class="nav-github" href="https://github.com/davidlifschitz/online-board-games" target="_blank" rel="noreferrer">GitHub ↗</a>
+    <nav class="site-nav tg-nav" aria-label="Primary navigation">
+      <a class="site-brand" href="/" aria-label="TrainGames system map"><span class="tg-roundel" aria-hidden="true"></span><span class="site-brand-copy">TrainGames</span></a>
+      <div class="nav-links"><a class="nav-link" data-page="play" href="/play.html">Play</a><a class="nav-link" data-page="build" href="/build.html">Build</a><a class="nav-link" data-page="leaderboard" href="/leaderboard.html" aria-current="page">Rankings</a></div>
+      <a class="nav-github" href="https://github.com/davidlifschitz/online-board-games" target="_blank" rel="noreferrer">Source ↗</a>
     </nav>
+
     <header class="page-hero">
-      <div class="eyebrow">GAME-BY-GAME COMMUNITY RANKINGS</div><h1>Leaderboard.</h1>
-      <p class="lede">Choose a game, compare every approved implementation, and vote directly in the ranking table. No account is required to vote.</p>
-      <div class="hero-actions"><a class="primary" href="#leaderboard">Choose a game</a><a class="secondary" href="/build.html#submit">Submit your build</a></div>
-      <div class="stats" aria-label="Leaderboard stats"><div><strong id="approvedBuildCount">0</strong><span>Approved builds</span></div><div><strong id="rankedGameCount">0</strong><span>Game leaderboards</span></div><div><strong>0</strong><span>Login required to vote</span></div><div><strong>1</strong><span>Vote per browser per build</span></div></div>
+      <div class="eyebrow">SERVICE RANKINGS · GAME BY GAME</div>
+      <h1>Which service runs best?</h1>
+      <p class="lede">Choose a station, compare every approved implementation, and vote directly in the service board. No account is required to vote.</p>
+      <div class="hero-actions"><a class="primary" href="#leaderboard">Choose a station</a><a class="secondary" href="/build.html#submit">Submit a service</a></div>
+      <div class="stats" aria-label="Ranking stats"><div><strong id="approvedBuildCount">0</strong><span>Approved services</span></div><div><strong id="rankedGameCount">0</strong><span>Ranked stations</span></div><div><strong>0</strong><span>Logins to vote</span></div><div><strong>1</strong><span>Vote per browser per build</span></div></div>
     </header>
+
     <main class="page-main">
       <section class="leaderboard standalone-section" id="leaderboard">
-        <div class="section-heading"><div><p class="section-label">BUILDER BOARD · PER GAME</p><h2>Pick a game. Rank the builds.</h2></div><a class="primary compact" href="/build.html#submit">Submit your build</a></div>
-        <p class="section-copy">Each game has its own all-time board. Approved submissions are ranked by community score; ties go to the earlier approved build, then implementation name. Click the triangle beside a score to vote or remove your vote.</p>
-        <div class="leaderboard-controls"><label class="game-picker" for="gameSelect"><span>GAME</span><select id="gameSelect" aria-label="Choose a game leaderboard"><option>Loading games…</option></select></label><div class="selected-game-summary" aria-live="polite"><strong id="selectedGameTitle">Loading…</strong><span id="gameLeaderboardMeta">Finding approved submissions…</span></div></div>
+        <div class="section-heading"><div><p class="section-label">SERVICE BOARD</p><h2>Pick a station. Rank the builds.</h2></div><a class="primary compact" href="/build.html#submit">Submit your service</a></div>
+        <p class="section-copy">Each game has its own all-time board. Approved services are ranked by community score; ties go to the earlier approved build, then implementation name. Use the triangle beside a score to add or remove your vote.</p>
+        <div class="leaderboard-controls"><label class="game-picker" for="gameSelect"><span>STATION</span><select id="gameSelect" aria-label="Choose a game leaderboard"><option>Loading network…</option></select></label><div class="selected-game-summary" aria-live="polite"><strong id="selectedGameTitle">Loading…</strong><span id="gameLeaderboardMeta">Finding approved services…</span></div></div>
         <p id="leaderboardMessage" class="leaderboard-message" role="status" aria-live="polite"></p>
-        <div class="leaderboard-table-wrap"><table class="leaderboard-table"><thead><tr><th scope="col">Rank</th><th scope="col">Submission</th><th scope="col">Builder</th><th scope="col">Models</th><th scope="col">Score</th><th scope="col"><span class="sr-only">Links</span></th></tr></thead><tbody id="gameLeaderboardBody" aria-live="polite"><tr class="leaderboard-empty-row"><td class="leaderboard-empty" colspan="6">Loading ranked submissions…</td></tr></tbody></table></div>
+        <div class="leaderboard-table-wrap"><table class="leaderboard-table"><thead><tr><th scope="col">Rank</th><th scope="col">Service</th><th scope="col">Builder</th><th scope="col">Models</th><th scope="col">Score</th><th scope="col"><span class="sr-only">Links</span></th></tr></thead><tbody id="gameLeaderboardBody" aria-live="polite"><tr class="leaderboard-empty-row"><td class="leaderboard-empty" colspan="6">Loading ranked services…</td></tr></tbody></table></div>
         <div class="leaderboard-note"><strong>Voting stays lightweight.</strong><span>Your browser gets a random local voter key. Supabase stores only its hash, and individual vote rows are not public.</span></div>
       </section>
     </main>
-    <footer><span>TrainGames</span><span><a href="/play.html">Go play something →</a></span></footer>
+
+    <footer><span>TrainGames · Service Rankings</span><span><a href="/play.html">View departures →</a></span></footer>
   </div>
 </body>
 </html>

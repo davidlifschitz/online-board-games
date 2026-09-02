@@ -1,20 +1,93 @@
-const descriptions={'deal-room':'Original property-set card battles with bot and multiplayer play.','photo-puzzle':'Turn any photo into a private jigsaw-style puzzle with edge-first play, selectable piece counts, mobile tap placement and desktop drag-and-drop.','reversi':'Disk-flipping strategy with optional move hints and mobility/parity/stability-aware AI.','checkers':'American checkers with mandatory captures, multi-jumps, kings, local play, online rooms and computer opponents.','five-dice':'A full five-dice scorecard with projected scoring, local play, bots and offline support.','uno-style':'An original shedding-card game with original hues, symbols, presentation and multiplayer.','codenames-style':'Team word association with private Navigator information, custom word packs, local/offline modes and online rooms.','connect-four':'Variable-board connection strategy with strong worker-based AI, local matches and peer-to-peer rooms.','risk-style':'Territory conquest with reinforcement, attack, fortify, cards, bots and multiple victory modes.','carcassonne-style':'Original tile-placement strategy with scoring, bot play and offline support.','president':'President-family climbing cards with 3–8 seats, bot opponents, pass/reset flow and optional four-card revolution.','hearts':'Four-player trick taking with rotating passes, shoot-the-moon scoring and computer opponents.','spades':'Partnership trick taking with bidding, nil, bags, trump management and computer opponents.','gin-rummy':'Two-player draw-and-discard rummy with optimized meld detection, knock/gin scoring and a computer opponent.','rummy-500':'Rummy for 2–6 seats with visible discard-stack pickups, melds, layoffs, scoring and computer opponents.','backgammon':'Complete-turn Backgammon legality with bar entry, hits, bearing off, match scoring, doubling cube flow and bots.','battleship-style':'Original hidden-fleet strategy with local privacy screens, SHA-256 fleet commitments and probability-targeting bots.','blackjack':'Play-money Blackjack training with configurable rules, splits, doubles, surrender, insurance and strategy feedback.','2048-multiplayer':'Deterministic seeded merge puzzles with solo, race, time attack, local battle and shared-board co-op.','dots-and-boxes':'Configurable Dots and Boxes with 2–4 local players and easy, tactical and searched endgame bots.','mancala':'Kalah with configurable starting stones, captures, extra turns, projected landings and alpha-beta computer opponents.','nine-mens-morris':'Nine Men’s Morris with placement, movement, optional flying, mill removals, repetition handling and alpha-beta bots.','hex':'Configurable Hex with the pie rule, connection detection, path-cost analysis, undo in analysis mode and computer play.','mastermind':'Original code-breaking with duplicate-safe feedback, daily puzzles, local maker/breaker and a candidate-elimination solver.','farkle':'Six-dice push-your-luck play with selectable scoring, hot dice, exact bust risk, bots and final-round logic.'};
-const icons={cards:'◆',strategy:'◇',dice:'⚄',word:'Aa',abstract:'◉',deduction:'⌁',puzzle:'▦','tile-placement':'▦',territory:'◎'};
-let allGames=[],activeFilter='all',upstreamMap={};
-function iconFor(g){for(const c of g.categories||[])if(icons[c])return icons[c];return'◈'}
-function provenance(g){const u=upstreamMap[g.id];if(!u)return{text:'ORIGINAL',klass:'independent'};const text=u.status==='adapted-v1'?'PERMISSIVE ADAPTED':u.status==='audited'?'PERMISSIVE AUDITED':'INDEPENDENT';return{text,klass:u.status}}
-function linkMeta(url){const external=/^https?:\/\//.test(url)&&!url.startsWith(location.origin);return{external,target:external?' target="_blank" rel="noreferrer"':''}}
-function render(){
-  const grid=document.getElementById('game-grid'),visible=allGames.filter(g=>activeFilter==='all'||(g.categories||[]).includes(activeFilter));
-  if(!visible.length){grid.innerHTML='<p class="empty-state">No live games match this filter.</p>';return}
-  grid.innerHTML=visible.map((g,i)=>{
-    const p=provenance(g),tags=(g.categories||[]).slice(0,3).map(x=>`<span>${x.replaceAll('-',' ')}</span>`).join('');
-    const preferred=g.preferredVersion&&g.versions?.[g.preferredVersion]?.liveUrl?g.preferredVersion:null;
-    const primaryUrl=preferred?g.versions[preferred].liveUrl:g.liveUrl,primary=linkMeta(primaryUrl);
-    const v1Url=g.versions?.v1?.liveUrl||g.liveUrl,v1=linkMeta(v1Url),hasV2=preferred==='v2'&&primaryUrl!==v1Url;
-    const versionActions=hasV2?`<div class="game-version-actions"><a class="game-play-primary" href="${primaryUrl}"${primary.target}><span>Play V2</span><b>→</b></a><a class="game-play-v1" href="${v1Url}"${v1.target}>V1${v1.external?' ↗':' →'}</a></div>`:`<div class="game-version-actions"><a class="game-play-primary" href="${primaryUrl}"${primary.target}><span>Play ${g.title}</span><b>${primary.external?'↗':'→'}</b></a></div>`;
-    return`<article class="game-card${i===0&&activeFilter==='all'?' featured':''}" data-tags="${(g.categories||[]).join(' ')}"><div class="card-top"><span class="number">${String(i+1).padStart(2,'0')}</span><span class="status ${p.klass}">${p.text}</span></div><div class="icon">${iconFor(g)}</div><h3>${g.title}</h3><p>${descriptions[g.id]||'A browser-first open-source game with original presentation.'}</p><div class="tags">${tags}</div>${versionActions}</article>`
-  }).join('')
+const descriptions={'deal-room':'Property-set card battles with bot and multiplayer play.','photo-puzzle':'Turn any photo into a private jigsaw-style puzzle.','reversi':'Disk-flipping strategy with optional hints and a mobility-aware AI.','checkers':'American checkers with mandatory captures, multi-jumps, kings and computer opponents.','five-dice':'A full five-dice scorecard with projected scoring, bots and offline support.','uno-style':'An original shedding-card game with multiplayer and bot play.','codenames-style':'Team word association with local, offline and online modes.','connect-four':'Connection strategy with strong AI, local matches and peer-to-peer rooms.','risk-style':'Territory conquest with reinforcement, attack, fortify and bots.','carcassonne-style':'Tile-placement strategy with scoring, bot play and offline support.','president':'President-family climbing cards with bot opponents and flexible rules.','hearts':'Four-player trick taking with rotating passes and computer opponents.','spades':'Partnership trick taking with bidding, nil, bags and computer opponents.','gin-rummy':'Two-player draw-and-discard rummy with meld detection and a computer opponent.','rummy-500':'Rummy for 2–6 seats with melds, layoffs, scoring and computer opponents.','backgammon':'Backgammon with complete-turn legality, doubling flow and bots.','battleship-style':'Hidden-fleet strategy with local privacy screens and probability-targeting bots.','blackjack':'Play-money Blackjack training with configurable rules and strategy feedback.','2048-multiplayer':'Deterministic merge puzzles with solo, race, battle and co-op modes.','dots-and-boxes':'Configurable Dots and Boxes with local players and endgame bots.','mancala':'Kalah with captures, extra turns and alpha-beta computer opponents.','nine-mens-morris':'Nine Men’s Morris with placement, movement, repetition handling and bots.','hex':'Configurable Hex with the pie rule, path analysis and computer play.','mastermind':'Code-breaking with duplicate-safe feedback and a candidate-elimination solver.','farkle':'Six-dice push-your-luck play with selectable scoring, bots and final-round logic.'};
+
+const routes={
+  strategy:{label:'Strategy',prefix:'S',color:'var(--subway-blue)'},
+  cards:{label:'Cards',prefix:'C',color:'var(--subway-red)'},
+  puzzle:{label:'Puzzle',prefix:'P',color:'var(--subway-green)'},
+  word:{label:'Word',prefix:'W',color:'var(--subway-purple)'},
+  party:{label:'Party',prefix:'A',color:'var(--subway-orange)'},
+  dice:{label:'Dice',prefix:'D',color:'var(--subway-yellow)'}
+};
+
+let allGames=[],activeFilter='all',upstreamMap={},stationCodes=new Map();
+
+function routeFor(game){
+  const cats=game.categories||[];
+  if(cats.includes('cards'))return'cards';
+  if(cats.includes('puzzle')||cats.includes('deduction'))return'puzzle';
+  if(cats.includes('word'))return'word';
+  if(cats.includes('dice'))return'dice';
+  if(cats.includes('party'))return'party';
+  if(cats.includes('strategy')||cats.includes('abstract')||cats.includes('territory'))return'strategy';
+  return'party';
 }
-Promise.all([fetch('/games.json').then(r=>{if(!r.ok)throw new Error('games.json '+r.status);return r.json()}),fetch('/upstreams.json').then(r=>r.ok?r.json():{games:[]})]).then(([catalog,upstreams])=>{upstreamMap=Object.fromEntries((upstreams.games||[]).map(x=>[x.id,x]));allGames=(catalog.games||[]).filter(g=>g.status==='live'&&g.liveUrl);document.getElementById('collection-summary').textContent=`${allGames.length} live browser games. V2 is available for ${allGames.filter(g=>g.preferredVersion==='v2').length}; every V1 remains playable.`;render()}).catch(err=>{document.getElementById('collection-summary').textContent='The live catalog could not be loaded.';document.getElementById('game-grid').innerHTML=`<p class="empty-state">Catalog error: ${err.message}</p>`});
-document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');activeFilter=b.dataset.filter;render()}));
+
+function buildStationCodes(){
+  const counters={strategy:0,cards:0,puzzle:0,word:0,party:0,dice:0};
+  stationCodes=new Map(allGames.map(game=>{
+    const route=routeFor(game);
+    counters[route]+=1;
+    return[game.id,`${routes[route].prefix}${String(counters[route]).padStart(2,'0')}`];
+  }));
+}
+
+function provenance(game){
+  const upstream=upstreamMap[game.id];
+  if(!upstream)return{text:'Original'};
+  return{text:upstream.status==='adapted-v1'?'Permissive adapted':upstream.status==='audited'?'Permissive audited':'Independent'};
+}
+
+function linkMeta(url){
+  const external=/^https?:\/\//.test(url)&&!url.startsWith(location.origin);
+  return{external,target:external?' target="_blank" rel="noreferrer"':''};
+}
+
+function prettyCategory(category){return category.replaceAll('-',' ')}
+
+function render(){
+  const list=document.getElementById('game-grid');
+  const visible=allGames.filter(game=>activeFilter==='all'||(game.categories||[]).includes(activeFilter));
+  if(!visible.length){list.innerHTML='<p class="empty-state">No live stations match this route filter.</p>';return}
+
+  list.innerHTML=visible.map(game=>{
+    const routeKey=routeFor(game),route=routes[routeKey],p=provenance(game);
+    const preferred=game.preferredVersion&&game.versions?.[game.preferredVersion]?.liveUrl?game.preferredVersion:null;
+    const primaryUrl=preferred?game.versions[preferred].liveUrl:game.liveUrl;
+    const primary=linkMeta(primaryUrl);
+    const v1Url=game.versions?.v1?.liveUrl||game.liveUrl;
+    const v1=linkMeta(v1Url);
+    const hasV2=preferred==='v2'&&primaryUrl!==v1Url;
+    const actions=hasV2
+      ?`<div class="station-actions"><a class="game-play-primary" href="${primaryUrl}"${primary.target}>PLAY V2 →</a><a class="game-play-v1" href="${v1Url}"${v1.target}>V1${v1.external?' ↗':' →'}</a></div>`
+      :`<div class="station-actions"><a class="game-play-primary" href="${primaryUrl}"${primary.target}>PLAY →</a></div>`;
+    const meta=[route.label,game.difficulty,p.text,...(game.categories||[]).filter(category=>category!==routeKey).slice(0,2).map(prettyCategory)];
+    return`<article id="game-${game.id}" class="station-row" data-tags="${(game.categories||[]).join(' ')}" style="--route-color:${route.color}"><div class="station-code"><i class="route-dot"></i><span>${stationCodes.get(game.id)}</span></div><div class="station-title"><h3>${game.title}</h3><p>${descriptions[game.id]||'A browser-first open-source game in the TrainGames network.'}</p></div><div class="station-meta">${meta.map(item=>`<span>${item}</span>`).join('')}</div>${actions}</article>`;
+  }).join('');
+
+  if(location.hash){
+    const target=document.querySelector(location.hash);
+    if(target)setTimeout(()=>target.scrollIntoView({block:'center'}),0);
+  }
+}
+
+Promise.all([
+  fetch('/games.json').then(response=>{if(!response.ok)throw new Error('games.json '+response.status);return response.json()}),
+  fetch('/upstreams.json').then(response=>response.ok?response.json():{games:[]})
+]).then(([catalog,upstreams])=>{
+  upstreamMap=Object.fromEntries((upstreams.games||[]).map(item=>[item.id,item]));
+  allGames=(catalog.games||[]).filter(game=>game.status==='live'&&game.liveUrl);
+  buildStationCodes();
+  const v2Count=allGames.filter(game=>game.preferredVersion==='v2').length;
+  document.getElementById('collection-summary').textContent=`${allGames.length} operational stations. ${v2Count} run V2 express service; every V1 remains available.`;
+  render();
+}).catch(error=>{
+  document.getElementById('collection-summary').textContent='The live network could not be loaded.';
+  document.getElementById('game-grid').innerHTML=`<p class="empty-state">Network error: ${error.message}</p>`;
+});
+
+document.querySelectorAll('.filter').forEach(button=>button.addEventListener('click',()=>{
+  document.querySelectorAll('.filter').forEach(item=>item.classList.remove('active'));
+  button.classList.add('active');
+  activeFilter=button.dataset.filter;
+  render();
+}));

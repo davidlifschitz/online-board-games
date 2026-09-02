@@ -3,51 +3,47 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b1020" />
-  <meta name="description" content="Browse and play the live TrainGames collection of open-source browser games." />
+  <meta name="theme-color" content="#f3efe6" />
+  <meta name="description" content="Browse TrainGames departures and launch open-source browser games for your commute." />
   <meta name="application-name" content="TrainGames" />
-  <title>Play • TrainGames</title>
+  <title>Departures • TrainGames</title>
   <link rel="icon" href="/train-games-icon.svg" type="image/svg+xml" />
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="stylesheet" href="/styles.css" />
   <link rel="stylesheet" href="/navigation.css" />
-  <style>.catalog-note{margin:0 0 22px;color:var(--muted,#a9b0c3)}.game-card .status.independent{border-color:#6ee7b7}.game-card .status.audited{border-color:#93c5fd}.game-card .status.adapted-v1{border-color:#fbbf24}.empty-state{grid-column:1/-1;padding:36px;border:1px dashed rgba(255,255,255,.2);border-radius:16px;text-align:center;color:#aab2c8}.game-card .icon{font-size:1.8rem}.game-version-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-top:auto;padding-top:8px}.game-version-actions>a{display:flex!important;align-items:center;justify-content:space-between;min-height:44px;border-radius:12px;text-decoration:none;font-weight:750}.game-play-primary{padding:0 13px!important;background:linear-gradient(135deg,#86efc1,#5fd2a0)!important;color:#081811!important;border:0!important;box-shadow:0 10px 24px rgba(95,210,160,.18)}.game-play-v1{padding:0 12px!important;border:1px solid rgba(255,255,255,.15)!important;color:var(--muted,#a9b0c3)!important;background:rgba(255,255,255,.035)!important}.game-card.featured .game-play-primary{background:linear-gradient(135deg,#d4f9e7,#7be5b4)!important}@media(max-width:560px){.game-version-actions{grid-template-columns:1fr 70px}}</style>
   <script defer src="/site.js"></script>
   <script defer src="/play.js"></script>
 </head>
 <body data-page="play">
   <div class="page-shell">
-    <nav class="site-nav" aria-label="Primary navigation">
-      <a class="site-brand" href="/" aria-label="TrainGames home"><span>TG</span> TrainGames</a>
-      <div class="nav-links">
-        <a class="nav-link" data-page="play" href="/play.html" aria-current="page">Play</a>
-        <a class="nav-link" data-page="build" href="/build.html">Build</a>
-        <a class="nav-link" data-page="leaderboard" href="/leaderboard.html">Leaderboard</a>
-      </div>
-      <a class="nav-github" href="https://github.com/davidlifschitz/online-board-games" target="_blank" rel="noreferrer">GitHub ↗</a>
+    <nav class="site-nav tg-nav" aria-label="Primary navigation">
+      <a class="site-brand" href="/" aria-label="TrainGames system map"><span class="tg-roundel" aria-hidden="true"></span><span class="site-brand-copy">TrainGames</span></a>
+      <div class="nav-links"><a class="nav-link" data-page="play" href="/play.html" aria-current="page">Play</a><a class="nav-link" data-page="build" href="/build.html">Build</a><a class="nav-link" data-page="leaderboard" href="/leaderboard.html">Rankings</a></div>
+      <a class="nav-github" href="https://github.com/davidlifschitz/online-board-games" target="_blank" rel="noreferrer">Source ↗</a>
     </nav>
 
     <header class="page-hero">
-      <div class="eyebrow">V1 + V2 • COMMUTE-READY WHERE SUPPORTED</div>
-      <h1>Play.</h1>
-      <p class="lede" id="collection-summary">Loading the live collection…</p>
+      <div class="eyebrow">DEPARTURES · LIVE SERVICES</div>
+      <h1>Choose a station.</h1>
+      <p class="lede" id="collection-summary">Loading the live network…</p>
+      <div class="hero-actions"><a class="primary" href="#departures">View departures</a><a class="secondary" href="/">System map</a></div>
     </header>
 
     <main class="page-main">
-      <section id="games">
-        <div class="toolbar" aria-label="Game filters">
-          <div><p class="section-label">CHOOSE A GAME</p><h2>What are you in the mood for?</h2></div>
-          <div class="filters" role="group" aria-label="Filter games">
+      <section id="departures">
+        <div class="toolbar" aria-label="Route filters">
+          <div><p class="section-label">ROUTE FILTER</p><h2>What are you in the mood for?</h2></div>
+          <div class="filters" role="group" aria-label="Filter game departures">
             <button class="filter active" data-filter="all">All</button><button class="filter" data-filter="strategy">Strategy</button><button class="filter" data-filter="cards">Cards</button><button class="filter" data-filter="puzzle">Puzzles</button><button class="filter" data-filter="word">Word</button><button class="filter" data-filter="dice">Dice</button><button class="filter" data-filter="abstract">Abstract</button><button class="filter" data-filter="deduction">Deduction</button>
           </div>
         </div>
-        <p class="catalog-note"><strong>V2 is now the primary play surface where available.</strong> V1 remains beside it for comparison and compatibility. Open the version you want before going underground; offline behavior remains game-specific.</p>
-        <section class="grid" id="game-grid" aria-live="polite"><p class="empty-state">Loading games…</p></section>
-        <p style="margin-top:20px"><a href="/open-source.html">See the complete upstream/license map →</a></p>
+        <p class="catalog-note"><strong>V2 is the express service where available.</strong> V1 stays alongside it for comparison and compatibility. Open the version you want before going underground; offline support remains game-specific.</p>
+        <section id="game-grid" class="station-list" aria-live="polite"><p class="empty-state">Loading departures…</p></section>
+        <p style="margin-top:22px"><a class="text-link" href="/open-source.html">Upstream and license map →</a></p>
       </section>
     </main>
 
-    <footer><span>TrainGames</span><span><a href="/build.html">Build one next →</a></span></footer>
+    <footer><span>TrainGames · Departures</span><span><a href="/build.html">Extend the network →</a></span></footer>
   </div>
 </body>
 </html>

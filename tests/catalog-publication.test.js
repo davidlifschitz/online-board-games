@@ -83,17 +83,17 @@ test('keeps the TrainGames hub and docs synchronized with the published catalog'
   const lineage = read('OPEN_SOURCE_LINEAGE.md');
   const sourceResearch = read('SOURCE_RESEARCH_BATCH_3.md');
 
-  assert.match(home, /<strong>25<\/strong><span>Live games<\/span>/);
+  assert.match(home, /<strong>25<\/strong><span>Operational stations<\/span>/);
+  assert.match(home, /<strong>51<\/strong><span>Network plans<\/span>/);
   assert.match(readme, /\*\*25 live games · 51 build prompts · 28 prompt concepts waiting for a first deployment\*\*/);
   assert.match(readme, /\*\*23 of the 51 numbered prompt concepts have a live implementation\.\*\*/);
   assert.match(catalogDoc, /\*\*23\*\* have a live implementation/);
   assert.match(catalogDoc, /\*\*28 numbered concepts remain unbuilt\.\*\*/);
 
   const buildPage = read('build.html');
-  assert.match(buildPage, /<strong>28<\/strong><span>Awaiting first build<\/span>/);
-  assert.match(buildPage, /Claim issue #7/);
-  assert.match(buildPage, /Claim issue #8/);
-  assert.doesNotMatch(buildPage, /Claim issue #(3|4|5|6)/);
+  assert.match(buildPage, /<strong>28<\/strong><span>Awaiting first service<\/span>/);
+  assert.match(buildPage, /issues\/7"/);
+  assert.match(buildPage, /issues\/8"/);
   assert.doesNotMatch(buildPage, /issues\/[3456]"/);
   assert.match(buildPage, /Boggle-style/);
   assert.match(buildPage, /Love-Letter-style/);

@@ -74,7 +74,7 @@ async function loadCatalog(){
     ];
   }
   select.replaceChildren();
-  const placeholder=make('option','','Choose a game / prompt');
+  const placeholder=make('option','','Choose a game / station');
   placeholder.value='';
   select.appendChild(placeholder);
   state.catalog.forEach(game=>{
@@ -89,7 +89,7 @@ function renderMySubmissions(rows){
   const container=$('#mySubmissions');
   container.replaceChildren();
   if(!rows?.length){
-    container.appendChild(make('div','empty-state','You have not submitted a build yet.'));
+    container.appendChild(make('div','empty-state','You have not submitted a service yet.'));
     return;
   }
   rows.forEach(row=>{
@@ -160,7 +160,7 @@ async function handleSubmit(event){
     notes:notes||null
   });
   button.disabled=false;
-  button.textContent='Submit for review';
+  button.textContent='Submit for inspection';
 
   if(error){
     console.error('Submission failed',error);
@@ -170,7 +170,7 @@ async function handleSubmit(event){
   }
 
   event.currentTarget.reset();
-  setMessage(message,'Submitted. Your build is pending review and will enter the leaderboard once approved.','success');
+  setMessage(message,'Submitted. Your service is pending inspection and will enter the rankings once approved.','success');
   await loadMySubmissions();
 }
 async function init(){
