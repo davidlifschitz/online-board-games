@@ -66,6 +66,8 @@ jobs:
         run: node --test tests/v2-external-engines.test.js
       - name: Test TrainGames V2 redesign contract
         run: node --test tests/gameplay-v2-contract.test.js
+      - name: Test Transit Network product UI contract
+        run: node --test tests/transit-network-ui.test.js
       - name: Test Batch 3 card engines
         run: |
           node games/high-table/tests/engine.test.js
