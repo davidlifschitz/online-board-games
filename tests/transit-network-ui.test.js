@@ -48,6 +48,15 @@ test('Build and Leaderboard use the shared transit product shell', () => {
   }
 });
 
+test('dynamic Build and Rankings copy stays inside the transit vocabulary', () => {
+  const build = read('build.js');
+  const rankings = read('leaderboard.js');
+  assert.doesNotMatch(build, /Submit for review|pending review and will enter the leaderboard/);
+  assert.doesNotMatch(rankings, /No ranked games yet|approved submissions|Loading ranked submissions|Vote for this build/);
+  assert.match(build, /Submit for inspection/);
+  assert.match(rankings, /approved .*service/);
+});
+
 test('mobile network map is horizontally pannable', () => {
   const css = read('styles.css');
   assert.match(css, /\.tg-network-scroll\s*\{[^}]*overflow-x\s*:\s*auto/s);
