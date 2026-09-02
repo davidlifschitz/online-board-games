@@ -1,1 +1,41 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111827"><title>Gridwake • OS Online Board Games</title><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="../gameplay-ui.css"></head><body><main class="shell"><nav><a href="/play.html">← Arcade</a><span>OS Online Board Games</span></nav><header><p class="eyebrow">HIDDEN FLEETS • COMMITMENTS • PROBABILITY BOT</p><h1>Gridwake</h1><p>Deploy an original fleet, fire by coordinate, and sink every opposing vessel without ever seeing the hidden target layout.</p></header><section class="controls"><label>Mode<select id="mode"><option value="bot">Vs computer</option><option value="local">Local pass-and-play</option></select></label><label>Board<select id="size"><option value="7">Fast 7×7</option><option value="10" selected>Classic 10×10</option></select></label><label>Bot<select id="difficulty"><option>easy</option><option selected>medium</option><option>hard</option></select></label><button id="reroll">Reroll my fleet</button><button id="newGame">New game</button></section><section class="statusbar"><div><span>Turn</span><strong id="turn"></strong></div><div><span>Shots</span><strong id="shots"></strong></div><div><span>Last result</span><strong id="last"></strong></div><div><span>Commitment</span><strong id="commitShort"></strong></div></section><section class="panel fleet-panel"><div class="sea-card own"><h2>Your waters</h2><div id="own" class="sea-grid"></div><div id="ownFleet" class="fleet-list"></div></div><div class="sea-card"><h2>Target waters</h2><div id="target" class="sea-grid"></div><div id="targetFleet" class="fleet-list"></div></div></section><p id="status" class="status"></p><section class="help"><h2>Privacy & verification</h2><p>Each fleet is normalized and SHA-256 committed with a nonce before firing starts. The target grid contains only shot results. In local pass-and-play, a full privacy screen covers both grids between turns.</p><p class="commit" id="commitFull"></p><details><summary>Open-source lineage</summary><p>Original engine, fleet names and visuals. MIT naval-grid implementations were used only as placement/shot regression references.</p></details></section></main><div id="privacy" class="privacy" hidden><div class="privacy-box"><h2>Pass the device</h2><p id="privacyText"></p><button id="privacyReady">I'm ready</button></div></div><script src="engine.js"></script><script src="game.js"></script><script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});</script><script src="../gameplay-ui.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111827">
+  <title>Gridwake • TrainGames</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../gameplay-ui.css">
+</head>
+<body>
+<main class="shell">
+  <nav><a href="/play.html">← Arcade</a><span>TrainGames</span></nav>
+  <header><p class="eyebrow">HIDDEN FLEETS • CUSTOM DEPLOYMENT • PROBABILITY BOT</p><h1>Gridwake</h1><p>Deploy your own fleet, fire by coordinate, and sink every opposing vessel without ever seeing the hidden target layout.</p></header>
+  <section class="controls">
+    <label>Mode<select id="mode"><option value="bot">Vs computer</option><option value="local">Local pass-and-play</option></select></label>
+    <label>Board<select id="size"><option value="7">Fast 7×7</option><option value="10" selected>Classic 10×10</option></select></label>
+    <label>Bot<select id="difficulty"><option>easy</option><option selected>medium</option><option>hard</option></select></label>
+    <button id="newGame">New game</button>
+  </section>
+  <section id="setupPanel" class="setup-panel panel">
+    <div class="setup-copy"><span class="setup-kicker">DEPLOYMENT</span><strong id="setupTitle">Place your fleet</strong><p id="setupHint">Choose a vessel, set its direction, then tap a starting square.</p></div>
+    <div class="setup-actions">
+      <label>Ship<select id="shipPicker"></select></label>
+      <button id="rotateShip" type="button">Horizontal ↔</button>
+      <button id="removeShip" type="button">Remove selected</button>
+      <button id="clearFleet" type="button">Clear</button>
+      <button id="randomizeFleet" type="button">Randomize</button>
+      <button id="confirmFleet" class="confirm" type="button">Confirm fleet</button>
+    </div>
+  </section>
+  <section class="statusbar"><div><span>Turn</span><strong id="turn"></strong></div><div><span>Shots</span><strong id="shots"></strong></div><div><span>Last result</span><strong id="last"></strong></div><div><span>Commitment</span><strong id="commitShort"></strong></div></section>
+  <section class="panel fleet-panel"><div class="sea-card own"><h2 id="ownTitle">Your waters</h2><div id="own" class="sea-grid"></div><div id="ownFleet" class="fleet-list"></div></div><div id="targetCard" class="sea-card"><h2>Target waters</h2><div id="target" class="sea-grid"></div><div id="targetFleet" class="fleet-list"></div></div></section>
+  <p id="status" class="status"></p>
+  <section class="help"><h2>Privacy & verification</h2><p>Each fleet is normalized and SHA-256 committed with a nonce after its player confirms deployment. The target grid contains only shot results. In local pass-and-play, a full privacy screen covers both grids between setup and turns.</p><p class="commit" id="commitFull"></p><details><summary>Open-source lineage</summary><p>Original engine, fleet names and visuals. MIT naval-grid implementations were used only as placement/shot regression references.</p></details></section>
+</main>
+<div id="privacy" class="privacy" hidden><div class="privacy-box"><h2>Pass the device</h2><p id="privacyText"></p><button id="privacyReady">I'm ready</button></div></div>
+<script src="engine.js"></script><script src="game.js"></script><script>if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});</script><script src="../gameplay-ui.js"></script>
+</body></html>
