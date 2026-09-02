@@ -35,6 +35,9 @@ jobs:
           node --check games/crown-jump/ai-worker.js
           node --check games/crown-jump/persistence.js
           node --check games/crown-jump/app.js
+          node --check games/gridwake/engine.js
+          node --check games/gridwake/game.js
+          node --check games/gridwake/sw.js
           node --check games/high-table/engine.js
           node --check games/high-table/game.js
           node --check games/hearts/engine.js
@@ -54,6 +57,12 @@ jobs:
           node --check games/frontiers/v2/game.js
       - name: Validate TrainGames manifest
         run: node -e "const fs=require('fs');const m=JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));if(m.name!=='TrainGames'||m.start_url!=='/play.html')process.exit(1)"
+      - name: Test PWA icon contract
+        run: node tests/pwa-icon-contract.test.js
+      - name: Test Gridwake deployment contract
+        run: node tests/gridwake-placement-contract.test.js
+      - name: Test Gridwake engine
+        run: node games/gridwake/tests/engine.test.js
       - name: Test catalog publication contract
         run: node --test tests/catalog-publication.test.js
       - name: Test Batch 3 cache invalidation
