@@ -68,7 +68,7 @@ function renderGamePicker(){
   select.replaceChildren();
   const sorted=[...state.games].sort((a,b)=>gameTitle(a.game_id).localeCompare(gameTitle(b.game_id)));
   if(!sorted.length){
-    const option=make('option','','No ranked games yet');
+    const option=make('option','','No ranked stations yet');
     option.value='';
     select.appendChild(option);
     select.disabled=true;
@@ -77,7 +77,7 @@ function renderGamePicker(){
   select.disabled=false;
   sorted.forEach(game=>{
     const count=Number(game.implementations)||0;
-    const option=make('option','',`${gameTitle(game.game_id)} · ${count} ${count===1?'build':'builds'}`);
+    const option=make('option','',`${gameTitle(game.game_id)} · ${count} ${count===1?'service':'services'}`);
     option.value=game.game_id;
     select.appendChild(option);
   });
@@ -110,9 +110,9 @@ function renderRows(rows){
   const summary=$('#selectedGameTitle');
   const meta=$('#gameLeaderboardMeta');
   if(summary)summary.textContent=title;
-  if(meta)meta.textContent=`${rows.length} approved ${rows.length===1?'submission':'submissions'} · ranked by community score`;
+  if(meta)meta.textContent=`${rows.length} approved ${rows.length===1?'service':'services'} · ranked by community score`;
   if(!rows.length){
-    renderEmpty('No approved submissions for this game yet.');
+    renderEmpty('No approved services for this station yet.');
     return;
   }
 
@@ -161,7 +161,7 @@ function renderRows(rows){
     voteButton.type='button';
     voteButton.setAttribute('aria-pressed',hasVoted?'true':'false');
     voteButton.setAttribute('aria-label',`${hasVoted?'Remove vote from':'Vote for'} ${row.implementation_name}`);
-    voteButton.title=hasVoted?'Remove your vote':'Vote for this build';
+    voteButton.title=hasVoted?'Remove your vote':'Vote for this service';
     voteButton.addEventListener('click',()=>toggleVote(row.id,voteButton));
     scoreWrap.appendChild(voteButton);
     const scoreCopy=make('div','score-copy');
@@ -208,13 +208,13 @@ async function loadOwnVotes(){
 
 async function loadSelectedGame(){
   if(!state.selectedGameId){
-    $('#selectedGameTitle').textContent='No ranked games yet';
-    $('#gameLeaderboardMeta').textContent='Approved community submissions will appear here.';
-    renderEmpty('No approved community builds are available yet.');
+    $('#selectedGameTitle').textContent='No ranked stations yet';
+    $('#gameLeaderboardMeta').textContent='Approved community services will appear here.';
+    renderEmpty('No approved community services are available yet.');
     return;
   }
   const requestedGame=state.selectedGameId;
-  renderEmpty('Loading ranked submissions…');
+  renderEmpty('Loading ranked services…');
   setMessage('');
   const {data,error}=await state.client
     .from('game_leaderboard')
@@ -224,8 +224,8 @@ async function loadSelectedGame(){
   if(requestedGame!==state.selectedGameId)return;
   if(error){
     console.error('Game leaderboard load failed',error);
-    setMessage('This game leaderboard could not load. Refresh and try again.','error');
-    renderEmpty('Leaderboard unavailable.');
+    setMessage('This station ranking could not load. Refresh and try again.','error');
+    renderEmpty('Rankings unavailable.');
     return;
   }
   renderRows(data||[]);
@@ -258,38 +258,32 @@ async function toggleVote(submissionId,button){
   await loadSelectedGame();
 }
 
-async function init(){
-  if(!window.supabase?.createClient)throw new Error('Supabase library failed to load');
-  state.client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{
-    auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}
-  });
-  state.voterKey=getVoterKey();
-  await Promise.all([loadCatalog(),loadOwnVotes()]);
-  await loadLeaderboardGames();
-  const {count,error:countError}=await state.client
+async function loadApprovedBuildCount(){
+  const {count,error}=await state.client
     .from('builder_submissions')
     .select('id',{count:'exact',head:true})
     .eq('status','approved');
-  if(!countError&&typeof count==='number')$('#approvedBuildCount').textContent=String(count);
-  await loadSelectedGame();
-
-  $('#gameSelect').addEventListener('change',async event=>{
-    state.selectedGameId=event.target.value||null;
-    updateGameInUrl(state.selectedGameId);
-    await loadSelectedGame();
-  });
-  window.addEventListener('popstate',async()=>{
-    const requested=new URLSearchParams(location.search).get('game');
-    if(requested&&state.games.some(game=>game.game_id===requested)){
-      state.selectedGameId=requested;
-      $('#gameSelect').value=requested;
-      await loadSelectedGame();
-    }
-  });
+  if(error)throw error;
+  $('#approvedBuildCount').textContent=String(count||0);
 }
+
+async function init(){
+  state.voterKey=getVoterKey();
+  await loadCatalog();
+  if(!window.supabase?.createClient)throw new Error('Supabase client failed to load');
+  state.client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:false}});
+  await Promise.all([loadLeaderboardGames(),loadOwnVotes(),loadApprovedBuildCount()]);
+  await loadSelectedGame();
+}
+
+$('#gameSelect')?.addEventListener('change',async event=>{
+  state.selectedGameId=event.target.value||null;
+  updateGameInUrl(state.selectedGameId);
+  await loadSelectedGame();
+});
 
 init().catch(error=>{
   console.error('Leaderboard initialization failed',error);
-  setMessage('Leaderboard could not initialize. Refresh and try again.','error');
-  renderEmpty('Leaderboard unavailable.');
+  setMessage('The service rankings could not load. Refresh and try again.','error');
+  renderEmpty('Rankings unavailable.');
 });
