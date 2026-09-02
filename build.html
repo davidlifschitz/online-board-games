@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b1020" />
-  <meta name="description" content="Pick an open-source game spec, ship your implementation, and submit it to the TrainGames community." />
+  <meta name="theme-color" content="#f3efe6" />
+  <meta name="description" content="Extend the TrainGames network: pick an open-source game spec, ship your implementation, and submit it to the community." />
   <meta name="application-name" content="TrainGames" />
-  <title>Build • TrainGames</title>
+  <title>Extend the Network • TrainGames</title>
   <link rel="icon" href="/train-games-icon.svg" type="image/svg+xml" />
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="stylesheet" href="/styles.css" />
@@ -17,75 +17,57 @@
 </head>
 <body data-page="build">
   <div class="page-shell">
-    <nav class="site-nav" aria-label="Primary navigation">
-      <a class="site-brand" href="/" aria-label="TrainGames home"><span>TG</span> TrainGames</a>
-      <div class="nav-links">
-        <a class="nav-link" data-page="play" href="/play.html">Play</a>
-        <a class="nav-link" data-page="build" href="/build.html" aria-current="page">Build</a>
-        <a class="nav-link" data-page="leaderboard" href="/leaderboard.html">Leaderboard</a>
-      </div>
-      <a class="nav-github" href="https://github.com/davidlifschitz/online-board-games" target="_blank" rel="noreferrer">GitHub ↗</a>
+    <nav class="site-nav tg-nav" aria-label="Primary navigation">
+      <a class="site-brand" href="/" aria-label="TrainGames system map"><span class="tg-roundel" aria-hidden="true"></span><span class="site-brand-copy">TrainGames</span></a>
+      <div class="nav-links"><a class="nav-link" data-page="play" href="/play.html">Play</a><a class="nav-link" data-page="build" href="/build.html" aria-current="page">Build</a><a class="nav-link" data-page="leaderboard" href="/leaderboard.html">Rankings</a></div>
+      <a class="nav-github" href="https://github.com/davidlifschitz/online-board-games" target="_blank" rel="noreferrer">Source ↗</a>
     </nav>
 
     <header class="page-hero">
-      <div class="eyebrow">OPEN SOURCE GAME BUILD CHALLENGE</div>
-      <h1>Build.</h1>
-      <p class="lede">Pick a detailed game spec, implement it your way, deploy it, and submit the finished build. TrainGames especially values browser-first experiences that remain useful when connectivity disappears.</p>
-      <div class="hero-actions">
-        <a class="primary" href="#submit">Submit a build</a>
-        <a class="secondary" href="https://github.com/davidlifschitz/online-board-games/blob/main/BUILD_QUEUE.md" target="_blank" rel="noreferrer">Full build queue ↗</a>
-      </div>
-      <div class="stats" aria-label="Build challenge stats">
-        <div><strong>51</strong><span>Game prompts</span></div>
-        <div><strong>28</strong><span>Awaiting first build</span></div>
-        <div><strong>2</strong><span>Sign-in options</span></div>
-        <div><strong>Open</strong><span>To multiple versions</span></div>
-      </div>
+      <div class="eyebrow">NETWORK PLANNING · OPEN SOURCE BUILD PROGRAM</div>
+      <h1>Extend the network.</h1>
+      <p class="lede">Pick a planned station, build the game your way, deploy it, and submit the finished service to TrainGames. Multiple implementations can serve the same station.</p>
+      <div class="hero-actions"><a class="primary" href="#submit">Submit a service</a><a class="secondary" href="https://github.com/davidlifschitz/online-board-games/blob/main/BUILD_QUEUE.md" target="_blank" rel="noreferrer">Full network plan ↗</a></div>
+      <div class="stats" aria-label="Network extension stats"><div><strong>51</strong><span>Planned concepts</span></div><div><strong>28</strong><span>Awaiting first service</span></div><div><strong>2</strong><span>Identity providers</span></div><div><strong>Open</strong><span>To parallel builds</span></div></div>
     </header>
 
     <main class="page-main">
       <section class="challenge standalone-section" id="build">
-        <div class="section-heading">
-          <div><p class="section-label">STARTER BUILDS</p><h2>Pick a spec. Ship your version.</h2></div>
-          <a class="text-link" href="https://github.com/davidlifschitz/online-board-games/blob/main/GAME_CATALOG.md" target="_blank" rel="noreferrer">Explore all 51 concepts ↗</a>
+        <div class="section-heading"><div><p class="section-label">PLANNED EXTENSIONS</p><h2>Choose an unopened station.</h2></div><a class="text-link" href="https://github.com/davidlifschitz/online-board-games/blob/main/GAME_CATALOG.md" target="_blank" rel="noreferrer">All 51 plans ↗</a></div>
+        <p class="section-copy">You do not need to be the first builder. Alternate implementations of operational stations are welcome too.</p>
+        <div class="tg-extension-list">
+          <div class="tg-extension"><span class="tg-extension-code">W-PLN 07</span><div><strong>Boggle-style</strong><small>Word route · planned station</small></div><a href="https://github.com/davidlifschitz/online-board-games/issues/7" target="_blank" rel="noreferrer">CLAIM #7 ↗</a></div>
+          <div class="tg-extension"><span class="tg-extension-code">C-PLN 08</span><div><strong>Love-Letter-style</strong><small>Card route · planned station</small></div><a href="https://github.com/davidlifschitz/online-board-games/issues/8" target="_blank" rel="noreferrer">CLAIM #8 ↗</a></div>
         </div>
-        <p class="section-copy">You do not need to be the first person to build a prompt. Multiple implementations of the same concept are welcome.</p>
-        <div class="starter-grid">
-          <a href="https://github.com/davidlifschitz/online-board-games/issues/7" target="_blank" rel="noreferrer"><span>STARTER</span><strong>Boggle-style</strong><small>Claim issue #7 ↗</small></a>
-          <a href="https://github.com/davidlifschitz/online-board-games/issues/8" target="_blank" rel="noreferrer"><span>STARTER</span><strong>Love-Letter-style</strong><small>Claim issue #8 ↗</small></a>
-        </div>
-        <p class="section-copy">Mancala, Dots and Boxes, Mastermind-style, and Farkle already have first-party live builds (Sowstone, Boxline, Cipherloom, Spark Six). Alternate versions of those concepts are still welcome via the catalog.</p>
+        <p class="section-copy">Sowstone, Boxline, Cipherloom, and Spark Six already operate on the network. Alternate services for those concepts are still welcome through the full catalog.</p>
         <div class="flow-grid" aria-label="Build workflow">
-          <div><span>01</span><strong>Choose</strong><p>Pick a prompt or take an existing concept in a different direction.</p></div>
-          <div><span>02</span><strong>Ship</strong><p>Deploy a playable production URL and publish the source on GitHub.</p></div>
-          <div><span>03</span><strong>Submit</strong><p>Verify with Google or GitHub, list the models you used, and enter review.</p></div>
+          <div><span>01 / PLAN</span><strong>Choose</strong><p>Pick a planned station or take an existing game in a distinctly different direction.</p></div>
+          <div><span>02 / CONSTRUCT</span><strong>Ship</strong><p>Deploy a playable production URL and publish the implementation source on GitHub.</p></div>
+          <div><span>03 / OPEN SERVICE</span><strong>Submit</strong><p>Verify with Google or GitHub, list the models you used, and enter review.</p></div>
         </div>
       </section>
 
       <section class="submit-section" id="submit">
-        <div class="section-heading">
-          <div><p class="section-label">SUBMIT AN IMPLEMENTATION</p><h2>Get your build onto the board.</h2></div>
-          <a class="text-link" href="/leaderboard.html">See approved builds →</a>
-        </div>
+        <div class="section-heading"><div><p class="section-label">SERVICE APPLICATION</p><h2>Put your build on the board.</h2></div><a class="text-link" href="/leaderboard.html">See approved services →</a></div>
         <div class="submit-layout">
           <div class="auth-panel">
             <div id="signedOutState">
-              <p class="auth-kicker">VERIFIED SUBMISSIONS</p><h3>Sign in before submitting</h3>
-              <p>GitHub or Google authentication ties a submission to a real account. No password is stored by this site.</p>
+              <p class="auth-kicker">VERIFIED BUILDERS</p><h3>Identify before submitting</h3>
+              <p>GitHub or Google authentication ties a service application to a real account. No password is stored by this site.</p>
               <div class="auth-actions"><button id="githubLogin" class="auth-button" type="button">Continue with GitHub</button><button id="googleLogin" class="auth-button" type="button">Continue with Google</button></div>
               <p id="authMessage" class="form-message" role="status"></p>
             </div>
             <div id="signedInState" class="hidden">
-              <p class="auth-kicker">SIGNED IN</p>
+              <p class="auth-kicker">BUILDER VERIFIED</p>
               <div class="identity-row"><img id="userAvatar" alt="" class="user-avatar hidden" /><div><strong id="userName">Verified builder</strong><span id="userProvider"></span></div></div>
               <button id="signOut" class="text-button" type="button">Sign out</button>
             </div>
-            <div class="review-note"><strong>How validation works</strong><p>Your identity is validated at sign-in. The live URL, public GitHub source, game concept, and model list are stored with the submission. New builds are pending until review, then approved builds enter the public leaderboard.</p></div>
+            <div class="review-note"><strong>Inspection process</strong><p>Your identity is validated at sign-in. The live URL, public source, game concept, and model list are stored with the submission. New services remain pending until review; approved builds enter the public rankings.</p></div>
           </div>
 
           <form id="submissionForm" class="submission-form locked" novalidate>
             <div class="form-grid">
-              <label class="full">Game / concept<select id="gameId" name="gameId" required disabled><option value="">Loading catalog…</option></select></label>
+              <label class="full">Game / station<select id="gameId" name="gameId" required disabled><option value="">Loading network…</option></select></label>
               <label>Implementation name<input id="implementationName" name="implementationName" maxlength="100" placeholder="Your game name" required disabled /></label>
               <label>Model(s) used<input id="models" name="models" placeholder="Model A, Model B" required disabled /><small>Comma-separate every model you materially used.</small></label>
               <label class="full">Live production URL<input id="liveUrl" name="liveUrl" type="url" inputmode="url" placeholder="https://your-game.example" required disabled /></label>
@@ -93,14 +75,15 @@
               <label class="full">Build notes <span class="optional">optional</span><textarea id="notes" name="notes" maxlength="2000" rows="5" placeholder="What is distinctive about this implementation?" disabled></textarea></label>
               <label class="confirm-row full"><input id="confirmOpenSource" type="checkbox" required disabled /><span>I confirm the source repository is public and the submitted implementation is mine or I have permission to submit it.</span></label>
             </div>
-            <button id="submitBuild" class="primary submit-button" type="submit" disabled>Submit for review</button>
+            <button id="submitBuild" class="primary submit-button" type="submit" disabled>Submit for inspection</button>
             <p id="submissionMessage" class="form-message" role="status"></p>
           </form>
         </div>
-        <div id="mySubmissionsBlock" class="my-submissions hidden"><div class="mini-heading"><h3>Your submissions</h3><span>Visible only to you until approved</span></div><div id="mySubmissions" class="submission-list"></div></div>
+        <div id="mySubmissionsBlock" class="my-submissions hidden"><div class="mini-heading"><h3>Your service applications</h3><span>Visible only to you until approved</span></div><div id="mySubmissions" class="submission-list"></div></div>
       </section>
     </main>
-    <footer><span>TrainGames</span><span><a href="/leaderboard.html">See the leaderboard →</a></span></footer>
+
+    <footer><span>TrainGames · Network Planning</span><span><a href="/leaderboard.html">Service rankings →</a></span></footer>
   </div>
 </body>
 </html>
