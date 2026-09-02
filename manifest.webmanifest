@@ -8,11 +8,9 @@
   "background_color": "#0b1020",
   "theme_color": "#0b1020",
   "icons": [
-    {
-      "src": "/train-games-icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    }
+    {"src":"/train-games-icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"/train-games-icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"},
+    {"src":"/train-games-icon-maskable-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"},
+    {"src":"/train-games-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}
   ]
 }
