@@ -258,29 +258,35 @@ async function toggleVote(submissionId,button){
   await loadSelectedGame();
 }
 
-async function loadApprovedBuildCount(){
-  const {count,error}=await state.client
+async function init(){
+  if(!window.supabase?.createClient)throw new Error('Supabase library failed to load');
+  state.client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{
+    auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}
+  });
+  state.voterKey=getVoterKey();
+  await Promise.all([loadCatalog(),loadOwnVotes()]);
+  await loadLeaderboardGames();
+  const {count,error:countError}=await state.client
     .from('builder_submissions')
     .select('id',{count:'exact',head:true})
     .eq('status','approved');
-  if(error)throw error;
-  $('#approvedBuildCount').textContent=String(count||0);
-}
-
-async function init(){
-  state.voterKey=getVoterKey();
-  await loadCatalog();
-  if(!window.supabase?.createClient)throw new Error('Supabase client failed to load');
-  state.client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:false}});
-  await Promise.all([loadLeaderboardGames(),loadOwnVotes(),loadApprovedBuildCount()]);
+  if(!countError&&typeof count==='number')$('#approvedBuildCount').textContent=String(count);
   await loadSelectedGame();
-}
 
-$('#gameSelect')?.addEventListener('change',async event=>{
-  state.selectedGameId=event.target.value||null;
-  updateGameInUrl(state.selectedGameId);
-  await loadSelectedGame();
-});
+  $('#gameSelect').addEventListener('change',async event=>{
+    state.selectedGameId=event.target.value||null;
+    updateGameInUrl(state.selectedGameId);
+    await loadSelectedGame();
+  });
+  window.addEventListener('popstate',async()=>{
+    const requested=new URLSearchParams(location.search).get('game');
+    if(requested&&state.games.some(game=>game.game_id===requested)){
+      state.selectedGameId=requested;
+      $('#gameSelect').value=requested;
+      await loadSelectedGame();
+    }
+  });
+}
 
 init().catch(error=>{
   console.error('Leaderboard initialization failed',error);
