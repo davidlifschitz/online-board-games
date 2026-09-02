@@ -19,11 +19,7 @@
   <div class="page-shell">
     <nav class="site-nav tg-nav" aria-label="Primary navigation">
       <a class="site-brand" href="/" aria-label="TrainGames system map"><span class="tg-roundel" aria-hidden="true"></span><span class="site-brand-copy">TrainGames</span></a>
-      <div class="nav-links">
-        <a class="nav-link" data-page="play" href="/play.html">Play</a>
-        <a class="nav-link" data-page="build" href="/build.html">Build</a>
-        <a class="nav-link" data-page="leaderboard" href="/leaderboard.html">Rankings</a>
-      </div>
+      <div class="nav-links"><a class="nav-link" data-page="play" href="/play.html">Play</a><a class="nav-link" data-page="build" href="/build.html">Build</a><a class="nav-link" data-page="leaderboard" href="/leaderboard.html">Rankings</a></div>
       <div class="tg-network-status"><i></i> Network online</div>
     </nav>
 
@@ -47,39 +43,43 @@
         <div class="tg-network-head"><span id="network-heading">TG NETWORK MAP</span><span>SCHEMATIC · NOT TO SCALE</span></div>
         <div class="tg-network-scroll">
           <div class="tg-network-canvas">
-            <svg viewBox="0 0 980 560" role="img" aria-labelledby="map-title map-desc">
+            <svg viewBox="0 0 980 570" role="img" aria-labelledby="map-title map-desc">
               <title id="map-title">TrainGames system map</title>
-              <desc id="map-desc">Colored routes connect representative TrainGames titles. Select a station to open that game in the Play departures list.</desc>
+              <desc id="map-desc">Six colored category routes connect representative TrainGames titles. Every labeled station sits on the route color for its game family.</desc>
 
-              <polyline class="tg-route tg-route--strategy" points="70,375 190,375 265,300 430,300 505,225 690,225 765,150 900,150" />
-              <polyline class="tg-route tg-route--cards" points="70,130 190,130 265,205 430,205 505,280 690,280 765,355 900,355" />
-              <polyline class="tg-route tg-route--puzzle" points="120,495 220,495 295,420 430,420 505,345 690,345 765,420 885,420" />
-              <polyline class="tg-route tg-route--word" points="320,90 320,205 430,205 505,280 505,420" />
-              <polyline class="tg-route tg-route--party" points="640,85 640,225 690,280 765,355 765,470" />
+              <polyline class="tg-route tg-route--strategy" points="70,390 220,390 300,310 520,310 600,230 900,230" />
+              <polyline class="tg-route tg-route--cards" points="70,150 250,150 330,230 520,230 600,310 900,310" />
+              <polyline class="tg-route tg-route--puzzle" points="90,500 260,500 340,420 520,420 600,500 900,500" />
+              <polyline class="tg-route tg-route--word" points="400,70 400,230 520,230 520,420" />
+              <polyline class="tg-route tg-route--party" points="400,70 620,70 700,150 700,310 780,390 900,390" />
+              <polyline class="tg-route" style="stroke:var(--subway-yellow)" points="70,70 250,70 330,150 520,150 600,230 830,230" />
 
-              <g class="tg-map-line-badge" transform="translate(78 350)"><rect width="88" height="25" rx="12.5" fill="var(--subway-blue)"/><text x="44" y="17" text-anchor="middle">STRATEGY</text></g>
-              <g class="tg-map-line-badge" transform="translate(78 102)"><rect width="68" height="25" rx="12.5" fill="var(--subway-red)"/><text x="34" y="17" text-anchor="middle">CARDS</text></g>
-              <g class="tg-map-line-badge" transform="translate(126 465)"><rect width="72" height="25" rx="12.5" fill="var(--subway-green)"/><text x="36" y="17" text-anchor="middle">PUZZLE</text></g>
-              <g class="tg-map-line-badge" transform="translate(278 60)"><rect width="62" height="25" rx="12.5" fill="var(--subway-purple)"/><text x="31" y="17" text-anchor="middle">WORD</text></g>
-              <g class="tg-map-line-badge" transform="translate(602 54)"><rect width="64" height="25" rx="12.5" fill="var(--subway-orange)"/><text x="32" y="17" text-anchor="middle">PARTY</text></g>
+              <g class="tg-map-line-badge" transform="translate(78 364)"><rect width="88" height="25" rx="12.5" fill="var(--subway-blue)"/><text x="44" y="17" text-anchor="middle">STRATEGY</text></g>
+              <g class="tg-map-line-badge" transform="translate(78 124)"><rect width="68" height="25" rx="12.5" fill="var(--subway-red)"/><text x="34" y="17" text-anchor="middle">CARDS</text></g>
+              <g class="tg-map-line-badge" transform="translate(96 474)"><rect width="72" height="25" rx="12.5" fill="var(--subway-green)"/><text x="36" y="17" text-anchor="middle">PUZZLE</text></g>
+              <g class="tg-map-line-badge" transform="translate(360 94)"><rect width="62" height="25" rx="12.5" fill="var(--subway-purple)"/><text x="31" y="17" text-anchor="middle">WORD</text></g>
+              <g class="tg-map-line-badge" transform="translate(624 42)"><rect width="64" height="25" rx="12.5" fill="var(--subway-orange)"/><text x="32" y="17" text-anchor="middle">PARTY</text></g>
+              <g class="tg-map-line-badge tg-map-line-badge--dice" transform="translate(78 42)"><rect width="58" height="25" rx="12.5" fill="var(--subway-yellow)"/><text x="29" y="17" text-anchor="middle">DICE</text></g>
 
-              <a class="tg-station" data-game="checkers" href="/play.html#game-checkers"><circle cx="190" cy="375" r="9"/><text class="tg-station-label" x="190" y="405" text-anchor="middle">Crown Jump</text><text class="tg-station-code-svg" x="190" y="421" text-anchor="middle">S04</text></a>
-              <a class="tg-station" data-game="connect-four" href="/play.html#game-connect-four"><circle cx="430" cy="300" r="9"/><text class="tg-station-label" x="430" y="330" text-anchor="middle">Fourfront</text><text class="tg-station-code-svg" x="430" y="346" text-anchor="middle">S06</text></a>
-              <a class="tg-station" data-game="hex" href="/play.html#game-hex"><circle cx="690" cy="225" r="9"/><text class="tg-station-label" x="690" y="198" text-anchor="middle">Hexline</text><text class="tg-station-code-svg" x="690" y="184" text-anchor="middle">S11</text></a>
-              <a class="tg-station" data-game="risk-style" href="/play.html#game-risk-style"><circle cx="900" cy="150" r="9"/><text class="tg-station-label" x="900" y="122" text-anchor="end">Frontiers</text><text class="tg-station-code-svg" x="900" y="108" text-anchor="end">S14</text></a>
+              <a class="tg-station" data-game="connect-four" href="/play.html#game-connect-four"><circle cx="220" cy="390" r="9"/><text class="tg-station-label" x="220" y="421" text-anchor="middle">Fourfront</text><text class="tg-station-code-svg" x="220" y="437" text-anchor="middle">S01</text></a>
+              <a class="tg-station" data-game="checkers" href="/play.html#game-checkers"><circle cx="300" cy="310" r="9"/><text class="tg-station-label" x="300" y="342" text-anchor="middle">Crown Jump</text><text class="tg-station-code-svg" x="300" y="358" text-anchor="middle">S02</text></a>
+              <a class="tg-station" data-game="risk-style" href="/play.html#game-risk-style"><circle cx="520" cy="310" r="9"/><text class="tg-station-label" x="520" y="342" text-anchor="middle">Frontiers</text><text class="tg-station-code-svg" x="520" y="358" text-anchor="middle">S04</text></a>
+              <a class="tg-station" data-game="hex" href="/play.html#game-hex"><circle cx="900" cy="230" r="9"/><text class="tg-station-label" x="900" y="203" text-anchor="end">Hexline</text><text class="tg-station-code-svg" x="900" y="188" text-anchor="end">S10</text></a>
 
-              <a class="tg-station" data-game="five-dice" href="/play.html#game-five-dice"><circle cx="190" cy="130" r="9"/><text class="tg-station-label" x="190" y="103" text-anchor="middle">Five Dice</text><text class="tg-station-code-svg" x="190" y="88" text-anchor="middle">D01</text></a>
-              <a class="tg-station" data-game="uno-style" href="/play.html#game-uno-style"><circle class="tg-interchange-outer" cx="430" cy="205" r="14"/><circle class="tg-interchange-inner" cx="430" cy="205" r="6"/><text class="tg-station-label" x="430" y="175" text-anchor="middle">HueBreak</text><text class="tg-station-code-svg" x="430" y="160" text-anchor="middle">C02</text></a>
-              <a class="tg-station" data-game="hearts" href="/play.html#game-hearts"><circle cx="690" cy="280" r="9"/><text class="tg-station-label" x="690" y="312" text-anchor="middle">Hearts</text><text class="tg-station-code-svg" x="690" y="328" text-anchor="middle">C06</text></a>
-              <a class="tg-station" data-game="gin-rummy" href="/play.html#game-gin-rummy"><circle cx="900" cy="355" r="9"/><text class="tg-station-label" x="900" y="387" text-anchor="end">Gin Rummy</text><text class="tg-station-code-svg" x="900" y="403" text-anchor="end">C09</text></a>
+              <a class="tg-station" data-game="deal-room" href="/play.html#game-deal-room"><circle cx="150" cy="150" r="9"/><text class="tg-station-label" x="150" y="182" text-anchor="middle">Deal Room</text><text class="tg-station-code-svg" x="150" y="198" text-anchor="middle">C01</text></a>
+              <a class="tg-station" data-game="uno-style" href="/play.html#game-uno-style"><circle cx="330" cy="230" r="9"/><text class="tg-station-label" x="330" y="262" text-anchor="middle">HueBreak</text><text class="tg-station-code-svg" x="330" y="278" text-anchor="middle">C02</text></a>
+              <a class="tg-station" data-game="hearts" href="/play.html#game-hearts"><circle cx="700" cy="310" r="9"/><text class="tg-station-label" x="700" y="342" text-anchor="middle">Hearts</text><text class="tg-station-code-svg" x="700" y="358" text-anchor="middle">C04</text></a>
+              <a class="tg-station" data-game="gin-rummy" href="/play.html#game-gin-rummy"><circle cx="900" cy="310" r="9"/><text class="tg-station-label" x="900" y="342" text-anchor="end">Gin Rummy</text><text class="tg-station-code-svg" x="900" y="358" text-anchor="end">C06</text></a>
 
-              <a class="tg-station" data-game="photo-puzzle" href="/play.html#game-photo-puzzle"><circle cx="220" cy="495" r="9"/><text class="tg-station-label" x="220" y="526" text-anchor="middle">Photo Puzzle</text><text class="tg-station-code-svg" x="220" y="542" text-anchor="middle">P01</text></a>
-              <a class="tg-station" data-game="2048-multiplayer" href="/play.html#game-2048-multiplayer"><circle cx="430" cy="420" r="9"/><text class="tg-station-label" x="430" y="452" text-anchor="middle">Mergefront</text><text class="tg-station-code-svg" x="430" y="468" text-anchor="middle">P04</text></a>
-              <a class="tg-station" data-game="codenames-style" href="/play.html#game-codenames-style"><circle cx="320" cy="90" r="9"/><text class="tg-station-label" x="350" y="94">Threadmark</text><text class="tg-station-code-svg" x="350" y="110">W01</text></a>
-              <a class="tg-station" data-game="deal-room" href="/play.html#game-deal-room"><circle cx="640" cy="85" r="9"/><text class="tg-station-label" x="640" y="118" text-anchor="middle">Deal Room</text><text class="tg-station-code-svg" x="640" y="134" text-anchor="middle">A02</text></a>
+              <a class="tg-station" data-game="photo-puzzle" href="/play.html#game-photo-puzzle"><circle cx="260" cy="500" r="9"/><text class="tg-station-label" x="260" y="532" text-anchor="middle">Photo Puzzle</text><text class="tg-station-code-svg" x="260" y="548" text-anchor="middle">P01</text></a>
+              <a class="tg-station" data-game="2048-multiplayer" href="/play.html#game-2048-multiplayer"><circle cx="520" cy="420" r="9"/><text class="tg-station-label" x="520" y="452" text-anchor="middle">Mergefront</text><text class="tg-station-code-svg" x="520" y="468" text-anchor="middle">P02</text></a>
 
-              <g><circle class="tg-interchange-outer" cx="505" cy="280" r="18"/><circle class="tg-interchange-inner" cx="505" cy="280" r="8"/><text class="tg-hub-label" x="530" y="271">CENTRAL</text><text class="tg-station-code-svg" x="530" y="288">MULTI-LINE HUB</text></g>
-              <a class="tg-station" data-game="farkle" href="/play.html#game-farkle"><circle class="tg-interchange-outer" cx="765" cy="355" r="14"/><circle class="tg-interchange-inner" cx="765" cy="355" r="6"/><text class="tg-station-label" x="790" y="346">Spark Six</text><text class="tg-station-code-svg" x="790" y="363">D05 / A05</text></a>
+              <a class="tg-station" data-game="codenames-style" href="/play.html#game-codenames-style"><circle class="tg-interchange-outer" cx="400" cy="70" r="14"/><circle class="tg-interchange-inner" cx="400" cy="70" r="6"/><text class="tg-station-label" x="400" y="37" text-anchor="middle">Threadmark</text><text class="tg-station-code-svg" x="400" y="22" text-anchor="middle">W01</text></a>
+
+              <a class="tg-station" data-game="five-dice" href="/play.html#game-five-dice"><circle cx="250" cy="70" r="9"/><text class="tg-station-label" x="250" y="102" text-anchor="middle">Five Dice</text><text class="tg-station-code-svg" x="250" y="118" text-anchor="middle">D02</text></a>
+              <a class="tg-station" data-game="farkle" href="/play.html#game-farkle"><circle cx="520" cy="150" r="9"/><text class="tg-station-label" x="520" y="182" text-anchor="middle">Spark Six</text><text class="tg-station-code-svg" x="520" y="198" text-anchor="middle">D03</text></a>
+
+              <g><circle class="tg-interchange-outer" cx="600" cy="230" r="18"/><circle class="tg-interchange-inner" cx="600" cy="230" r="8"/><text class="tg-hub-label" x="625" y="220">CENTRAL</text><text class="tg-station-code-svg" x="625" y="238">STRATEGY / DICE</text></g>
             </svg>
           </div>
         </div>
@@ -89,7 +89,7 @@
 
     <main class="home-main">
       <section aria-label="Network destinations">
-        <div class="section-heading"><div><p class="section-label">NETWORK DIRECTORY</p><h2>Where are you headed?</h2></div><p class="section-copy">The product is now organized around movement through the network rather than a set of dashboard cards.</p></div>
+        <div class="section-heading"><div><p class="section-label">NETWORK DIRECTORY</p><h2>Where are you headed?</h2></div><p class="section-copy">The product is organized around movement through the network rather than a wall of generic cards.</p></div>
         <div class="tg-home-links">
           <a class="tg-home-link" href="/play.html"><small>01 · DEPARTURES</small><strong>Play</strong><span>Browse every live station, filter by route, and launch V2 or V1.</span></a>
           <a class="tg-home-link" href="/build.html"><small>02 · NETWORK EXTENSIONS</small><strong>Build</strong><span>Take an unopened station, ship a playable version, and submit it to the network.</span></a>
