@@ -14,6 +14,20 @@ The user-facing brand is TrainGames. The following legacy technical identifiers 
 
 ## Current verified deployment
 
+### Transit Network product redesign — 2026-09-02
+
+- PR #36, **Rebuild TrainGames as a Transit Network**, was squash-merged as `e4fea90a757ad15d24b82b11f9ff1c9f5410190e`.
+- The release replaces the prior product shell with the NYC-subway-inspired Transit Network identity: SVG System Map home, station/departure Play catalog, network-extension Build flow, and Service Rankings presentation.
+- The product shell uses the approved subway route palette while category labels rely on the visual color treatment rather than spelling color names in the text.
+- V1/V2 game URLs, game engines, service-worker behavior, authentication, submissions, voting, and Supabase schema were preserved.
+- Vercel production deployment: `dpl_32PATz9fRfJygVr2MoWaG6sAZ3Td`.
+- Deployed Git commit: `8bf9d6e272c6492f9de5f0d4eea683e192e42200`.
+- Production alias: `https://os-online-board-games.vercel.app`.
+- Repository deploy policy was restored to manual-only immediately after the production build reached `READY` in `666e079aa8c68723029c1e27707ed5cc84d4918f`.
+- Production verification confirmed HTTP 200 for `/`, `/play.html`, `/build.html`, `/leaderboard.html`, the production `leaderboard.js`, and representative V2 route `/games/crown-jump/v2/`.
+- The production smoke contract was updated to the intentional Transit Network copy in `4d1aef9128c47708bff3cc541ae9fe1646519c3c`; both Frontend checks and Production smoke passed on that commit.
+- Supabase project `slnvfdkyvijrhmisurhw` remained `ACTIVE_HEALTHY`; no DDL or database-policy changes were made for this release.
+
 ### TrainGames V2 — 2026-08-27
 
 - PR #34, **TrainGames V2 redesign across current games**, was squash-merged as `59af1f39d437f47762a7a451bbe0943e3535ff7c`.
