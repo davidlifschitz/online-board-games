@@ -1,4 +1,4 @@
-const CACHE_NAME='traingames-shell-v1';
+const CACHE_NAME='traingames-shell-v2';
 const SHELL=[
   '/',
   '/index.html',
@@ -17,6 +17,10 @@ const SHELL=[
   '/build.js',
   '/leaderboard.js',
   '/train-games-icon.svg',
+  '/train-games-icon-192.png',
+  '/train-games-icon-512.png',
+  '/train-games-icon-maskable-512.png',
+  '/apple-touch-icon.png',
   '/manifest.webmanifest'
 ];
 self.addEventListener('install',event=>{
