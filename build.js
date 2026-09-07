@@ -1,5 +1,6 @@
 const SUPABASE_URL='https://slnvfdkyvijrhmisurhw.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_zUTHu9mHMbPfNKIgM_O0Zg_INCN9yF6';
+const siteRoot=new URL('./',document.currentScript?.src||location.href);
 const $=selector=>document.querySelector(selector);
 const state={session:null,catalog:[]};
 let supabaseClient=null;
@@ -58,7 +59,7 @@ function renderAuth(){
 async function loadCatalog(){
   const select=$('#gameId');
   try{
-    const response=await fetch('/games.json',{cache:'no-store'});
+    const response=await fetch(new URL('games.json',siteRoot),{cache:'no-store'});
     if(!response.ok)throw new Error(`Catalog returned ${response.status}`);
     const data=await response.json();
     state.catalog=(data.games||[]).filter(game=>game.prompt).sort((a,b)=>a.title.localeCompare(b.title));
@@ -119,7 +120,7 @@ async function signIn(provider){
   if(!supabaseClient)return;
   setMessage($('#authMessage'),'');
   sessionStorage.setItem('builderBoardReturnToSubmit','1');
-  const redirectTo=`${window.location.origin}/`;
+  const redirectTo=siteRoot.href;
   const {error}=await supabaseClient.auth.signInWithOAuth({provider,options:{redirectTo}});
   if(error){
     sessionStorage.removeItem('builderBoardReturnToSubmit');
