@@ -15,4 +15,6 @@ assert.match(site, /apple-touch-icon/, 'shared TrainGames shell declares an Appl
 assert.match(site, /new URL\('apple-touch-icon\.png',siteRoot\)/, 'shared TrainGames shell resolves the iPhone icon from the deployment base');
 const gridwake = fs.readFileSync(path.join(root, 'games/gridwake/index.html'), 'utf8');
 assert.match(gridwake, /rel="apple-touch-icon"[^>]+href="\.\.\/\.\.\/apple-touch-icon\.png"/, 'Gridwake declares the TrainGames iPhone icon relative to the project root');
+const gridwakeManifest = JSON.parse(fs.readFileSync(path.join(root, 'games/gridwake/manifest.webmanifest'), 'utf8'));
+assert.ok(gridwakeManifest.icons.every(i => i.src.startsWith('../../train-games-icon-')), 'Gridwake manifest icons resolve from the project root');
 console.log('pwa icon contract passed');
