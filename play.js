@@ -1,3 +1,4 @@
+const siteRoot=new URL('./',document.currentScript?.src||location.href);
 const descriptions={'deal-room':'Property-set card battles with bot and multiplayer play.','photo-puzzle':'Turn any photo into a private jigsaw-style puzzle.','reversi':'Disk-flipping strategy with optional hints and a mobility-aware AI.','checkers':'American checkers with mandatory captures, multi-jumps, kings and computer opponents.','five-dice':'A full five-dice scorecard with projected scoring, bots and offline support.','uno-style':'An original shedding-card game with multiplayer and bot play.','codenames-style':'Team word association with local, offline and online modes.','connect-four':'Connection strategy with strong AI, local matches and peer-to-peer rooms.','risk-style':'Territory conquest with reinforcement, attack, fortify and bots.','carcassonne-style':'Tile-placement strategy with scoring, bot play and offline support.','president':'President-family climbing cards with bot opponents and flexible rules.','hearts':'Four-player trick taking with rotating passes and computer opponents.','spades':'Partnership trick taking with bidding, nil, bags and computer opponents.','gin-rummy':'Two-player draw-and-discard rummy with meld detection and a computer opponent.','rummy-500':'Rummy for 2–6 seats with melds, layoffs, scoring and computer opponents.','backgammon':'Backgammon with complete-turn legality, doubling flow and bots.','battleship-style':'Hidden-fleet strategy with local privacy screens and probability-targeting bots.','blackjack':'Play-money Blackjack training with configurable rules and strategy feedback.','2048-multiplayer':'Deterministic merge puzzles with solo, race, battle and co-op modes.','dots-and-boxes':'Configurable Dots and Boxes with local players and endgame bots.','mancala':'Kalah with captures, extra turns and alpha-beta computer opponents.','nine-mens-morris':'Nine Men’s Morris with placement, movement, repetition handling and bots.','hex':'Configurable Hex with the pie rule, path analysis and computer play.','mastermind':'Code-breaking with duplicate-safe feedback and a candidate-elimination solver.','farkle':'Six-dice push-your-luck play with selectable scoring, bots and final-round logic.'};
 
 const routes={
@@ -10,6 +11,12 @@ const routes={
 };
 
 let allGames=[],activeFilter='all',upstreamMap={},stationCodes=new Map();
+
+function resolveSiteUrl(url){
+  if(!url||/^https?:\/\//.test(url))return url;
+  if(url.startsWith('/'))return new URL(url.slice(1),siteRoot).href;
+  return new URL(url,siteRoot).href;
+}
 
 function routeFor(game){
   const cats=game.categories||[];
@@ -52,9 +59,9 @@ function render(){
   list.innerHTML=visible.map(game=>{
     const routeKey=routeFor(game),route=routes[routeKey],p=provenance(game);
     const preferred=game.preferredVersion&&game.versions?.[game.preferredVersion]?.liveUrl?game.preferredVersion:null;
-    const primaryUrl=preferred?game.versions[preferred].liveUrl:game.liveUrl;
+    const primaryUrl=resolveSiteUrl(preferred?game.versions[preferred].liveUrl:game.liveUrl);
     const primary=linkMeta(primaryUrl);
-    const v1Url=game.versions?.v1?.liveUrl||game.liveUrl;
+    const v1Url=resolveSiteUrl(game.versions?.v1?.liveUrl||game.liveUrl);
     const v1=linkMeta(v1Url);
     const hasV2=preferred==='v2'&&primaryUrl!==v1Url;
     const actions=hasV2
@@ -71,8 +78,8 @@ function render(){
 }
 
 Promise.all([
-  fetch('/games.json').then(response=>{if(!response.ok)throw new Error('games.json '+response.status);return response.json()}),
-  fetch('/upstreams.json').then(response=>response.ok?response.json():{games:[]})
+  fetch(new URL('games.json',siteRoot)).then(response=>{if(!response.ok)throw new Error('games.json '+response.status);return response.json()}),
+  fetch(new URL('upstreams.json',siteRoot)).then(response=>response.ok?response.json():{games:[]})
 ]).then(([catalog,upstreams])=>{
   upstreamMap=Object.fromEntries((upstreams.games||[]).map(item=>[item.id,item]));
   allGames=(catalog.games||[]).filter(game=>game.status==='live'&&game.liveUrl);
