@@ -7,20 +7,20 @@
   <meta name="description" content="Compare approved TrainGames services game by game and vote in the community rankings." />
   <meta name="application-name" content="TrainGames" />
   <title>Service Rankings • TrainGames</title>
-  <link rel="icon" href="/train-games-icon.svg" type="image/svg+xml" />
-  <link rel="manifest" href="/manifest.webmanifest" />
-  <link rel="stylesheet" href="/styles.css" />
-  <link rel="stylesheet" href="/navigation.css" />
-  <link rel="stylesheet" href="/leaderboard.css" />
+  <link rel="icon" href="train-games-icon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="navigation.css" />
+  <link rel="stylesheet" href="leaderboard.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.112.3/dist/umd/supabase.js"></script>
-  <script defer src="/leaderboard.js"></script>
-  <script defer src="/site.js"></script>
+  <script defer src="leaderboard.js"></script>
+  <script defer src="site.js"></script>
 </head>
 <body data-page="leaderboard">
   <div class="page-shell">
     <nav class="site-nav tg-nav" aria-label="Primary navigation">
-      <a class="site-brand" href="/" aria-label="TrainGames system map"><span class="tg-roundel" aria-hidden="true"></span><span class="site-brand-copy">TrainGames</span></a>
-      <div class="nav-links"><a class="nav-link" data-page="play" href="/play.html">Play</a><a class="nav-link" data-page="build" href="/build.html">Build</a><a class="nav-link" data-page="leaderboard" href="/leaderboard.html" aria-current="page">Rankings</a></div>
+      <a class="site-brand" href="./" aria-label="TrainGames system map"><span class="tg-roundel" aria-hidden="true"></span><span class="site-brand-copy">TrainGames</span></a>
+      <div class="nav-links"><a class="nav-link" data-page="play" href="play.html">Play</a><a class="nav-link" data-page="build" href="build.html">Build</a><a class="nav-link" data-page="leaderboard" href="leaderboard.html" aria-current="page">Rankings</a></div>
       <a class="nav-github" href="https://github.com/davidlifschitz/online-board-games" target="_blank" rel="noreferrer">Source ↗</a>
     </nav>
 
@@ -28,13 +28,13 @@
       <div class="eyebrow">SERVICE RANKINGS · GAME BY GAME</div>
       <h1>Which service runs best?</h1>
       <p class="lede">Choose a station, compare every approved implementation, and vote directly in the service board. No account is required to vote.</p>
-      <div class="hero-actions"><a class="primary" href="#leaderboard">Choose a station</a><a class="secondary" href="/build.html#submit">Submit a service</a></div>
+      <div class="hero-actions"><a class="primary" href="#leaderboard">Choose a station</a><a class="secondary" href="build.html#submit">Submit a service</a></div>
       <div class="stats" aria-label="Ranking stats"><div><strong id="approvedBuildCount">0</strong><span>Approved services</span></div><div><strong id="rankedGameCount">0</strong><span>Ranked stations</span></div><div><strong>0</strong><span>Logins to vote</span></div><div><strong>1</strong><span>Vote per browser per build</span></div></div>
     </header>
 
     <main class="page-main">
       <section class="leaderboard standalone-section" id="leaderboard">
-        <div class="section-heading"><div><p class="section-label">SERVICE BOARD</p><h2>Pick a station. Rank the builds.</h2></div><a class="primary compact" href="/build.html#submit">Submit your service</a></div>
+        <div class="section-heading"><div><p class="section-label">SERVICE BOARD</p><h2>Pick a station. Rank the builds.</h2></div><a class="primary compact" href="build.html#submit">Submit your service</a></div>
         <p class="section-copy">Each game has its own all-time board. Approved services are ranked by community score; ties go to the earlier approved build, then implementation name. Use the triangle beside a score to add or remove your vote.</p>
         <div class="leaderboard-controls"><label class="game-picker" for="gameSelect"><span>STATION</span><select id="gameSelect" aria-label="Choose a game leaderboard"><option>Loading network…</option></select></label><div class="selected-game-summary" aria-live="polite"><strong id="selectedGameTitle">Loading…</strong><span id="gameLeaderboardMeta">Finding approved services…</span></div></div>
         <p id="leaderboardMessage" class="leaderboard-message" role="status" aria-live="polite"></p>
@@ -43,7 +43,7 @@
       </section>
     </main>
 
-    <footer><span>TrainGames · Service Rankings</span><span><a href="/play.html">View departures →</a></span></footer>
+    <footer><span>TrainGames · Service Rankings</span><span><a href="play.html">View departures →</a></span></footer>
   </div>
 </body>
 </html>

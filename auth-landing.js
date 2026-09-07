@@ -1,5 +1,7 @@
 const SUPABASE_URL='https://slnvfdkyvijrhmisurhw.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_zUTHu9mHMbPfNKIgM_O0Zg_INCN9yF6';
+const siteRoot=new URL('./',document.currentScript?.src||location.href);
+const submitReturnUrl=new URL('build.html#submit',siteRoot).href;
 
 async function handleBuilderAuthReturn(){
   const shouldReturn=sessionStorage.getItem('builderBoardReturnToSubmit')==='1';
@@ -9,7 +11,7 @@ async function handleBuilderAuthReturn(){
   if(authError&&shouldReturn){
     sessionStorage.removeItem('builderBoardReturnToSubmit');
     sessionStorage.setItem('builderBoardAuthError',authError);
-    window.location.replace('/build.html#submit');
+    window.location.replace(submitReturnUrl);
     return;
   }
   if(!shouldReturn||!window.supabase?.createClient)return;
@@ -21,12 +23,12 @@ async function handleBuilderAuthReturn(){
   if(error){
     sessionStorage.removeItem('builderBoardReturnToSubmit');
     sessionStorage.setItem('builderBoardAuthError',error.message);
-    window.location.replace('/build.html#submit');
+    window.location.replace(submitReturnUrl);
     return;
   }
   if(data?.session){
     sessionStorage.removeItem('builderBoardReturnToSubmit');
-    window.location.replace('/build.html#submit');
+    window.location.replace(submitReturnUrl);
   }
 }
 
@@ -35,6 +37,6 @@ handleBuilderAuthReturn().catch(error=>{
   if(sessionStorage.getItem('builderBoardReturnToSubmit')==='1'){
     sessionStorage.removeItem('builderBoardReturnToSubmit');
     sessionStorage.setItem('builderBoardAuthError','Sign-in completed, but the return flow could not be restored. Try again.');
-    window.location.replace('/build.html#submit');
+    window.location.replace(submitReturnUrl);
   }
 });

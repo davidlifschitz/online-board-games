@@ -56,7 +56,7 @@ jobs:
           node --check games/threadmark/v2/game.js
           node --check games/frontiers/v2/game.js
       - name: Validate TrainGames manifest
-        run: node -e "const fs=require('fs');const m=JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));if(m.name!=='TrainGames'||m.start_url!=='/play.html')process.exit(1)"
+        run: node -e "const fs=require('fs');const m=JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));if(m.name!=='TrainGames'||m.start_url!=='./play.html'||m.scope!=='./')process.exit(1)"
       - name: Test PWA icon contract
         run: node tests/pwa-icon-contract.test.js
       - name: Test Gridwake deployment contract

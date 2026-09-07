@@ -1,4 +1,6 @@
 (()=>{'use strict';
+const currentScript=document.currentScript;
+const siteRoot=currentScript?.src?new URL('../',currentScript.src):new URL('../../../',location.href);
 const FAMILIES=Object.freeze({
   'board':['crown-jump','racehome','gridwake','tilebound','boxline','sowstone','millstone','hexline','fourfront','frontiers'],
   'cards':['huebreak','high-table','hearts','spades','gin-rummy','rummy-500','twenty-one-lab','five-dice'],
@@ -17,6 +19,8 @@ body.dataset.version='v2';
 document.documentElement.classList.add('tg2-enhanced');
 const bar=document.querySelector('[data-v2-switch]');
 if(bar){
+  const brand=bar.querySelector('.tg2-brand');
+  if(brand)brand.href=new URL('play.html',siteRoot).href;
   const title=bar.querySelector('.tg2-game-title');
   if(title&&!title.textContent.trim())title.textContent=TITLES[slug]||slug;
   const tools=document.createElement('div');tools.className='tg2-tools';

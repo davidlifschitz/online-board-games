@@ -7,20 +7,24 @@
   <meta name="description" content="Open-source provenance and license lineage for TrainGames." />
   <meta name="application-name" content="TrainGames" />
   <title>Open-source lineage • TrainGames</title>
-  <link rel="icon" href="/train-games-icon.svg" type="image/svg+xml" />
-  <link rel="manifest" href="/manifest.webmanifest" />
-  <link rel="stylesheet" href="/styles.css" />
-  <link rel="stylesheet" href="/navigation.css" />
+  <link rel="icon" href="train-games-icon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="navigation.css" />
   <style>.lineage{display:grid;gap:10px}.lineage article{border:1px solid var(--line,#293047);border-radius:14px;padding:16px;background:#10162a}.lineage h3{margin:0 0 4px}.lineage p{color:#aab2c5;margin:5px 0}.license{font-size:11px;border:1px solid #49536d;border-radius:999px;padding:4px 7px;display:inline-block}.state{font-size:11px;color:#a9d6bc}.policy{max-width:850px}</style>
-  <script defer src="/site.js"></script>
+  <script defer src="site.js"></script>
 </head>
 <body>
   <div class="page-shell">
-    <nav class="site-nav" aria-label="Primary navigation"><a class="site-brand" href="/" aria-label="TrainGames home"><span>TG</span> TrainGames</a><div class="nav-links"><a class="nav-link" href="/play.html">Play</a><a class="nav-link" href="/build.html">Build</a><a class="nav-link" href="/leaderboard.html">Leaderboard</a></div><a class="nav-github" href="https://github.com/davidlifschitz/online-board-games">GitHub ↗</a></nav>
+    <nav class="site-nav" aria-label="Primary navigation"><a class="site-brand" href="./" aria-label="TrainGames home"><span>TG</span> TrainGames</a><div class="nav-links"><a class="nav-link" href="play.html">Play</a><a class="nav-link" href="build.html">Build</a><a class="nav-link" href="leaderboard.html">Leaderboard</a></div><a class="nav-github" href="https://github.com/davidlifschitz/online-board-games">GitHub ↗</a></nav>
     <header class="page-hero"><div class="eyebrow">SOURCE PROVENANCE</div><h1>Open-source lineage.</h1><p class="lede policy">Each live game has a documented source lineage. We adapt reusable rules, AI and structured data only where licensing allows, while keeping original TrainGames branding and presentation.</p></header>
     <main class="page-main"><section class="lineage" id="list"></section></main>
     <footer><span>TrainGames</span><span>Permissive-upstream-only adaptation policy</span></footer>
   </div>
-  <script>fetch('/upstreams.json').then(r=>r.json()).then(d=>{document.querySelector('#list').innerHTML=d.games.map(g=>`<article><span class="license">${g.license}</span> <span class="state">${g.status}</span><h3>${g.title}</h3><p><b>${g.upstream}</b>${g.secondaryUpstream?` + ${g.secondaryUpstream}`:''}</p><p>${g.use}</p><a href="${g.liveUrl}">Play / inspect →</a></article>`).join('')}).catch(()=>document.querySelector('#list').textContent='Lineage manifest could not load.');</script>
+  <script>
+    const siteRoot=new URL('./',location.href);
+    const resolveSiteUrl=url=>url?.startsWith('/')?new URL(url.slice(1),siteRoot).href:url;
+    fetch(new URL('upstreams.json',siteRoot)).then(r=>r.json()).then(d=>{document.querySelector('#list').innerHTML=d.games.map(g=>`<article><span class="license">${g.license}</span> <span class="state">${g.status}</span><h3>${g.title}</h3><p><b>${g.upstream}</b>${g.secondaryUpstream?` + ${g.secondaryUpstream}`:''}</p><p>${g.use}</p><a href="${resolveSiteUrl(g.liveUrl)}">Play / inspect →</a></article>`).join('')}).catch(()=>document.querySelector('#list').textContent='Lineage manifest could not load.');
+  </script>
 </body>
 </html>

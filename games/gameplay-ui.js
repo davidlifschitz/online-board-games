@@ -1,4 +1,6 @@
 (()=>{'use strict';
+const currentScript=document.currentScript;
+const siteRoot=currentScript?.src?new URL('../',currentScript.src):new URL('../../',location.href);
 const PROFILES=Object.freeze({
   board:['crown-jump','boxline','sowstone','millstone','discshift','hexline','gridwake','racehome','tilebound'],
   cards:['high-table','hearts','spades','gin-rummy','rummy-500'],
@@ -36,6 +38,7 @@ function annotate(){
   document.body.classList.add('tg-game',`tg-${profile}`);
   document.body.dataset.tgGame=slug;
   document.documentElement.classList.add('tg-enhanced');
+  document.querySelectorAll('a[href="/play.html"]').forEach(link=>{link.href=new URL('play.html',siteRoot).href;});
   document.querySelectorAll('nav span').forEach(el=>{text(el,['OS Online Board Games','TrainGames']);text(el,['OS Board Games','TrainGames'])});
   document.querySelectorAll('.statusbar,.scorebar,.scoreboard,.turnbar').forEach(el=>el.classList.add('tg-state'));
   if(slug!=='photo-puzzle'){
