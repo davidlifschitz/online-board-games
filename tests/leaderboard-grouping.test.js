@@ -43,3 +43,15 @@ test('group mode is URL addressable and mobile styling exists', () => {
   assert.match(css, /\.contributor-group/);
   assert.match(css, /@media\(max-width:760px\)/);
 });
+
+test('stale async ranking results cannot update the inactive grouping', () => {
+  const js = read('leaderboard.js');
+  const stationStart = js.indexOf('async function loadSelectedGame()');
+  const contributorStart = js.indexOf('async function loadContributorGroups()');
+  const currentViewStart = js.indexOf('async function loadCurrentView()');
+  assert.ok(stationStart >= 0 && contributorStart > stationStart && currentViewStart > contributorStart);
+  const stationLoader = js.slice(stationStart, contributorStart);
+  const contributorLoader = js.slice(contributorStart, currentViewStart);
+  assert.match(stationLoader, /if\(state\.groupMode!=='station'\)return;/);
+  assert.match(contributorLoader, /if\(state\.groupMode!=='contributor'\)return;/);
+});
