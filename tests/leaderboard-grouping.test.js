@@ -20,7 +20,7 @@ test('contributor mode groups approved services by stable builder key', () => {
   assert.match(js, /groupMode:\s*'station'/);
   assert.match(js, /from\('builder_submissions'\)/);
   assert.match(js, /builder_key/);
-  assert.match(js, /eq\('status','approved'\)/);
+  assert.match(js, /eq\('status','approved'\)[\s\S]*order\('approved_at',\{ascending:false\}\)/);
   assert.match(js, /function groupRowsByContributor\(/);
   assert.match(js, /new Map\(\)/);
 });
