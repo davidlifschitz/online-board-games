@@ -383,7 +383,8 @@ async function loadContributorGroups(){
   const {data,error}=await state.client
     .from('builder_submissions')
     .select('id,builder_key,game_id,implementation_name,live_url,source_url,models,builder_display_name,builder_avatar_url,identity_provider,vote_count,approved_at')
-    .eq('status','approved');
+    .eq('status','approved')
+    .order('approved_at',{ascending:false});
   if(error){
     console.error('Contributor ranking load failed',error);
     setMessage('Contributor rankings could not load. Refresh and try again.','error');
