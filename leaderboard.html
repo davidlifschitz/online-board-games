@@ -34,11 +34,29 @@
 
     <main class="page-main">
       <section class="leaderboard standalone-section" id="leaderboard">
-        <div class="section-heading"><div><p class="section-label">SERVICE BOARD</p><h2>Pick a station. Rank the builds.</h2></div><a class="primary compact" href="build.html#submit">Submit your service</a></div>
-        <p class="section-copy">Each game has its own all-time board. Approved services are ranked by community score; ties go to the earlier approved build, then implementation name. Use the triangle beside a score to add or remove your vote.</p>
-        <div class="leaderboard-controls"><label class="game-picker" for="gameSelect"><span>STATION</span><select id="gameSelect" aria-label="Choose a game leaderboard"><option>Loading network…</option></select></label><div class="selected-game-summary" aria-live="polite"><strong id="selectedGameTitle">Loading…</strong><span id="gameLeaderboardMeta">Finding approved services…</span></div></div>
-        <p id="leaderboardMessage" class="leaderboard-message" role="status" aria-live="polite"></p>
-        <div class="leaderboard-table-wrap"><table class="leaderboard-table"><thead><tr><th scope="col">Rank</th><th scope="col">Service</th><th scope="col">Builder</th><th scope="col">Models</th><th scope="col">Score</th><th scope="col"><span class="sr-only">Links</span></th></tr></thead><tbody id="gameLeaderboardBody" aria-live="polite"><tr class="leaderboard-empty-row"><td class="leaderboard-empty" colspan="6">Loading ranked services…</td></tr></tbody></table></div>
+        <div class="section-heading"><div><p class="section-label">SERVICE BOARD</p><h2>Rank services across the network.</h2></div><a class="primary compact" href="build.html#submit">Submit your service</a></div>
+        <p class="section-copy">Group by station to compare implementations of the same game, or by contributor to see every approved service a builder has shipped. Scores stay attached to each service, and ties in station view go to the earlier approved build, then implementation name.</p>
+
+        <div class="leaderboard-grouping" role="group" aria-label="Group rankings by">
+          <span>GROUP BY</span>
+          <div class="leaderboard-group-buttons">
+            <button type="button" class="leaderboard-group-button is-active" data-group-mode="station" aria-pressed="true">Station</button>
+            <button type="button" class="leaderboard-group-button" data-group-mode="contributor" aria-pressed="false">Contributor</button>
+          </div>
+        </div>
+
+        <div id="stationRankingView">
+          <div class="leaderboard-controls"><label class="game-picker" for="gameSelect"><span>STATION</span><select id="gameSelect" aria-label="Choose a game leaderboard"><option>Loading network…</option></select></label><div class="selected-game-summary" aria-live="polite"><strong id="selectedGameTitle">Loading…</strong><span id="gameLeaderboardMeta">Finding approved services…</span></div></div>
+          <p id="leaderboardMessage" class="leaderboard-message" role="status" aria-live="polite"></p>
+          <div class="leaderboard-table-wrap"><table class="leaderboard-table"><thead><tr><th scope="col">Rank</th><th scope="col">Service</th><th scope="col">Builder</th><th scope="col">Models</th><th scope="col">Score</th><th scope="col"><span class="sr-only">Links</span></th></tr></thead><tbody id="gameLeaderboardBody" aria-live="polite"><tr class="leaderboard-empty-row"><td class="leaderboard-empty" colspan="6">Loading ranked services…</td></tr></tbody></table></div>
+        </div>
+
+        <div id="contributorRankingView" hidden>
+          <div class="contributor-view-heading"><div><span>CONTRIBUTORS</span><strong>Approved services grouped by builder</strong></div><p id="contributorLeaderboardMeta" aria-live="polite">Finding contributors…</p></div>
+          <p id="contributorMessage" class="leaderboard-message" role="status" aria-live="polite"></p>
+          <div id="contributorLeaderboard" class="contributor-board" aria-live="polite"><div class="leaderboard-empty">Loading contributors…</div></div>
+        </div>
+
         <div class="leaderboard-note"><strong>Voting stays lightweight.</strong><span>Your browser gets a random local voter key. Supabase stores only its hash, and individual vote rows are not public.</span></div>
       </section>
     </main>
