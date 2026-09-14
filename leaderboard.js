@@ -367,6 +367,7 @@ async function loadSelectedGame(){
     .select('rank,id,game_id,implementation_name,live_url,source_url,models,builder_display_name,builder_avatar_url,identity_provider,score,approved_at')
     .eq('game_id',requestedGame)
     .order('rank',{ascending:true});
+  if(state.groupMode!=='station')return;
   if(requestedGame!==state.selectedGameId)return;
   if(error){
     console.error('Game leaderboard load failed',error);
@@ -385,6 +386,7 @@ async function loadContributorGroups(){
     .select('id,builder_key,game_id,implementation_name,live_url,source_url,models,builder_display_name,builder_avatar_url,identity_provider,vote_count,approved_at')
     .eq('status','approved')
     .order('approved_at',{ascending:false});
+  if(state.groupMode!=='contributor')return;
   if(error){
     console.error('Contributor ranking load failed',error);
     setMessage('Contributor rankings could not load. Refresh and try again.','error');
